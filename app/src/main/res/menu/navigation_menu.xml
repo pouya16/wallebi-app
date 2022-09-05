@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fragment_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="home" />
+
+    <item
+        android:id="@+id/fragment_market"
+        android:icon="@drawable/market_active"
+        android:title="market" />
+
+    <item
+        android:id="@+id/fragment_trade"
+        android:icon="@drawable/trade_active"
+        android:title="trade" />
+    <item
+        android:id="@+id/fragment_transfer"
+        android:icon="@drawable/transfer_active"
+        android:title="transfer" />
+    <item
+        android:id="@+id/fragment_wallet"
+        android:icon="@drawable/wallet_active"
+        android:title="wallet" />
+</menu>

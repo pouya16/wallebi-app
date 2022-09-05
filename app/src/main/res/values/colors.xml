@@ -7,4 +7,32 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="mvp_gray0">#233758</color>
+    <color name="mvp_gray1">#53617c</color>
+    <color name="mvp_gray2">#6e7e95</color>
+    <color name="mvp_gray3">#b3bbc8</color>
+    <color name="mvp_gray4">#e5e5e5</color>
+
+    <color name="mvp_bg_dark1">#020508</color>
+    <color name="mvp_bg_dark2">#070f1a</color>
+    <color name="mvp_bg_dark3">#0b1829</color>
+    <color name="mvp_bg_dark4">#0f223b</color>
+
+
+    <color name="mvp_greem">#13b05c</color>
+    <color name="mvp_red">#f74856</color>
+    <color name="mvp_yellow">#e1af29</color>
+    <color name="mvp_blue">#007bff</color>
+
+    <color name="mvp_bg_help">#93b2d3</color>
+    <color name="mvp_bg_caution">#dbcb9e</color>
+    <color name="mvp_bg_error">#4b2636</color>
+
+
+    <color name="mvp_light_hover">#D6D7DB</color>
+    <color name="mvp_light_input_table">#ebebed</color>
+    <color name="mvp_light_disable_txt">#676b78</color>
+
+
 </resources>
