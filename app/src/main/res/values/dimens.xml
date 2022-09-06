@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="top_logos">24dp</dimen>
+    <dimen name="main_left">20dp</dimen>
+    <dimen name="main_right">20dp</dimen>
+    <dimen name="top_flogo_su">22dp</dimen>
+    <dimen name="corner_radius_app_default">2dp</dimen>
+    <dimen name="height_input">36dp</dimen>
+    <dimen name="input_inner_left">7dp</dimen>
+    <dimen name="input_inner_right">5dp</dimen>
+    <dimen name="btn_text_size">12sp</dimen>
+    <dimen name="input_error_size">10sp</dimen>
+</resources>
