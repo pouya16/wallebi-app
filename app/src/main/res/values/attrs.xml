@@ -11,11 +11,15 @@
         <attr name="enableIcon" format="boolean"/>
         <attr name="icon" format="reference"/>
         <attr name="textViewText" format="string"/>
+        <attr name="hint" format="string"/>
         <attr name="labelText" format="string"/>
         <attr name="description" format="string"/>
         <attr name="buttonText" format="string"/>
+        <attr name="enableButton" format="boolean"/>
         <attr name="countryFlag" format="reference"/>
         <attr name="errorText" format="string"/>
         <attr name="countDownTime" format="integer"/>
+        <attr name="enableCounter" format="integer"/>
+        <attr name="counterToBtn" format="boolean"/>
     </declare-styleable>
 </resources>

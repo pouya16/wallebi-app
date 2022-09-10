@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email"
+            android:visibility="gone"
             android:id="@+id/txt_label_p"
             android:textSize="12sp"/>
 
@@ -99,7 +100,8 @@
 
             <com.example.wallebi_app.custom_widgets.SquareLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/icon_action_place_p">
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:backgroundTint="@android:color/transparent"
@@ -113,19 +115,12 @@
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/image_wallebi_p"
                             android:layout_centerInParent="true" />
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
             </com.example.wallebi_app.custom_widgets.SquareLayout>
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/input_inner_right"
-                android:id="@+id/input_timer"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
@@ -142,6 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email Format Is Incorrect!"
+        android:id="@+id/txt_error_p"
         android:textColor="@color/mvp_red"
         android:textSize="@dimen/input_error_size"/>
 
