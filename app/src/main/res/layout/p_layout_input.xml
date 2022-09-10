@@ -45,7 +45,8 @@
 
             <com.example.wallebi_app.custom_widgets.SquareLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/wallebi_country_icon">
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -57,13 +58,14 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <ImageView
+                            android:id="@+id/image_countries"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:id="@+id/image_countries"
                             android:contentDescription="@string/countries_image"
-                            android:src="@drawable/flag_c_iran"/>
+                            android:src="@drawable/flag_c_iran" />
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
             </com.example.wallebi_app.custom_widgets.SquareLayout>

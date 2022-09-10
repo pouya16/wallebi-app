@@ -20,6 +20,8 @@ class WallebiInput @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.p_layout_input,this,true)
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(it,R.styleable.wallebi_input,0,0)
+            var enableIcon = resources.getBoolean(typedArray.getResourceId(R.styleable.wallebi_input_enableIcon,0))
+
 
         }
     }
