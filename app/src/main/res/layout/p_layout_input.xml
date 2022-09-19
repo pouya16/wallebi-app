@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Code Sent to '+98913***2815"
+            android:visibility="gone"
             android:id="@+id/txt_info_p"
             android:textSize="12sp"/>
 

@@ -78,10 +78,10 @@ class WallebiInput @JvmOverloads constructor(
                 isCountDown = true
             }
 
-
-
-
-
+            var counterToBtn = resources.getBoolean(typedArray.getResourceId(R.styleable.wallebi_input_counterToBtn,0))
+            if(counterToBtn) {
+                flagCounterBtn = true
+            }
 
         }
     }
@@ -89,6 +89,17 @@ class WallebiInput @JvmOverloads constructor(
     open fun changeCounterToBtn(){
 
     }
+
+    open fun getText() : String {
+        return text.text.toString()
+    }
+
+    open fun setLalel(label: String) {txtLabel.text = label}
+
+
+
+
+
 
 }
 

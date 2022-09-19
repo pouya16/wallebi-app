@@ -10,4 +10,17 @@
     <dimen name="input_inner_right">5dp</dimen>
     <dimen name="btn_text_size">12sp</dimen>
     <dimen name="input_error_size">10sp</dimen>
+    <dimen name="margin_high">24dp</dimen>
+    <dimen name="hint_text_size">12sp</dimen>
+    <dimen name="top_register_input1">32dp</dimen>
+    <dimen name="input_default_height">40dp</dimen>
+    <dimen name="default_input_text_size">12sp</dimen>
+    <dimen name="margin_left_input">8dp</dimen>
+    <dimen name="input_icon_end">4dp</dimen>
+    <dimen name="txt_clickable_size">11sp</dimen>
+    <dimen name="vtn_default_height">48dp</dimen>
+    <dimen name="top_margin_btn_register">12dp</dimen>
+    <dimen name="stroke_2">2dp</dimen>
+    <dimen name="size_14">14sp</dimen>
+    <dimen name="size_12">12sp</dimen>
 </resources>

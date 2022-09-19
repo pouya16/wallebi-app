@@ -7,11 +7,12 @@
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/fingerprint_touch.xml" value="0.226" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/flag_c_iran.xml" value="0.226" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/login_logo.xml" value="0.226" />
-        <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_login_register.xml" value="0.3489583333333333" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_login_register.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_home.xml" value="0.3489583333333333" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_market.xml" value="0.3489583333333333" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_login.xml" value="0.34791666666666665" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register_email.xml" value="0.553038105046344" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_lauyout_input.xml" value="0.75" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_layout_input.xml" value="0.5014084507042254" />
         <entry key="..\:/wallebiapp/app/src/main/res/menu/navigation_menu.xml" value="0.34791666666666665" />

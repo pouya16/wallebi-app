@@ -20,6 +20,21 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="tab_home" parent="Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">@color/mvp_gray4</item>
+        <item name="tabTextColor">@color/mvp_gray2</item>
+        <item name="fontFamily">@font/dana</item>
+        <item name="tabIndicatorColor">@color/mvp_yellow</item>
+        <item name="tabPaddingBottom">-0dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+    <style name="tab_home_text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/dana</item>
+    </style>
+
+
+
 
     <style name="textTopHint" parent="Widget.AppCompat.TextView">
         <item name="textColor">?attr/textColorHint</item>
