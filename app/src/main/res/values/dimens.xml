@@ -23,4 +23,14 @@
     <dimen name="stroke_2">2dp</dimen>
     <dimen name="size_14">14sp</dimen>
     <dimen name="size_12">12sp</dimen>
+    <dimen name="margin_top_security">24dp</dimen>
+    <dimen name="margin_left_security">24dp</dimen>
+    <dimen name="margin_top_12">12dp</dimen>
+    <dimen name="font_title_med">14sp</dimen>
+    <dimen name="margin_top_16">16dp</dimen>
+    <dimen name="font_hint">12sp</dimen>
+    <dimen name="font_small">11sp</dimen>
+    <dimen name="margin_end_counter">15dp</dimen>
+    <dimen name="margin_top_security_unavailable">8dp</dimen>
+    <dimen name="margin_low_space">2dp</dimen>
 </resources>

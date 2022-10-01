@@ -15,4 +15,16 @@
     <string name="sign_google">Sign In With Google</string>
     <string name="not_member">You are not a Member</string>
     <string name="register">Register</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="otp_code">OTP Code</string>
+    <string name="default_timen">00:00</string>
+    <string name="get_code">Get Code</string>
+
+    <string name="code_sent_to">Code Sent to</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="security_unavailable">Security verification unavailable?</string>
+    <string name="contact_to_support">Contact To Support</string>
+    <string name="email_code">Email Code</string>
+    <string name="g2f_code">G2F Code</string>
 </resources>
