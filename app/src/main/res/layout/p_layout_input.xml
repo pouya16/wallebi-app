@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/txt_label_p"
             android:textSize="12sp"/>
 
@@ -113,9 +113,9 @@
                         android:layout_height="match_parent">
 
                         <ImageButton
+                            android:id="@+id/image_wallebi_p"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/image_wallebi_p"
                             android:layout_centerInParent="true" />
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>

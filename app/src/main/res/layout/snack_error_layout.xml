@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/mvp_gray1"
+        app:cardCornerRadius="@dimen/corner_radius_app_default">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/stroke_2"
+                android:background="@color/mvp_red"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_snack_title_top"
+                android:layout_marginStart="@dimen/margin_snak_txt"
+                android:layout_marginEnd="@dimen/margin_snak_txt">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/txt_title_snack"
+                    android:text="@string/snack_title"
+                    android:textColor="@color/mvp_gray4"
+                    android:textSize="@dimen/title_medium"
+                    android:textStyle="bold"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:clickable="true"
+                    android:id="@+id/snackbar_close"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_close_snack"
+                    android:background="@android:color/transparent"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/snack_txt_description"
+                android:layout_marginTop="@dimen/margin_top_sancktxt"
+                android:layout_marginStart="@dimen/margin_snak_txt"
+                android:layout_marginEnd="@dimen/margin_snak_txt"
+                android:textColor="@color/mvp_gray3"
+                android:text="@string/lorem_epsium"
+                android:textSize="@dimen/font_txt_default"
+                android:layout_marginBottom="@dimen/margin_snack_title_top"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

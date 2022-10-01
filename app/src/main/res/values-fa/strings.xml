@@ -27,4 +27,7 @@
     <string name="contact_to_support">Contact To Support</string>
     <string name="email_code">Email Code</string>
     <string name="g2f_code">G2F Code</string>
+    <string name="snack_title">Snack Title</string>
+    <string name="set_password">Set Password</string>
+    <string name="new_password">New Password</string>
 </resources>

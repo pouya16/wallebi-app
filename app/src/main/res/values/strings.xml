@@ -24,4 +24,9 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="email_code">Email Code</string>
     <string name="g2f_code">G2F Code</string>
+    <string name="snack_title">Snack Title</string>
+    <string name="lorem_epsium">Lorem epsium Lorem epsium Lorem epsium</string>
+    <string name="set_password">Set Password</string>
+    <string name="new_password">New Password</string>
+    <string name="repeat_new_pass">Repeat New Password</string>
 </resources>

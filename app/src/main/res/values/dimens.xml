@@ -33,4 +33,13 @@
     <dimen name="margin_end_counter">15dp</dimen>
     <dimen name="margin_top_security_unavailable">8dp</dimen>
     <dimen name="margin_low_space">2dp</dimen>
+    <dimen name="height_snack_error">85dp</dimen>
+    <dimen name="snack_title_top">13dp</dimen>
+    <dimen name="margin_snack_title_top">13dp</dimen>
+    <dimen name="margin_snak_txt">16dp</dimen>
+    <dimen name="title_medium">16dp</dimen>
+    <dimen name="margin_top_sancktxt">6dp</dimen>
+    <dimen name="font_txt_default">12sp</dimen>
+    <dimen name="margin_register_start">20dp</dimen>
+    <dimen name="margin_register_end">22dp</dimen>
 </resources>

@@ -3,28 +3,39 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginLeft="@dimen/main_left"
-    android:layout_marginRight="@dimen/main_right"
-    android:layout_marginTop="@dimen/top_flogo_su"
-    android:background="?attr/background"
+    android:gravity="center_horizontal"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/email"
-        android:theme="@style/textTopHint"
-        android:textColor="@color/mvp_gray4"/>
-    <com.google.android.material.textfield.TextInputLayout
+
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="200dp"
+        android:layout_marginTop="@dimen/margin_high"
+        style="@style/tab_home"
+        app:tabTextAppearance="@style/tab_home_text">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile"/>
+
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:boxStrokeWidth="3dp"
-        style="@style/Widget.Material3.TextInputLayout.FilledBox"
-        app:boxStrokeErrorColor="@color/mvp_red"
-        app:boxCornerRadiusBottomEnd="@dimen/corner_radius_app_default">
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/main_left"
+        android:layout_marginRight="@dimen/main_left"
+        android:layout_weight="1">
 
 
+
+    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>
