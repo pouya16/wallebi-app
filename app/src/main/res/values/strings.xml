@@ -29,4 +29,18 @@
     <string name="set_password">Set Password</string>
     <string name="new_password">New Password</string>
     <string name="repeat_new_pass">Repeat New Password</string>
+    <string name="refferal_code">Refferal Code</string>
+    <string name="dont_have_reffer">Don\'t Have a Code?</string>
+    <string name="ask_for_referr">Ask for a referral code</string>
+    <string name="accept_wallebi">I Accept Wallebi</string>
+    <string name="term_of_use">Term of Use</string>
+    <string name="already_member">Already a Member?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_google_up">Sign Up with Google</string>
+    <string name="done">Done</string>
+    <string name="welcome_to_wallebi">Welcome To Wallebi</string>
+    <string name="dont_user_desc">We dont get New user Right now.</string>
+    <string name="enter_email_contact">Please enter your email for contacting you</string>
+    <string name="moto">In the world of crypto, Wallebi is with you!</string>
+    <string name="start_now">Start Now</string>
 </resources>

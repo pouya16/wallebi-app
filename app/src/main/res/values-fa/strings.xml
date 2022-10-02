@@ -30,4 +30,13 @@
     <string name="snack_title">Snack Title</string>
     <string name="set_password">Set Password</string>
     <string name="new_password">New Password</string>
+    <string name="refferal_code">Refferal Code</string>
+    <string name="dont_have_reffer">Don\'t Have a Code?</string>
+    <string name="ask_for_referr">Ask for a referral code</string>
+    <string name="accept_wallebi">I Accept Wallebi</string>
+    <string name="term_of_use">Term of Use</string>
+    <string name="already_member">Already a Member?</string>
+    <string name="sign_google_up">Sign Up with Google</string>
+    <string name="done">Done</string>
+    <string name="welcome_to_wallebi">Welcome To Wallebi</string>
 </resources>

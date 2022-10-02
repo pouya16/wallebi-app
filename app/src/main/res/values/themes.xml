@@ -14,7 +14,9 @@
 
         <item name="backgroundTint">@color/mvp_gray3</item>
         <item name="background">@color/mvp_bg_dark1</item>
-        <item name="backgroundLevel3">@color/mvp_gray3</item>
+        <item name="backgroundLevel3">@color/mvp_bg_dark3</item>
+        <item name="backgroundLevel4">@color/mvp_bg_dark4</item>
+        <item name="backgroundLevel2">@color/mvp_bg_dark2</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

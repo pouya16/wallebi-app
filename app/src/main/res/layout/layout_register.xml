@@ -75,7 +75,6 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:backgroundTint="@android:color/transparent"
-        android:layout_marginBottom="@dimen/margin_top_16"
         android:id="@+id/card_edmail"
         android:clickable="false"
         android:elevation="0dp"
@@ -84,6 +83,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_16"
             android:orientation="vertical">
 
 
@@ -113,7 +113,6 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_default_height"
-                android:layout_marginTop="@dimen/margin_top_16"
                 app:cardBackgroundColor="@color/mvp_bg_dark3">
 
                 <LinearLayout
@@ -152,9 +151,170 @@
                         android:textSize="@dimen/btn_text_size" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="@dimen/margin_top_16"
+        android:backgroundTint="@android:color/transparent"
+        android:id="@+id/card_g2f"
+        android:clickable="false"
+        android:elevation="0dp"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/refferal_code"
+                    android:textColor="@color/mvp_gray4"
+                    android:textSize="@dimen/font_hint" />
+
+            </RelativeLayout>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_default_height"
+                app:cardBackgroundColor="@color/mvp_bg_dark3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txt_g2f"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_left_input"
+                        android:layout_marginEnd="@dimen/margin_left_input"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:inputType="textPassword"
+                        android:textColor="@color/mvp_gray4"
+                        android:textColorHint="@color/mvp_gray4"
+                        android:textSize="@dimen/default_input_text_size" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_ask_referral"
+        android:visibility="invisible"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dont_have_reffer"
+            android:textSize="@dimen/font_small"
+            android:textColor="@color/mvp_gray3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ask_for_referr"
+            android:layout_marginStart="@dimen/margin_word_Start"
+            android:textColor="?attr/colorPrimary"
+            android:clickable="true"
+            android:textSize="@dimen/font_txt_default"
+            android:id="@+id/btn_ask_refer"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_12"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accept_wallebi"
+            android:textSize="@dimen/font_txt_default"
+            android:textColor="@color/mvp_gray4"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/term_of_use"
+            android:layout_marginStart="@dimen/margin_word_Start"
+            android:textColor="?attr/colorPrimary"
+            android:clickable="true"
+            android:textSize="@dimen/font_txt_default"
+            android:id="@+id/btn_term"/>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        android:layout_marginTop="@dimen/margin_top_low"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vtn_default_height"
+        android:text="@string/sign_up"
+        android:textColor="?attr/background"
+        android:textSize="@dimen/btn_text_size" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register_social"
+        android:layout_marginTop="@dimen/margin_top_low"
+        android:layout_width="match_parent"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_height="@dimen/vtn_default_height"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:strokeColor="?attr/colorPrimary"
+        app:cornerRadius="@dimen/corner_radius_app_default"
+        android:text="@string/sign_google_up"
+        app:icon="@drawable/ic_google"
+        app:iconGravity="textStart"
+        app:iconTint="@color/mvp_gray4"
+        android:textColor="@color/mvp_gray4"
+        android:textSize="@dimen/btn_text_size" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_top_security_unavailable"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_member"
+            android:textColor="@color/mvp_gray2"
+            android:textSize="@dimen/size_12" />
+
+        <TextView
+            android:id="@+id/txt_btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_word_Start"
+            android:text="@string/login"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="@dimen/size_14" />
+    </LinearLayout>
 
 </LinearLayout>

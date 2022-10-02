@@ -42,4 +42,14 @@
     <dimen name="font_txt_default">12sp</dimen>
     <dimen name="margin_register_start">20dp</dimen>
     <dimen name="margin_register_end">22dp</dimen>
+    <dimen name="margin_topless">2dp</dimen>
+    <dimen name="margin_word_Start">4dp</dimen>
+    <dimen name="margin_top_low">4dp</dimen>
+    <dimen name="margin_top_60">60dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="font_title_huge">20dp</dimen>
+    <dimen name="margin_46">46dp</dimen>
+    <dimen name="margin_36">36dp</dimen>
+    <dimen name="margin_left_21">21dp</dimen>
 </resources>
