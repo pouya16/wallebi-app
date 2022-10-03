@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/vtn_default_height"
         android:text="@string/done"
-        android:textColor="?attr/background"
+        android:textColor="?attr/backgroundDef"
         android:textSize="@dimen/btn_text_size" />
 
 

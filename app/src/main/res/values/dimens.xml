@@ -52,4 +52,6 @@
     <dimen name="margin_46">46dp</dimen>
     <dimen name="margin_36">36dp</dimen>
     <dimen name="margin_left_21">21dp</dimen>
+    <dimen name="modal_right_margin">29dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
 </resources>

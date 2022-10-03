@@ -39,4 +39,18 @@
     <string name="sign_google_up">Sign Up with Google</string>
     <string name="done">Done</string>
     <string name="welcome_to_wallebi">Welcome To Wallebi</string>
+
+    <string name="repeat_new_pass">Repeat New Password</string>
+
+    <string name="mobile_number">Mobile Number</string>
+    <string name="lorem_epsium">Lorem epsium Lorem epsium Lorem epsium</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="dont_user_desc">We dont get New user Right now.</string>
+    <string name="enter_email_contact">Please enter your email for contacting you</string>
+    <string name="moto">In the world of crypto, Wallebi is with you!</string>
+    <string name="start_now">Start Now</string>
+    <string name="too_many_attemps">Too Many Attemps</string>
+    <string name="dear_user">Dear User</string>
+    <string name="trouble_code_support">if you have trouble getting code please contact support</string>
+
 </resources>

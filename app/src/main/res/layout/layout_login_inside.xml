@@ -6,7 +6,7 @@
     android:layout_marginLeft="@dimen/main_left"
     android:layout_marginRight="@dimen/main_right"
     android:layout_marginTop="@dimen/top_flogo_su"
-    android:background="?attr/background"
+    android:background="?attr/backgroundDef"
     android:layout_height="match_parent">
 
     <TextView

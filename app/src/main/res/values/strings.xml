@@ -43,4 +43,7 @@
     <string name="enter_email_contact">Please enter your email for contacting you</string>
     <string name="moto">In the world of crypto, Wallebi is with you!</string>
     <string name="start_now">Start Now</string>
+    <string name="too_many_attemps">Too Many Attemps</string>
+    <string name="dear_user">Dear User</string>
+    <string name="trouble_code_support">if you have trouble getting code\n please contact support</string>
 </resources>

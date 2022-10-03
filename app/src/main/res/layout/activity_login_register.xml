@@ -7,7 +7,7 @@
     android:orientation="vertical"
     style="@style/Theme.Wallebiapp"
     android:gravity="center_horizontal"
-    android:background="?attr/background"
+    android:background="?attr/backgroundDef"
     tools:context=".acitivities.LoginRegisterActivity">
     <ImageView
         android:layout_width="wrap_content"
