@@ -3,25 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/wallebiapp/app/src/main/res/drawable/background_wallet.xml" value="0.2735" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/fingerprint_complete.xml" value="0.226" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/fingerprint_touch.xml" value="0.226" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/flag_c_iran.xml" value="0.226" />
+        <entry key="..\:/wallebiapp/app/src/main/res/drawable/ic_action.xml" value="0.2735" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/login_logo.xml" value="0.226" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_blocked.xml" value="0.720863309352518" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_login_register.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_welcome.xml" value="0.25" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_home.xml" value="0.3489583333333333" />
-        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_market.xml" value="0.3489583333333333" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_market.xml" value="0.43142305215711524" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_otp.xml" value="0.5" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_set_password.xml" value="0.33" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_wallet.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_login.xml" value="0.34791666666666665" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register_close.xml" value="0.34791666666666665" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register_email.xml" value="0.553038105046344" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_lauyout_input.xml" value="0.75" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_layout_input.xml" value="0.22" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_markets.xml" value="0.5" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/snack_error_layout.xml" value="0.67" />
+        <entry key="..\:/wallebiapp/app/src/main/res/menu/hamburger_menu.xml" value="0.28559213339033773" />
         <entry key="..\:/wallebiapp/app/src/main/res/menu/navigation_menu.xml" value="0.34791666666666665" />
       </map>
     </option>

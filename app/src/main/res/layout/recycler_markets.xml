@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="?attr/backgroundLevel3">
+
+    <ImageView
+        android:layout_width="@dimen/width_favorite_ic"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_star_outline"
+        android:padding="@dimen/margin_11"
+        android:id="@+id/img_favorite"
+        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/margin_11"
+        android:layout_marginBottom="@dimen/margin_11"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/test_market"
+                android:textColor="?attr/textGray2"
+                android:id="@+id/txt_market"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/test_price"
+                android:textColor="?attr/textGray4"
+                android:id="@+id/txt_price"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/test_price"
+                android:textColor="?attr/textGray4"
+                android:id="@+id/txt_marketcap"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_low"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/bitcoin"
+                android:textColor="?attr/textGray2"
+                android:id="@+id/txt_coin"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/percent_20"
+                android:textColor="@color/mvp_greem"
+                android:id="@+id/txt_24change"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/test_price"
+                android:textColor="?attr/textGray2"
+                android:id="@+id/txt_24vol"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

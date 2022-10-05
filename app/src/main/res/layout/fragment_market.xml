@@ -2,13 +2,98 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:backgroundTint="?attr/backgroundDef"
+    android:background="?attr/backgroundDef"
     android:layout_height="match_parent"
     tools:context=".fragments.MarketFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/margin_top_low"
+            android:id="@+id/card_search"
+            app:cardCornerRadius="@dimen/corner_radius_app_default"
+            android:layout_height="50dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="?attr/backgroundLevel3"
+                android:layout_height="match_parent">
+                <SearchView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/searchview_market"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/txt_hint"
+                    android:text="@string/search_coin"
+                    android:textColor="?attr/textGray2"
+                    android:fontFamily="@font/iransansmobile"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="48dp"/>
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/margin_high"
+            style="@style/tab_home"
+            app:tabIndicatorFullWidth="true"
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/tab_home_text">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/favorite"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spot_market"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_listing"/>
+
+        </com.google.android.material.tabs.TabLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/pager_markets"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="?attr/backgroundDef"
+        android:id="@+id/layout_load"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/load_data"
+                android:fontFamily="@font/iransansmobile"
+                android:textColor="@color/white"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

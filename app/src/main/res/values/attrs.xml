@@ -9,4 +9,6 @@
     <attr name="textColorHint" format="color"/>
     <attr name="metaTextColor" format="color"/>
     <attr name="textGray3" format="color"/>
+    <attr name="textGray4" format="color"/>
+    <attr name="textGray2" format="color"/>
 </resources>
