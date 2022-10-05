@@ -46,4 +46,7 @@
     <string name="too_many_attemps">Too Many Attemps</string>
     <string name="dear_user">Dear User</string>
     <string name="trouble_code_support">if you have trouble getting code\n please contact support</string>
+    <string name="try">try</string>
+    <string name="try_more">try</string>
+
 </resources>

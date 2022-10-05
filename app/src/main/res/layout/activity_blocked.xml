@@ -66,8 +66,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:text="@string/try_more"
                     android:layout_marginTop="@dimen/margin_32"
-                    android:textColor="?attr/textGray3"
+                    android:textColor="?attr/colorPrimary"
                     android:textSize="@dimen/default_input_text_size"/>
 
 
