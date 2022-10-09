@@ -3,12 +3,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundDef"
     tools:context=".fragments.TransferFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/backgroundLevel2"
+            android:backgroundTint="?attr/backgroundLevel2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layout_collapse_action"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_top_16">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action"
+                    android:textColor="?attr/textGray2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_action_collapse"
+                    android:text="@string/withdraw"
+                    android:textColor="?attr/textGray3"
+                    android:layout_marginStart="@dimen/margin_10"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_expand"
+                    android:clickable="true"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layout_expand_action"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_top_16">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_action"
+                    android:textColor="?attr/textGray2" />
+
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:id="@+id/radio_group_action"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16_less"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/margin_register_start"
+                            android:text="@string/withdraw"
+                            android:id="@+id/radio_withdraw"
+                            android:textColor="?attr/textGray4"/>
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/deposit"
+                            android:id="@+id/radio_deposit"
+                            android:textColor="?attr/textGray4"/>
+
+                    </LinearLayout>
+                </RadioGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_end"
+            android:layout_marginTop="@dimen/margin_8"
+            android:backgroundTint="?attr/backgroundLevel2">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_top_16"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="@dimen/width_139"
+                    android:layout_height="@dimen/margin_top_16"
+                    android:background="?attr/backgroundLevel3"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_top_16"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/width_76"
+                        android:layout_height="@dimen/margin_top_16"
+                        android:background="?attr/backgroundLevel2"/>
+                    <ImageView
+                        android:layout_width="@dimen/width_76"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_height="@dimen/margin_top_16"
+                        android:background="?attr/backgroundLevel2"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 </FrameLayout>

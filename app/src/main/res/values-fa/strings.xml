@@ -76,5 +76,8 @@
     <string name="notification">Notification</string>
     <string name="language">English</string>
     <string name="logout">Logout</string>
-
+    <string name="choose_action">Choose Action</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="deposit">Deposit</string>
+    <string name="action">Action</string>
 </resources>
