@@ -18,43 +18,46 @@
             android:backgroundTint="?attr/backgroundLevel2">
 
             <LinearLayout
+                android:id="@+id/layout_collapse_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layout_collapse_action"
                 android:orientation="horizontal"
                 android:padding="@dimen/margin_top_16">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/action"
-                    android:textColor="?attr/textGray2"/>
+                    android:textColor="?attr/textGray2" />
+
                 <TextView
+                    android:id="@+id/txt_action_collapse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txt_action_collapse"
+                    android:layout_marginStart="@dimen/margin_10"
                     android:text="@string/withdraw"
-                    android:textColor="?attr/textGray3"
-                    android:layout_marginStart="@dimen/margin_10"/>
+                    android:textColor="?attr/textGray3" />
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_expand"
+                    android:background="@android:color/transparent"
                     android:clickable="true"
-                    android:background="@android:color/transparent"/>
+                    android:src="@drawable/ic_expand" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_expand_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layout_expand_action"
-                android:visibility="gone"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_top_16">
+                android:padding="@dimen/margin_top_16"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,8 +67,8 @@
 
 
                 <RadioGroup
-                    android:layout_width="match_parent"
                     android:id="@+id/radio_group_action"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -75,21 +78,21 @@
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/radio_withdraw"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginStart="@dimen/margin_register_start"
+                            android:layout_weight="1"
                             android:text="@string/withdraw"
-                            android:id="@+id/radio_withdraw"
-                            android:textColor="?attr/textGray4"/>
+                            android:textColor="?attr/textGray4" />
 
                         <RadioButton
+                            android:id="@+id/radio_deposit"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/deposit"
-                            android:id="@+id/radio_deposit"
-                            android:textColor="?attr/textGray4"/>
+                            android:textColor="?attr/textGray4" />
 
                     </LinearLayout>
                 </RadioGroup>
@@ -97,24 +100,301 @@
         </com.google.android.material.card.MaterialCardView>
 
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_fiat_coin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:backgroundTint="?attr/backgroundLevel2">
 
+            <LinearLayout
+                android:id="@+id/layout_collapse_coinfiat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_top_16"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/type"
+                    android:textColor="?attr/textGray2" />
+
+                <TextView
+                    android:id="@+id/txt_coinfiat_collapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:text="@string/fiat"
+                    android:textColor="?attr/textGray3" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:src="@drawable/ic_expand" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_expand_fiatcoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_top_16"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_type"
+                    android:textColor="?attr/textGray2" />
+
+
+                <RadioGroup
+                    android:id="@+id/radio_group_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16_less"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radio_coin"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_register_start"
+                            android:layout_weight="1"
+                            android:text="@string/coin"
+                            android:textColor="?attr/textGray4" />
+
+                        <RadioButton
+                            android:id="@+id/radio_fiat"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/fiat"
+                            android:textColor="?attr/textGray4" />
+
+                    </LinearLayout>
+                </RadioGroup>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_coin_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/card_end"
             android:layout_marginTop="@dimen/margin_8"
             android:backgroundTint="?attr/backgroundLevel2">
+
+            <LinearLayout
+                android:id="@+id/layout_collapse_coinname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_top_16"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/coin"
+                    android:textColor="?attr/textGray2" />
+
+                <TextView
+                    android:id="@+id/txt_coinname_collapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:text="@string/bitcoin"
+                    android:textColor="?attr/textGray3" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/img_expand_coinname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:src="@drawable/ic_expand" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_expand_coin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_top_16"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_coin"
+                    android:textColor="?attr/textGray2" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/textGray2">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RelativeLayout
+                            android:layout_width="@dimen/width_46"
+                            android:layout_height="@dimen/width_46">
+
+                            <ImageView
+                                android:layout_width="@dimen/width_24"
+                                android:layout_height="@dimen/width_24"
+                                android:layout_centerInParent="true"
+                                android:id="@+id/img_coin"
+                                android:src="@drawable/ic_choose_coin"/>
+                        </RelativeLayout>
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:id="@+id/spinner_coin"/>
+                    </LinearLayout>
+
+
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:backgroundTint="?attr/backgroundLevel2">
+
+            <LinearLayout
+                android:id="@+id/layout_collapse_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_top_16"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recepiant_address"
+                    android:textColor="?attr/textGray2" />
+
+                <TextView
+                    android:id="@+id/txt_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:text="@string/fake_address"
+                    android:textColor="?attr/textGray3" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/img_expand_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:src="@drawable/ic_expand" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_expand_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_top_16"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_coin"
+                    android:textColor="?attr/textGray2" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/textGray2">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RelativeLayout
+                            android:layout_width="@dimen/width_46"
+                            android:layout_height="@dimen/width_46">
+
+                            <ImageView
+                                android:layout_width="@dimen/width_24"
+                                android:layout_height="@dimen/width_24"
+                                android:layout_centerInParent="true"
+                                android:id="@+id/img_coin"
+                                android:src="@drawable/ic_choose_coin"/>
+                        </RelativeLayout>
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:id="@+id/spinner_coin"/>
+                    </LinearLayout>
+
+
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:backgroundTint="?attr/backgroundLevel2">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_top_16"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/margin_top_16">
+
                 <ImageView
                     android:layout_width="@dimen/width_139"
                     android:layout_height="@dimen/margin_top_16"
-                    android:background="?attr/backgroundLevel3"/>
+                    android:background="?attr/backgroundLevel3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,15 +402,17 @@
                     android:layout_marginStart="@dimen/margin_top_16"
                     android:layout_marginTop="@dimen/margin_8"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="@dimen/width_76"
                         android:layout_height="@dimen/margin_top_16"
-                        android:background="?attr/backgroundLevel2"/>
+                        android:background="?attr/backgroundLevel2" />
+
                     <ImageView
                         android:layout_width="@dimen/width_76"
+                        android:layout_height="@dimen/margin_top_16"
                         android:layout_marginStart="@dimen/margin_10"
-                        android:layout_height="@dimen/margin_top_16"
-                        android:background="?attr/backgroundLevel2"/>
+                        android:background="?attr/backgroundLevel2" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -39,9 +39,7 @@
     <string name="sign_google_up">Sign Up with Google</string>
     <string name="done">Done</string>
     <string name="welcome_to_wallebi">Welcome To Wallebi</string>
-
     <string name="repeat_new_pass">Repeat New Password</string>
-
     <string name="mobile_number">Mobile Number</string>
     <string name="lorem_epsium">Lorem epsium Lorem epsium Lorem epsium</string>
     <string name="sign_up">Sign Up</string>
@@ -80,4 +78,11 @@
     <string name="withdraw">Withdraw</string>
     <string name="deposit">Deposit</string>
     <string name="action">Action</string>
+    <string name="type">Type</string>
+    <string name="fiat">Fiat</string>
+    <string name="choose_type">Choose Type</string>
+    <string name="coin">Coin</string>
+    <string name="choose_coin">Choose Coin</string>
+    <string name="recepiant_address">Recepiant Address</string>
+    <string name="fake_address">12431_sdkf12</string>
 </resources>

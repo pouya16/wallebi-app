@@ -72,5 +72,12 @@
     <string name="withdraw">Withdraw</string>
     <string name="deposit">Deposit</string>
     <string name="action">Action</string>
+    <string name="type">Type</string>
+    <string name="fiat">Fiat</string>
+    <string name="choose_type">Choose Type</string>
+    <string name="coin">Coin</string>
+    <string name="choose_coin">Choose Coin</string>
+    <string name="recepiant_address">Recepient Address</string>
+    <string name="fake_address">12431_sdkf12</string>
 
 </resources>

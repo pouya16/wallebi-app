@@ -13,7 +13,7 @@
     <dimen name="margin_high">24dp</dimen>
     <dimen name="hint_text_size">12sp</dimen>
     <dimen name="top_register_input1">32dp</dimen>
-    <dimen name="input_default_height">40dp</dimen>
+    <dimen name="input_default_height">48dp</dimen>
     <dimen name="default_input_text_size">12sp</dimen>
     <dimen name="margin_left_input">8dp</dimen>
     <dimen name="input_icon_end">4dp</dimen>
@@ -63,4 +63,6 @@
     <dimen name="width_139">139dp</dimen>
     <dimen name="width_76">76dp</dimen>
     <dimen name="margin_10">10dp</dimen>
+    <dimen name="width_46">46dp</dimen>
+    <dimen name="width_24">24dp</dimen>
 </resources>
