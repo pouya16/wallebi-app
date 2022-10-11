@@ -51,4 +51,10 @@ dependencies {
 
     // a package which help change the locale
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.5.1'
+
+    //QR Code Generator
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
+    implementation 'com.google.zxing:core:3.3.2'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
+
 }

@@ -44,45 +44,7 @@
         android:layout_marginTop="@dimen/top_register_input1"
         android:text="@string/password"
         android:textSize="@dimen/hint_text_size" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/input_default_height"
-        app:cardBackgroundColor="@color/mvp_bg_dark3"
-        app:cardCornerRadius="@dimen/corner_radius_app_default">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/txt_password"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/margin_left_input"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:inputType="textPassword"
-                android:textColor="@color/mvp_gray4"
-                android:textColorHint="@color/mvp_gray4"
-                android:textSize="@dimen/default_input_text_size" />
-
-            <com.example.wallebi_app.custom_widgets.SquareLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/img_show_txt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/input_icon_end"
-                    android:background="@android:color/transparent"
-                    android:clickable="true"
-                    android:src="@drawable/touchid_small" />
-            </com.example.wallebi_app.custom_widgets.SquareLayout>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    
 
     <TextView
         android:id="@+id/txt_forget_password"

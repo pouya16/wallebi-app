@@ -80,5 +80,19 @@
     <string name="recepiant_address">Recepient Address</string>
     <string name="fake_address">12431_sdkf12</string>
     <string name="choose_address">Choose address or wallebi email/UID</string>
+    <string name="address_hint">Address</string>
+    <string name="tag_optional">Tag (optional)</string>
+    <string name="next">Next</string>
+    <string name="amount">Amount</string>
+    <string name="fake_amount">1,255.123</string>
+    <string name="bitcoin_symbol">BTC</string>
+    <string name="transfer_amount">Transfer Amount</string>
+    <string name="available_balance">Available Balance:</string>
+    <string name="minimum_ammount_error">Minimum Amount is</string>
+    <string name="remained_daily_crypto">Remained Daily Crypto Withdrawal:</string>
+    <string name="remained_from">/1000</string>
+    <string name="increase_limnits">Increase Limits</string>
+    <string name="increase_linits">Increase Limits</string>
+    <string name="increase_limits">Increase Limits</string>
 
 </resources>
