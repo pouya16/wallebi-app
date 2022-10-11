@@ -339,7 +339,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/choose_coin"
+                    android:id="@+id/choose_address_expanded_titl"
+                    android:text="@string/choose_address"
                     android:textColor="?attr/textGray2" />
 
 
@@ -347,28 +348,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="?attr/textGray2">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <RelativeLayout
-                            android:layout_width="@dimen/width_46"
-                            android:layout_height="@dimen/width_46">
-
-                            <ImageView
-                                android:layout_width="@dimen/width_24"
-                                android:layout_height="@dimen/width_24"
-                                android:layout_centerInParent="true"
-                                android:id="@+id/img_coin"
-                                android:src="@drawable/ic_choose_coin"/>
-                        </RelativeLayout>
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center_vertical"
-                            android:id="@+id/spinner_coin"/>
-                    </LinearLayout>
 
 
 

@@ -79,5 +79,6 @@
     <string name="choose_coin">Choose Coin</string>
     <string name="recepiant_address">Recepient Address</string>
     <string name="fake_address">12431_sdkf12</string>
+    <string name="choose_address">Choose address or wallebi email/UID</string>
 
 </resources>
