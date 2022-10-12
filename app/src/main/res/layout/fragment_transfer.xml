@@ -390,8 +390,8 @@
                                 android:background="@android:color/transparent"
                                 android:hint="@string/address_hint"
                                 android:inputType="text"
-                                android:textColor="@color/mvp_gray4"
-                                android:textColorHint="@color/mvp_gray2"
+                                android:textColor="?attr/textGray4"
+                                android:textColorHint="?attr/textGray2"
                                 android:textSize="@dimen/default_input_text_size"
                                 android:visibility="visible" />
 
@@ -439,8 +439,8 @@
                                 android:background="@android:color/transparent"
                                 android:hint="@string/tag_optional"
                                 android:inputType="text"
-                                android:textColor="@color/mvp_gray4"
-                                android:textColorHint="@color/mvp_gray2"
+                                android:textColor="?attr/textGray4"
+                                android:textColorHint="?attr/textGray2"
                                 android:textSize="@dimen/default_input_text_size"
                                 android:visibility="visible" />
 
@@ -601,8 +601,8 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
                                 android:inputType="text"
-                                android:textColor="@color/mvp_gray4"
-                                android:textColorHint="@color/mvp_gray2"
+                                android:textColor="?attr/textGray4"
+                                android:textColorHint="?attr/textGray2"
                                 android:textSize="@dimen/default_input_text_size"
                                 android:visibility="visible" />
 
@@ -612,7 +612,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/margin_8"
                                 android:text="@string/bitcoin_symbol"
-                                android:textColor="@color/mvp_gray4" />
+                                android:textColor="?attr/textGray4" />
 
 
                         </LinearLayout>
@@ -638,6 +638,7 @@
                         android:id="@+id/btn_accept_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/btn_text_size"
                         android:layout_marginTop="@dimen/margin_top_16"
                         android:text="@string/next"
                         android:textColor="?attr/backgroundLevel2" />
@@ -694,6 +695,216 @@
                         android:textColor="?attr/colorPrimary"
                         android:textSize="@dimen/default_input_text_size"
                         android:visibility="gone" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_invoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:backgroundTint="?attr/backgroundLevel2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/layout_withdraw"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_top_16"
+                    android:visibility="visible">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_withdraw_preinvoice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="?attr/backgroundDef"
+                        app:strokeColor="?attr/textGray3"
+                        app:strokeWidth="@dimen/stroke_1"
+                        app:cardCornerRadius="@dimen/corner_radius_app_default">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/withdraw_preinvoice"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="@dimen/margin_18"
+                                android:textColor="?attr/textGray2"
+                                android:textStyle="bold"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="@dimen/margin_17"
+                                android:layout_marginEnd="@dimen/margin_17"
+                                android:layout_marginTop="@dimen/margin_20">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/requested_amount"
+                                    android:textColor="?attr/textGray2"/>
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="2dp"
+                                    android:layout_margin="@dimen/margin_word_Start"
+                                    android:background="@drawable/dotted_color"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fake_amount"
+                                    android:textColor="?attr/textGray4"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/textGray2"
+                                    android:text="@string/bitcoin_symbol"
+                                    android:layout_marginStart="@dimen/margin_word_Start"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="@dimen/margin_17"
+                                android:layout_marginEnd="@dimen/margin_17"
+                                android:layout_marginTop="@dimen/margin_8">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/requested_fee"
+                                    android:textColor="?attr/textGray2"/>
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="2dp"
+                                    android:layout_margin="@dimen/margin_word_Start"
+                                    android:background="@drawable/dotted_color"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fake_amount"
+                                    android:textColor="?attr/textGray4"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/textGray2"
+                                    android:text="@string/bitcoin_symbol"
+                                    android:layout_marginStart="@dimen/margin_word_Start"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="@dimen/margin_17"
+                                android:layout_marginEnd="@dimen/margin_17"
+                                android:layout_marginTop="@dimen/margin_8">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/sent_amount"
+                                    android:textColor="?attr/textGray2"/>
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="2dp"
+                                    android:layout_margin="@dimen/margin_word_Start"
+                                    android:background="@drawable/dotted_color"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fake_amount"
+                                    android:textColor="?attr/textGray4"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/textGray2"
+                                    android:text="@string/bitcoin_symbol"
+                                    android:layout_marginStart="@dimen/margin_word_Start"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/margin_24"
+                                android:layout_marginStart="@dimen/margin_17"
+                                android:layout_marginEnd="@dimen/margin_17"
+                                android:layout_marginTop="@dimen/margin_8">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/sent_amount"
+                                    android:textColor="?attr/textGray2"/>
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="2dp"
+                                    android:layout_margin="@dimen/margin_word_Start"
+                                    android:background="@drawable/dotted_color"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fake_amount"
+                                    android:textColor="?attr/textGray4"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_withdraw"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            app:cornerRadius="@dimen/corner_radius_app_default"
+                            app:strokeColor="?attr/textGray3"
+                            android:layout_marginTop="@dimen/margin_top_16"
+                            android:text="@string/cancel"
+                            android:textSize="@dimen/btn_text_size"
+                            android:textColor="?attr/textGray3" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_cancel"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/btn_text_size"
+                            app:cornerRadius="@dimen/corner_radius_app_default"
+                            android:layout_marginStart="@dimen/margin_14"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_top_16"
+                            android:text="@string/withdraw"
+                            android:textColor="?attr/backgroundLevel2" />
+
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

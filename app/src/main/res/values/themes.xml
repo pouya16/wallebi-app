@@ -15,6 +15,8 @@
         <item name="textGray3">@color/mvp_gray3</item>
         <item name="textGray4">@color/mvp_gray4</item>
         <item name="textGray2">@color/mvp_gray2</item>
+        <item name="textGray">@color/mvp_gray0</item>
+        <item name="textGray1">@color/mvp_gray1</item>
 
         <item name="backgroundTint">@color/mvp_gray3</item>
         <item name="backgroundDef">@color/mvp_bg_dark1</item>

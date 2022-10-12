@@ -11,4 +11,6 @@
     <attr name="textGray3" format="color"/>
     <attr name="textGray4" format="color"/>
     <attr name="textGray2" format="color"/>
+    <attr name="textGray" format="color"/>
+    <attr name="textGray1" format="color"/>
 </resources>
