@@ -94,10 +94,5 @@
     <string name="increase_limnits">Increase Limits</string>
     <string name="increase_linits">Increase Limits</string>
     <string name="increase_limits">Increase Limits</string>
-    <string name="cancel">Cancel</string>
-    <string name="withdraw_preinvoice">Withdraw Pre-invoice</string>
-    <string name="requested_amount">Requested amount</string>
-    <string name="requested_fee">Fee</string>
-    <string name="sent_amount">Sent Amount</string>
 
 </resources>
