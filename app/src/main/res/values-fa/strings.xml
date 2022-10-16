@@ -99,4 +99,7 @@
     <string name="choose_address">Choose address or wallebi email/UID</string>
     <string name="increase_limnits">Increase Limits</string>
     <string name="increase_limits">Increase Limits</string>
+    <string name="nav_header_title">Header</string>
+    <string name="nav_header_subtitle">Subtitle</string>
+    <string name="wallebi">WALLEBI</string>
 </resources>

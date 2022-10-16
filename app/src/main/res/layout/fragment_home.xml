@@ -2,13 +2,40 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="?attr/backgroundDef"
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="@dimen/width_hamburger_menu"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:id="@+id/fragment_menu"
+            android:visibility="gone"/>
 
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="@dimen/width_notif"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/fragment_notif"
+            android:visibility="visible"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_top_toolbar"
+            android:layout_alignParentStart="true"
+            android:id="@+id/top_toolbar"
+            android:backgroundTint="?attr/backgroundLevel2">
+
+        </com.google.android.material.card.MaterialCardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_toolbar"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>
