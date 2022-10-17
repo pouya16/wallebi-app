@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/size_kyc_top_levels"
+        android:layout_height="@dimen/size_kyc_top_levels"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_24"
+        android:id="@+id/card_first"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="?attr/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one"
+                android:textSize="@dimen/default_input_text_size"
+                android:layout_centerInParent="true"
+                android:textColor="?attr/backgroundDef"
+                android:id="@+id/txt_first"/>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/residency"
+        app:layout_constraintTop_toBottomOf="@+id/card_first"
+        android:textSize="@dimen/hint_text_size"
+        app:layout_constraintStart_toStartOf="@+id/card_first"
+        app:layout_constraintEnd_toEndOf="@+id/card_first"
+        android:id="@+id/text_residency"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_line2"
+        android:id="@+id/line1"
+        app:layout_constraintStart_toEndOf="@+id/card_first"
+        app:layout_constraintEnd_toStartOf="@+id/card_second"
+        app:layout_constraintTop_toTopOf="@+id/card_first"
+        app:layout_constraintBottom_toBottomOf="@+id/card_first"
+        android:background="?attr/colorPrimary"
+        android:layout_margin="@dimen/margin_1"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/size_kyc_top_levels"
+        android:layout_height="@dimen/size_kyc_top_levels"
+        app:layout_constraintStart_toEndOf="@+id/card_first"
+        app:layout_constraintEnd_toStartOf="@+id/card_third"
+        android:id="@+id/card_second"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="?attr/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/two"
+                android:layout_centerInParent="true"
+                android:textColor="?attr/backgroundDef"
+                android:id="@+id/txt_second"/>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/identification"
+        app:layout_constraintTop_toBottomOf="@+id/card_first"
+        android:textSize="@dimen/hint_text_size"
+        app:layout_constraintStart_toStartOf="@+id/card_second"
+        app:layout_constraintEnd_toEndOf="@+id/card_second"
+        android:id="@+id/text_identification"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_line2"
+        android:id="@+id/line2"
+        app:layout_constraintStart_toEndOf="@+id/card_second"
+        app:layout_constraintEnd_toStartOf="@+id/card_third"
+        app:layout_constraintTop_toTopOf="@+id/card_first"
+        app:layout_constraintBottom_toBottomOf="@+id/card_first"
+        android:background="?attr/colorPrimary"
+        android:layout_margin="@dimen/margin_1"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/size_kyc_top_levels"
+        android:layout_height="@dimen/size_kyc_top_levels"
+        app:layout_constraintStart_toEndOf="@+id/card_second"
+        app:layout_constraintEnd_toStartOf="@+id/card_fourth"
+        android:id="@+id/card_third"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="?attr/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/default_input_text_size"
+                android:text="@string/three"
+                android:textColor="?attr/backgroundDef" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mobile"
+        app:layout_constraintTop_toBottomOf="@+id/card_first"
+        android:textSize="@dimen/hint_text_size"
+        app:layout_constraintStart_toStartOf="@+id/card_third"
+        app:layout_constraintEnd_toEndOf="@+id/card_third"
+        android:id="@+id/text_mobile"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_line2"
+        android:id="@+id/line3"
+        app:layout_constraintStart_toEndOf="@+id/card_third"
+        app:layout_constraintEnd_toStartOf="@+id/card_fourth"
+        app:layout_constraintTop_toTopOf="@+id/card_first"
+        app:layout_constraintBottom_toBottomOf="@+id/card_first"
+        android:background="?attr/colorPrimary"
+        android:layout_margin="@dimen/margin_1"/>
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/size_kyc_top_levels"
+        android:layout_height="@dimen/size_kyc_top_levels"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin_24"
+        android:id="@+id/card_fourth"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="?attr/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_fourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/default_input_text_size"
+                android:text="@string/four"
+                android:textColor="?attr/backgroundDef" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        app:layout_constraintTop_toBottomOf="@+id/card_first"
+        android:textSize="@dimen/hint_text_size"
+        app:layout_constraintStart_toStartOf="@+id/card_fourth"
+        app:layout_constraintEnd_toEndOf="@+id/card_fourth"
+        android:id="@+id/text_done"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

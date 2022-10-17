@@ -23,9 +23,6 @@ class UserLogin(context:Context) {
         )
     }
 
-    fun isUser(): Boolean{
-
-    }
 
     fun saveUser(userModel: UserModel): Boolean{
         try {

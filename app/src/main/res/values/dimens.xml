@@ -76,4 +76,13 @@
     <dimen name="width_hamburger_menu">260dp</dimen>
     <dimen name="width_notif">200dp</dimen>
     <dimen name="text_huge">24sp</dimen>
+    <dimen name="size_kyc_top_levels">24dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="height_line2">2dp</dimen>
+    <dimen name="margin_1">1dp</dimen>
+    <dimen name="text_header_16">16sp</dimen>
+    <dimen name="margin_42">42dp</dimen>
+    <dimen name="stroke_1">1dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="button_def">52dp</dimen>
 </resources>

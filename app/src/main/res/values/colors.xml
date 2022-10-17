@@ -23,6 +23,7 @@
     <color name="mvp_greem">#13b05c</color>
     <color name="mvp_red">#f74856</color>
     <color name="mvp_yellow">#e1af29</color>
+    <color name="mvp_yellow_support">#6D5B29</color>
     <color name="mvp_blue">#007bff</color>
 
     <color name="mvp_bg_help">#93b2d3</color>

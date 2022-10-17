@@ -97,5 +97,25 @@
     <string name="nav_header_title">Header</string>
     <string name="nav_header_subtitle">Subtitle</string>
     <string name="wallebi">WALLEBI</string>
+    <string name="one">1</string>
+    <string name="four">4</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="residency">Residency</string>
+    <string name="identification">Identification</string>
+    <string name="kyc_process">KYC Process</string>
+    <string name="pass_kyc_increase">Pass KYC to Increase withdraw limitation</string>
+    <string name="zero">0</string>
+    <string name="current_level">Current Level</string>
+    <string name="level_zero">Level 0</string>
+    <string name="max_withraw_limitation_per_day">Max Withdraw per day limitation:</string>
+    <string name="usdt500">500 USDT</string>
+    <string name="fiat_transfer_unavailable">Fiat Transfer Unavalable</string>
+    <string name="next_level">Next Level</string>
+    <string name="level_one">Level 1</string>
+    <string name="usdt1000">10.000 USDT</string>
+    <string name="max_daily_fiat">Max. Daily Fiat Withdrawals</string>
+    <string name="irt300">300.000.000 IRT</string>
+    <string name="start_kyc1">"Start KYC Level 1 "</string>
 
 </resources>
