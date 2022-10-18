@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="@dimen/margin_left_21"
+    android:layout_marginEnd="@dimen/margin_left_21"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/top_image"
+        android:src="@drawable/ic_img_kyc_process"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kyc_process"
+        app:layout_constraintTop_toBottomOf="@+id/top_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_22"
+        android:textSize="@dimen/text_header_16"
+        android:textStyle="bold"
+        android:textColor="?attr/textGray3"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.37"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textGray4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_57"
+        android:text="@string/kyc_process_finished"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/textGray2"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_32"
+            android:text="@string/kyc_process_finished_details"/>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_def"
+        android:text="@string/done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/btn_done"
+        android:layout_marginBottom="@dimen/margin_18"
+        android:textColor="?attr/backgroundDef"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

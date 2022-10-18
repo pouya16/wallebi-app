@@ -1,4 +1,4 @@
-package com.example.wallebi_app.acitivities
+package com.example.wallebi_app.acitivities.kyc
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

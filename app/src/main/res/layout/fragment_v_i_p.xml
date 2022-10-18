@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.users.VIPFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundDef"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24"
+                android:gravity="center_horizontal"
+                android:text="@string/vip_levels"
+                android:textColor="?attr/textGray4"
+                android:textSize="@dimen/text_header_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24"
+                android:layout_marginRight="@dimen/margin_24"
+                android:layout_marginLeft="@dimen/margin_24"
+                android:gravity="center_horizontal"
+                android:text="@string/improve_limit_by_vip"
+                android:textColor="?attr/textGray2"
+                android:textSize="@dimen/text_header_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_24"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/monthly_trading_volume"
+                    android:textColor="?attr/textGray3"
+                    android:textSize="@dimen/text_header_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/txt_user_monthly"
+                    android:layout_marginStart="@dimen/margin_word_Start"
+                    android:text="@string/usdt1000"
+                    android:textColor="?attr/textGray3"
+                    android:textSize="@dimen/text_header_16" />
+
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="@dimen/width_24"
+                android:layout_height="@dimen/width_24"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/mvp_yellow_support"
+                app:cardCornerRadius="@dimen/width_24"
+                app:cardElevation="1dp"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="@dimen/stroke_2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/zero"
+                        android:textColor="?attr/colorPrimary" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_42"
+                android:layout_marginTop="-12dp"
+                android:layout_marginRight="@dimen/margin_42"
+                android:backgroundTint="@android:color/transparent"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient_yellow"
+                    android:backgroundTint="@drawable/gradient_yellow"
+                    android:orientation="vertical"
+                    app:cardBackgroundColor="@drawable/gradient_yellow">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_1"
+                        android:backgroundTint="?attr/backgroundDef">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_24"
+                                android:gravity="center_horizontal"
+                                android:text="@string/current_level"
+                                android:textColor="@color/mvp_yellow"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:gravity="center_horizontal"
+                                android:text="@string/vip_zero"
+                                android:textColor="@color/mvp_gray4"
+                                android:textSize="@dimen/text_header_16"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:gravity="center_horizontal"
+                                android:text="@string/reason_vip_0"
+                                android:textColor="@color/mvp_gray3" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"                                android:layout_marginTop="@dimen/margin_8"
+
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:layout_weight="2"/>
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/maker"
+                                    android:textColor="@color/mvp_gray2"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/maker_vip0"
+                                    android:layout_marginStart="@dimen/margin_word_Start"
+                                    android:id="@+id/txt_maker_vip0"
+                                    android:textColor="@color/mvp_gray3"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:layout_weight="1"/>
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/taker"
+                                    android:textColor="@color/mvp_gray2"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/maker_vip0"
+                                    android:layout_marginStart="@dimen/margin_word_Start"
+                                    android:id="@+id/txt_taker_vip0"
+                                    android:textColor="@color/mvp_gray3"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:layout_weight="2"/>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="@dimen/width_24"
+                android:layout_height="@dimen/width_24"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_17"
+                android:backgroundTint="?attr/textGray2"
+                app:cardCornerRadius="@dimen/width_24"
+                app:cardElevation="1dp"
+                app:strokeColor="?attr/textGray3"
+                app:strokeWidth="@dimen/stroke_2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/one"
+                        android:textColor="?attr/textGray3" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_42"
+                android:layout_marginTop="-12dp"
+                android:layout_marginRight="@dimen/margin_42"
+                android:backgroundTint="@android:color/transparent"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient_gray"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_1"
+                        android:backgroundTint="?attr/backgroundDef">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_24"
+                                android:gravity="center_horizontal"
+                                android:text="@string/level"
+                                android:textColor="?attr/textGray2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:gravity="center_horizontal"
+                                android:text="@string/vip_one"
+                                android:textColor="@color/mvp_gray4"
+                                android:textSize="@dimen/text_header_16"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:gravity="center_horizontal"
+                                android:id="@+id/txt_vip_one_reason"
+                                android:text="@string/reason_vip_0"
+                                android:textColor="@color/mvp_gray3" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"                                android:layout_marginTop="@dimen/margin_8"
+
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:layout_weight="2"/>
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/maker"
+                                    android:textColor="@color/mvp_gray2"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/maker_vip0"
+                                    android:layout_marginStart="@dimen/margin_word_Start"
+                                    android:id="@+id/txt_maker_vip1"
+                                    android:textColor="@color/mvp_gray3"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:layout_weight="1"/>
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/taker"
+                                    android:textColor="@color/mvp_gray2"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/maker_vip0"
+                                    android:layout_marginStart="@dimen/margin_word_Start"
+                                    android:id="@+id/txt_taker_vip1"
+                                    android:textColor="@color/mvp_gray3"
+                                    android:textSize="@dimen/default_input_text_size" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:layout_weight="2"/>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_def"
+            android:layout_margin="@dimen/margin_24"
+            android:text="@string/trade"
+            android:id="@+id/btn_trade"
+            android:textColor="?attr/backgroundDef"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

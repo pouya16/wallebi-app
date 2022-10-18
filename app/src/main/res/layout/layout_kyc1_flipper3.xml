@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="@dimen/margin_left_21"
+    android:layout_marginEnd="@dimen/margin_left_21"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/top_image"
+        android:src="@drawable/ic_img_kyc_process"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kyc_process"
+        app:layout_constraintTop_toBottomOf="@+id/top_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_22"
+        android:textSize="@dimen/text_header_16"
+        android:textStyle="bold"
+        android:textColor="?attr/textGray3"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.37"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_marginBottom="@dimen/margin_top_16"
+            android:id="@+id/card_mobile"
+            android:clickable="false"
+            android:elevation="0dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/mobile_number"
+                        android:textColor="@color/mvp_gray4"
+                        android:textSize="@dimen/font_hint" />
+
+                </RelativeLayout>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_default_height"
+                    app:cardBackgroundColor="@color/mvp_bg_dark3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <com.example.wallebi_app.custom_widgets.SquareLayout
+                            android:layout_width="@dimen/input_default_height"
+                            android:backgroundTint="@android:color/transparent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/wallebi_country_icon">
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                app:cardBackgroundColor="@android:color/transparent"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:visibility="visible"
+                                app:cardCornerRadius="0dp"
+                                android:backgroundTint="@color/mvp_gray4">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ImageView
+                                        android:id="@+id/image_countries"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:contentDescription="@string/countries_image"
+                                        android:src="@drawable/flag_c_iran" />
+                                </RelativeLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </com.example.wallebi_app.custom_widgets.SquareLayout>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="+98"
+                            android:textColor="@color/mvp_gray1"
+                            android:fontFamily="@font/dana"
+                            android:layout_gravity="center_vertical"
+                            android:padding="0dp"
+                            android:inputType="number"
+                            android:layout_marginStart="@dimen/input_inner_left"
+                            android:textSize="12sp"
+                            android:id="@+id/txt_prefix"/>
+
+
+                        <EditText
+                            android:id="@+id/txt_mobile"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_left_input"
+                            android:layout_marginEnd="@dimen/margin_left_input"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:inputType="textPassword"
+                            android:textColor="@color/mvp_gray4"
+                            android:textColorHint="@color/mvp_gray4"
+                            android:textSize="@dimen/default_input_text_size" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_marginTop="@dimen/margin_top_16"
+            android:layout_marginBottom="@dimen/margin_top_16"
+            android:id="@+id/card_otp"
+            android:clickable="false"
+            android:elevation="0dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/otp_code"
+                        android:textColor="@color/mvp_gray4"
+                        android:textSize="@dimen/font_hint" />
+
+                </RelativeLayout>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_default_height"
+                    app:cardBackgroundColor="@color/mvp_bg_dark3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txt_otp"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_left_input"
+                            android:layout_marginEnd="@dimen/margin_left_input"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:inputType="textPassword"
+                            android:textColor="@color/mvp_gray4"
+                            android:textColorHint="@color/mvp_gray4"
+                            android:textSize="@dimen/default_input_text_size" />
+
+                        <TextView
+                            android:id="@+id/txt_counter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_end_counter"
+                            android:text="@string/default_timen"
+                            android:textColor="@color/mvp_gray2"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_get_code"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/get_code"
+                            android:textSize="@dimen/btn_text_size" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_def"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/btn_next_p3"
+        android:layout_marginBottom="@dimen/margin_18"
+        android:textColor="?attr/backgroundDef"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

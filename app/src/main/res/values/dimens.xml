@@ -85,4 +85,10 @@
     <dimen name="stroke_1">1dp</dimen>
     <dimen name="margin_2">2dp</dimen>
     <dimen name="button_def">52dp</dimen>
+    <dimen name="margin_22">22dp</dimen>
+    <dimen name="margin_57">57dp</dimen>
+    <dimen name="margin_18">18dp</dimen>
+    <dimen name="margin_26">26dp</dimen>
+    <dimen name="height_kyc_nationalcard">153dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
 </resources>

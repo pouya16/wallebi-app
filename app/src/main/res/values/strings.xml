@@ -117,5 +117,32 @@
     <string name="max_daily_fiat">Max. Daily Fiat Withdrawals</string>
     <string name="irt300">300.000.000 IRT</string>
     <string name="start_kyc1">"Start KYC Level 1 "</string>
+    <string name="residency_country">Country of Residence</string>
+    <string name="enter_id">Enter ID Number</string>
+    <string name="front_of_idcard">Front of ID Card</string>
+    <string name="text_id_clear">. Texts and ID number Should be clear.</string>
+    <string name="only_jpg_png">. Only JPG/PNG images</string>
+    <string name="max_3m">. Max size: 3MB</string>
+    <string name="plus_upload">+ Upload</string>
+    <string name="back_of_idcard">Back of ID Card</string>
+    <string name="kyc_process_finished">KYC Process is Finished!</string>
+    <string name="kyc_process_finished_details">We will notif you\'r KYC state in: Setting/KYC Level.</string>
+    <string name="ok">OK</string>
+    <string name="kyc_process_is">You\'r KYC Process is</string>
+    <string name="pending">Pending</string>
+    <string name="taajob">!</string>
+    <string name="operator_check_info">Operator is checking you\'r informations.</string>
+    <string name="notify_soon">We will notif you soon!</string>
+    <string name="trade">Trade</string>
+    <string name="vip_levels">VIP Levels</string>
+    <string name="improve_limit_by_vip">You can Improve you\'r Limitation by increase VIP level.</string>
+    <string name="monthly_trading_volume">Your Monthly Trading Volume is</string>
+    <string name="vip_zero">VIP 0</string>
+    <string name="reason_vip_0"><![CDATA[Monthly Trading Volume > 0 USDT]]></string>
+    <string name="maker">Maker:</string>
+    <string name="maker_vip0">0.1 %</string>
+    <string name="taker">Taker:</string>
+    <string name="level">Level</string>
+    <string name="vip_one">VIP 1</string>
 
 </resources>
