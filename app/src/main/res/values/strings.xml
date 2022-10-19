@@ -144,5 +144,6 @@
     <string name="taker">Taker:</string>
     <string name="level">Level</string>
     <string name="vip_one">VIP 1</string>
+    <string name="wallebi_fake">0.00</string>
 
 </resources>

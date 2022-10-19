@@ -91,4 +91,7 @@
     <dimen name="margin_26">26dp</dimen>
     <dimen name="height_kyc_nationalcard">153dp</dimen>
     <dimen name="padding_12">12dp</dimen>
+    <dimen name="width_hide_balance">34dp</dimen>
+    <dimen name="height_hide_balance">32dp</dimen>
+    <dimen name="width_wallet_type">81dp</dimen>
 </resources>

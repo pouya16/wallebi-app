@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/backgroundDef"
     tools:context=".fragments.WalletFragment">
 
@@ -16,29 +16,93 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/wallet_header_height"
             app:cardBackgroundColor="?attr/backgroundLevel2">
-            <RelativeLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_balance"
-                        android:textColor="?attr/textGray2"
-                        android:textStyle="bold"
-                        android:layout_marginTop="@dimen/margin_20"
-                        android:layout_marginStart="@dimen/margin_17"/>
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/margin_17"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:text="@string/total_balance"
+                    android:textColor="?attr/textGray2"
+                    android:textStyle="bold" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallebi_fake"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/margin_17"
+                    android:layout_marginBottom="@dimen/margin_8"
+                    android:textSize="@dimen/text_huge"
+                    android:textColor="?attr/textGray4"
+                    android:id="@+id/txt_total_balance"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/width_hide_balance"
+                    android:layout_height="@dimen/height_hide_balance"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_total_balance"
+                    app:layout_constraintTop_toTopOf="@+id/txt_total_balance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/margin_16_less"
+                    android:clickable="true"
+                    android:id="@+id/card_hide_balance"
+                    app:cardBackgroundColor="?attr/backgroundLevel4">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_password_hide"
+                            android:id="@+id/img_balance_hide"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/width_wallet_type"
+                    android:layout_height="@dimen/height_hide_balance"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_total_balance"
+                    app:layout_constraintTop_toTopOf="@+id/txt_total_balance"
+                    app:layout_constraintEnd_toStartOf="@+id/card_hide_balance"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:clickable="true"
+                    app:cardBackgroundColor="?attr/backgroundLevel4">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/spinner_balance_type"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/background_wallet"
-                    android:alpha="0.3"/>
-            </RelativeLayout>
+                    android:alpha="0.3"
+                    android:src="@drawable/background_wallet" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
 
     </LinearLayout>
 
