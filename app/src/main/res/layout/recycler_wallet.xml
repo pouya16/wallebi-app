@@ -1,6 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_wallet_recycler"
+        app:cardCornerRadius="@dimen/corner_radius_app_default"
+        app:cardBackgroundColor="?attr/backgroundLevel3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/img_coin_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_17"
+                android:src="@drawable/ic_coin_btc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_coin_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_1"
+                android:text="@string/bitcoin_symbol"
+                android:textColor="?attr/textGray4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_coin_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.37" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <ImageButton
+                android:id="@+id/btn_img_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/ic_arrow_down_wallet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageButton
+                android:id="@+id/btn_img_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_17"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/ic_action"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallebi_fake"
+                    android:textColor="?attr/textGray4" />
+
+                <TextView
+                    android:id="@+id/txt_market_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_word_Start"
+                    android:text="@string/usdt"
+                    android:textColor="?attr/textGray2" />
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="?attr/backgroundLevel3"
+                android:id="@+id/card_action">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="@dimen/width_wallet_btn"
+                        android:layout_height="@dimen/height_wallet_btn"
+                        android:layout_marginEnd="@dimen/margin_top_12"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        app:strokeColor="@color/mvp_gray2"
+                        android:text="@string/trade"
+                        android:id="@+id/btn_trade"
+                        app:cornerRadius="@dimen/corner_radius_app_default"
+                        android:textSize="10sp"
+                        android:textColor="@color/mvp_gray2"
+                        android:padding="0dp"/>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="@dimen/width_wallet_btn"
+                        android:layout_height="@dimen/height_wallet_btn"
+                        android:layout_marginEnd="@dimen/margin_top_12"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        app:strokeColor="@color/mvp_gray2"
+                        android:text="@string/withdraw"
+                        android:id="@+id/btn_withdraw"
+                        app:cornerRadius="@dimen/corner_radius_app_default"
+                        android:textSize="10sp"
+                        android:textColor="@color/mvp_gray2"
+                        android:padding="0dp"/>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="@dimen/width_wallet_btn"
+                        android:layout_height="@dimen/height_wallet_btn"
+                        android:layout_marginEnd="@dimen/margin_top_12"
+                        app:cornerRadius="@dimen/corner_radius_app_default"
+                        android:text="@string/deposit"
+                        android:textSize="10sp"
+                        android:id="@+id/btn_deposit"
+                        android:textColor="?attr/backgroundDef"
+                        android:padding="0dp"/>
+
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_17"
+                        android:src="@drawable/ic_close_snack"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:id="@+id/btn_img_shrink"/>
+
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/layout_expantion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_2"
+        android:padding="@dimen/padding_8"
+        android:visibility="visible"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="@dimen/margin_2"
+        android:background="?attr/backgroundDef"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_balance"
+                android:textColor="?attr/textGray2" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:layout_marginEnd="@dimen/margin_word_Start"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:layout_weight="1"
+                android:src="@drawable/dashed_line" />
+
+            <TextView
+                android:id="@+id/txt_total_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wallebi_fake"
+                android:textColor="?attr/textGray4" />
+
+            <TextView
+                android:id="@+id/txt_market_coin1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:text="@string/usdt"
+                android:textColor="?attr/textGray2" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/usdt_equivalent"
+                android:textColor="?attr/textGray2" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:layout_marginEnd="@dimen/margin_word_Start"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:layout_weight="1"
+                android:src="@drawable/dashed_line" />
+
+            <TextView
+                android:id="@+id/txt_usdt_equivalent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wallebi_fake"
+                android:textColor="?attr/textGray4" />
+
+            <TextView
+                android:id="@+id/txt_market_coin2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:text="@string/usdt"
+                android:textColor="?attr/textGray2" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/avialable"
+                android:textColor="?attr/textGray2" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:layout_marginEnd="@dimen/margin_word_Start"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:layout_weight="1"
+                android:src="@drawable/dashed_line" />
+
+            <TextView
+                android:id="@+id/txt_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wallebi_fake"
+                android:textColor="?attr/textGray4" />
+
+            <TextView
+                android:id="@+id/txt_market_coin3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:text="@string/usdt"
+                android:textColor="?attr/textGray2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/in_order_balance"
+                android:textColor="?attr/textGray2" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:layout_marginEnd="@dimen/margin_word_Start"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:layout_weight="1"
+                android:src="@drawable/dashed_line" />
+
+            <TextView
+                android:id="@+id/txt_in_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wallebi_fake"
+                android:textColor="?attr/textGray4" />
+
+            <TextView
+                android:id="@+id/txt_market_coin4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_word_Start"
+                android:text="@string/usdt"
+                android:textColor="?attr/textGray2" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

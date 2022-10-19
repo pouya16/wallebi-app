@@ -148,4 +148,6 @@
     <string name="taker">Taker:</string>
     <string name="level">Level</string>
     <string name="vip_one">VIP 1</string>
+    <string name="usdt">USDT</string>
+    <string name="in_order_balance">In Order Balance</string>
 </resources>

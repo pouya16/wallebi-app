@@ -145,5 +145,9 @@
     <string name="level">Level</string>
     <string name="vip_one">VIP 1</string>
     <string name="wallebi_fake">0.00</string>
+    <string name="usdt">USDT</string>
+    <string name="in_order_balance">In Order Balance</string>
+    <string name="avialable">Available</string>
+    <string name="usdt_equivalent">USDT Equivalent</string>
 
 </resources>

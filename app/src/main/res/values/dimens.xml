@@ -94,4 +94,9 @@
     <dimen name="width_hide_balance">34dp</dimen>
     <dimen name="height_hide_balance">32dp</dimen>
     <dimen name="width_wallet_type">81dp</dimen>
+    <dimen name="height_wallet_recycler">40dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="width_wallet_btn">66dp</dimen>
+    <dimen name="height_wallet_btn">34dp</dimen>
 </resources>
