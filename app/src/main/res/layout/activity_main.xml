@@ -23,11 +23,7 @@
         android:layout_marginLeft="-15dp"
         android:id="@+id/bottomAppBar"
         android:background="#1D2A3E"
-        android:layout_gravity="bottom"
-        app:fabAlignmentMode="center"
-        app:fabCradleMargin="0dp"
-        app:fabCradleRoundedCornerRadius="0dp"
-        tools:ignore="BottomAppBar">
+        android:layout_gravity="bottom">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"

@@ -28,7 +28,7 @@
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_market.xml" value="0.327" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_otp.xml" value="0.5" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_set_password.xml" value="0.33" />
-        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_trade.xml" value="0.2830269345874305" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_trade.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_transfer.xml" value="0.42756860242501593" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_v_i_p.xml" value="0.26171875" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_wallet.xml" value="0.33" />
@@ -47,6 +47,7 @@
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_lauyout_input.xml" value="0.75" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_layout_input.xml" value="0.22" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_markets.xml" value="0.5" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_order_history.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_wallet.xml" value="0.5" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/snack_error_layout.xml" value="0.67" />
         <entry key="..\:/wallebiapp/app/src/main/res/menu/hamburger_menu.xml" value="0.28559213339033773" />

@@ -1,39 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.Wallebiapp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    style="@style/Theme.Wallebiapp"
-    android:gravity="center_horizontal"
     android:background="?attr/backgroundDef"
     tools:context=".acitivities.LoginRegisterActivity">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/login_logo"
-        android:layout_marginTop="@dimen/top_logos"/>
 
 
-    <ViewFlipper
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_vf">
-        <include layout="@layout/layout_login"
-            android:id="@+id/layout_login"/>
-
-        <include layout="@layout/layout_register"
-            android:id="@+id/layout_register"/>
-
-        <include layout="@layout/layout_register_close"
-            android:id="@+id/layout_register_close"/>
-    </ViewFlipper>
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_logos"
+            android:src="@drawable/login_logo" />
 
 
+        <ViewFlipper
+            android:id="@+id/login_vf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/layout_login"
+                layout="@layout/layout_login" />
+
+            <include
+                android:id="@+id/layout_register"
+                layout="@layout/layout_register" />
+
+            <include
+                android:id="@+id/layout_register_close"
+                layout="@layout/layout_register_close" />
+        </ViewFlipper>
 
 
+    </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/layout_load"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundDef"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

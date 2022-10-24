@@ -60,4 +60,12 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.2'
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
 
+    //get data from web ... like gson piccasso retrofit ok htttp
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    //implementation 'com.google.code.gsongson2.8.6'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.1'
+    implementation("com.squareup.okhttp3:okhttp:4.2.2")
+
+
 }
