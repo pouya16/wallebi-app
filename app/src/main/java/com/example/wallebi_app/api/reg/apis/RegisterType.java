@@ -7,5 +7,5 @@ import retrofit2.http.GET;
 
 public interface RegisterType {
     @GET("v0/GeneralService/signup_status/")
-    Call<RegisterTypeModel> registerTypeApi();
+    Call<RegisterTypeModel> getTypeApi();
 }
