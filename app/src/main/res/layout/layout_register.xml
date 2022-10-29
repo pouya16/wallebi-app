@@ -51,7 +51,7 @@
                 android:layout_marginEnd="@dimen/input_inner_left"
                 android:layout_weight="1"
                 android:hint="@string/hint"
-                android:inputType="number"
+                android:inputType="textEmailAddress"
                 android:padding="0dp"
                 android:textColor="@color/mvp_gray4"
                 android:textSize="12sp" />
@@ -121,14 +121,14 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/txt_email"
+                        android:id="@+id/txt_email_otp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_left_input"
                         android:layout_marginEnd="@dimen/margin_left_input"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:inputType="textPassword"
+                        android:inputType="number"
                         android:textColor="@color/mvp_gray4"
                         android:textColorHint="@color/mvp_gray4"
                         android:textSize="@dimen/default_input_text_size" />
@@ -198,7 +198,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/txt_g2f"
+                        android:id="@+id/txt_referral"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_left_input"
@@ -228,10 +228,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="@string/dont_have_reffer"
-            android:textSize="@dimen/font_small"
-            android:textColor="@color/mvp_gray3"/>
+            android:id="@+id/txt_referral_error"
+            android:textColor="@color/mvp_gray3"
+            android:textSize="@dimen/font_small" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -255,6 +256,7 @@
             android:layout_height="wrap_content"
             android:text="@string/accept_wallebi"
             android:textSize="@dimen/font_txt_default"
+            android:id="@+id/checkbox_terms"
             android:textColor="@color/mvp_gray4"/>
         <TextView
             android:layout_width="wrap_content"

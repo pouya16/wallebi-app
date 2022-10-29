@@ -1,18 +1,26 @@
 package com.example.wallebi_app.helpers;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.wallebi_app.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.math.BigDecimal;
 
@@ -245,6 +253,50 @@ public class StringHelper {
         String sec = second>=10? second + "": "0"+second;
         time = hou+":"+min+":"+sec;
         return time;
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+
+    public static void showSnackBar(Activity context, String message, String header, int mode){
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        View layout = inflater.inflate(R.layout.snack_error_layout,
+                 context.findViewById(R.id.toast_layout_root));
+
+        ImageButton image =  layout.findViewById(R.id.snackbar_close);
+        TextView textHeader = layout.findViewById(R.id.txt_title_snack);
+        TextView txtMessage = layout.findViewById(R.id.snack_txt_description);
+        View topColor = layout.findViewById(R.id.top_color);
+
+        switch (mode){
+            case 0:
+                break;
+            case 1:
+                break;
+            default:
+                break;
+        }
+
+        textHeader.setText(header);
+        txtMessage.setText(message);
+
+        Toast toast = new Toast(context);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toast.cancel();
+            }
+        });
+
+
     }
 
 

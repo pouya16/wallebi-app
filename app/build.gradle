@@ -49,8 +49,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //biometrics
-    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha05"
-    implementation "androidx.security:security-crypto:1.0.0-alpha02"
+    //implementation "androidx.biometric:biometric-ktx:1.2.0-alpha05"
+    //implementation "androidx.security:security-crypto:1.0.0-alpha02"
 
     // a package which help change the locale
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.5.1'
@@ -64,6 +64,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     //implementation 'com.google.code.gsongson2.8.6'
+    implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.1'
     implementation("com.squareup.okhttp3:okhttp:4.2.2")
 
