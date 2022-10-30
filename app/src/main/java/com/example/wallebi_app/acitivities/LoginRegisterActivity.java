@@ -2,12 +2,14 @@ package com.example.wallebi_app.acitivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -21,8 +23,11 @@ import com.example.wallebi_app.R;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.VolleyRequests;
 import com.example.wallebi_app.api.reg.apis.AskOtpApi;
+import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
+import com.example.wallebi_app.api.reg.model.RegisterNormalBody;
 import com.example.wallebi_app.api.reg.model.SendOtpBody;
 import com.example.wallebi_app.api.reg.responses.EOtpResponse;
+import com.example.wallebi_app.api.reg.responses.VerifyEmailResponse;
 import com.example.wallebi_app.database.LoginData;
 import com.example.wallebi_app.helpers.StringHelper;
 import com.google.android.material.button.MaterialButton;
@@ -39,13 +44,14 @@ import retrofit2.Retrofit;
 
 public class LoginRegisterActivity extends AppCompatActivity{
 
-    RequestQueue queue;
+
     String main_url;
     MaterialButton btnSendEmail,btnSignUp,btnSignUpSocial;
     EditText txtEmail,txtOTP,txtReferral;
     CheckBox checkTerms;
     TextView txtTerms,txtLogin,txtReferralError,txtAskReferral;
     ViewFlipper viewFlipper;
+    ProgressBar signUpProgressBar;
     int mode =0;
 
 
@@ -83,9 +89,71 @@ public class LoginRegisterActivity extends AppCompatActivity{
         });
 
 
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(StringHelper.isValidEmail(txtEmail.getText())){
+                    if(txtOTP.getText().length() == 6){
+                        if(checkTerms.isChecked()){
+                            btnSignUpSocial.setActivated(false);
+                            btnSignUp.setVisibility(View.GONE);
+                            signUpProgressBar.setVisibility(View.VISIBLE);
+                            signUp(txtEmail.getText().toString(),txtOTP.getText().toString());
+                        }else{
+                            StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.should_accept_terms),getString(R.string.term_of_use),0);
+                        }
+                    }else{
+                        StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_email_otp),getString(R.string.email_header),0);
+                    }
+
+                }else{
+                    StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_email),getString(R.string.email_header),0);
+                }
+
+            }
+        });
 
 
 
+
+
+
+    }
+
+    public void signUp(String email, String code){
+        Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
+        NormalRegisterApi registerApi = retrofit.create(NormalRegisterApi.class);
+        Call<VerifyEmailResponse> call = registerApi.registerEmail(new RegisterNormalBody(code,email));
+        call.enqueue(new Callback<VerifyEmailResponse>() {
+            @Override
+            public void onResponse(Call<VerifyEmailResponse> call, Response<VerifyEmailResponse> response) {
+                signUpProgressBar.setVisibility(View.GONE);
+                btnSignUp.setVisibility(View.VISIBLE);
+                btnSignUpSocial.setActivated(true);
+                try {
+                    if(response.body().getSuccess()){
+                        Intent intent = new Intent(LoginRegisterActivity.this,SetPasswordActivity.class);
+                        intent.putExtra("email",email);
+                        intent.putExtra("allow_key",response.body().getData().getAllow_key());
+                        startActivity(intent);
+                        LoginRegisterActivity.this.finish();
+                    }else{
+                        StringHelper.showSnackBar(LoginRegisterActivity.this,response.body().getErr(),getString(R.string.sign_up),0);
+                    }
+                }catch (Exception e){
+                    StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.sign_up_failed),getString(R.string.sign_up),0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerifyEmailResponse> call, Throwable t) {
+                signUpProgressBar.setVisibility(View.GONE);
+                btnSignUp.setVisibility(View.VISIBLE);
+                btnSignUpSocial.setActivated(true);
+                StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.sign_up_failed),getString(R.string.sign_up),0);
+
+            }
+        });
 
     }
 
@@ -204,6 +272,7 @@ public class LoginRegisterActivity extends AppCompatActivity{
         txtReferralError = findViewById(R.id.txt_referral_error);
         txtAskReferral = findViewById(R.id.btn_ask_refer);
         viewFlipper = findViewById(R.id.login_vf);
+        signUpProgressBar = findViewById(R.id.progress_signup);
     }
 
 

@@ -160,5 +160,12 @@
     <string name="email_otp_failed">Send email has failed</string>
     <string name="email_header">Email</string>
     <string name="wrong_email">Provided email is not validate</string>
+    <string name="wrong_email_otp">Wrong email OTP</string>
+    <string name="should_accept_terms">You should accept terms of use first</string>
+    <string name="sign_up_failed">Failed to Sign Up</string>
+    <string name="cant_set_password">Can\'t Set Password</string>
+    <string name="passwrd_match_error">Password and Repeat Password does not match</string>
+    <string name="weak_pass">Your Password is Weak</string>
+    <string name="sign_google_in">Sign In with Google</string>
 
 </resources>

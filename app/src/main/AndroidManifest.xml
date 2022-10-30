@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Wallebiapp"
         tools:targetApi="31">
         <activity
+            android:name=".SetPasswordActivitu"
+            android:exported="false" />
+        <activity
             android:name=".LoginRegisterActivity"
             android:exported="false" />
         <activity

@@ -269,6 +269,14 @@
             android:id="@+id/btn_term"/>
     </LinearLayout>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/progress_signup"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_top_low"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
         android:layout_marginTop="@dimen/margin_top_low"
