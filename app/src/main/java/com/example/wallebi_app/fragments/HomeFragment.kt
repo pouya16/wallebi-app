@@ -1,5 +1,6 @@
 package com.example.wallebi_app.fragments
 
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.wallebi_app.R
+import com.example.wallebi_app.acitivities.LoginRegisterActivity
 import com.example.wallebi_app.database.UserLogin
 import com.google.android.material.button.MaterialButton
 
@@ -39,6 +41,18 @@ class HomeFragment : Fragment() {
         if (userModel!= null){
             txtEmailAddress.visibility = View.VISIBLE
             txtEmailAddress.text = userModel.email
+        }
+
+
+
+        btnLogin.setOnClickListener{
+            val intent = Intent(context,LoginRegisterActivity::class.java)
+            intent.putExtra("mode",0)
+        }
+        btnRegister.setOnClickListener{
+
+            val intent = Intent(context,LoginRegisterActivity::class.java)
+            intent.putExtra("mode",1)
         }
 
 

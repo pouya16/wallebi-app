@@ -9,16 +9,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wallebi_app.R;
+import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.VolleyRequests;
+import com.example.wallebi_app.api.reg.apis.AskOtpApi;
+import com.example.wallebi_app.api.reg.model.SendOtpBody;
+import com.example.wallebi_app.api.reg.responses.EOtpResponse;
+import com.example.wallebi_app.database.LoginData;
 import com.example.wallebi_app.helpers.StringHelper;
 import com.google.android.material.button.MaterialButton;
 
@@ -27,15 +32,21 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class LoginRegisterActivity extends AppCompatActivity{
 
     RequestQueue queue;
     String main_url;
-    JSONObject jsonObject;
     MaterialButton btnSendEmail,btnSignUp,btnSignUpSocial;
     EditText txtEmail,txtOTP,txtReferral;
     CheckBox checkTerms;
     TextView txtTerms,txtLogin,txtReferralError,txtAskReferral;
+    ViewFlipper viewFlipper;
+    int mode =0;
 
 
 
@@ -45,21 +56,32 @@ public class LoginRegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
         loadView();
+        mode = getIntent().getIntExtra("mode",0);
+        changeMode();
 
-        queue = Volley.newRequestQueue(this);
+
         main_url = getString(R.string.base_url);
-
         btnSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnSendEmail.setActivated(false);
                 if(StringHelper.isValidEmail(txtEmail.getText())){
+                    btnSendEmail.setActivated(false);
                     sendEmail(txtEmail.getText().toString());
+                    countDown(btnSendEmail);
                 }else{
-
+                    StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_email),getString(R.string.email_header),0);
                 }
             }
         });
+
+        txtLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mode = 0;
+                changeMode();
+            }
+        });
+
 
 
 
@@ -69,11 +91,43 @@ public class LoginRegisterActivity extends AppCompatActivity{
 
 
 
+    public void changeMode(){
+        if(mode != 0 && LoginData.registerModel != 0){
+            mode = 2;
+        }
+        switch (mode){
+            case 0:
+                viewFlipper.setDisplayedChild(0);
+            case 1:
+                viewFlipper.setDisplayedChild(1);
+            case 2:
+                viewFlipper.setDisplayedChild(2);
+        }
+    }
 
 
 
     public void sendEmail(String email){
-        String url = main_url + "v1/UserService/signup/send_code/";
+        Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
+        AskOtpApi askOtpApi = retrofit.create(AskOtpApi.class);
+        Call<EOtpResponse> call = askOtpApi.sendEOtp(new SendOtpBody(email));
+        call.enqueue(new Callback<EOtpResponse>() {
+            @Override
+            public void onResponse(Call<EOtpResponse> call, Response<EOtpResponse> response) {
+                if (response.body().getSuccess()){
+                    StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.email_otp_send),getString(R.string.otp_header),1);
+                }else{
+                    StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.email_otp_failed),getString(R.string.otp_header),0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EOtpResponse> call, Throwable t) {
+                StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.email_otp_failed),getString(R.string.otp_header),0);
+            }
+        });
+
+        /*String url = main_url + "v1/UserService/signup/send_code/";
         StringRequest getRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -111,7 +165,7 @@ public class LoginRegisterActivity extends AppCompatActivity{
             }
         };
         queue.add(getRequest);
-
+*/
 
     }
 
@@ -149,6 +203,7 @@ public class LoginRegisterActivity extends AppCompatActivity{
         checkTerms = findViewById(R.id.checkbox_terms);
         txtReferralError = findViewById(R.id.txt_referral_error);
         txtAskReferral = findViewById(R.id.btn_ask_refer);
+        viewFlipper = findViewById(R.id.login_vf);
     }
 
 

@@ -155,5 +155,10 @@
     <string name="buy">Buy</string>
     <string name="not_loged_in">You are not login</string>
     <string name="sell">Sell</string>
+    <string name="email_otp_send">OTP code successfully send to your email Address</string>
+    <string name="otp_header">Send OTP</string>
+    <string name="email_otp_failed">Send email has failed</string>
+    <string name="email_header">Email</string>
+    <string name="wrong_email">Provided email is not validate</string>
 
 </resources>

@@ -3,8 +3,6 @@ package com.example.wallebi_app.api;
 import android.content.Context;
 
 
-import com.example.wallebi_app.R;
-
 import java.io.IOException;
 import java.security.cert.CertificateException;
 
@@ -21,6 +19,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class RetrofitNoAuthBuilder {
     Retrofit retrofit;
@@ -91,6 +90,7 @@ public class RetrofitNoAuthBuilder {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request newRequest  = chain.request().newBuilder()
+                            .addHeader("M2M","Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==")
                             .build();
                     return chain.proceed(newRequest);
                 }

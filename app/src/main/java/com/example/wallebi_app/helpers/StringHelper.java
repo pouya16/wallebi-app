@@ -273,10 +273,13 @@ public class StringHelper {
 
         switch (mode){
             case 0:
+                topColor.setBackgroundColor(context.getColor(R.color.mvp_red));
                 break;
             case 1:
+                topColor.setBackgroundColor(context.getColor(R.color.mvp_greem));
                 break;
             default:
+                topColor.setBackgroundColor(context.getColor(R.color.mvp_red));
                 break;
         }
 
