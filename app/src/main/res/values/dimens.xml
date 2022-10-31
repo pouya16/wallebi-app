@@ -101,4 +101,8 @@
     <dimen name="height_wallet_btn">34dp</dimen>
     <dimen name="height140">140dp</dimen>
     <dimen name="height_home_items">200dp</dimen>
+    <dimen name="height_basic_cards">74dp</dimen>
+    <dimen name="padding_basic_cards">16dp</dimen>
+    <dimen name="height_line">2dp</dimen>
+    <dimen name="margin_basiccards_inside">8dp</dimen>
 </resources>

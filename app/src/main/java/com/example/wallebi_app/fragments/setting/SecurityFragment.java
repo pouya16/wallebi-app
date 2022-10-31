@@ -10,7 +10,13 @@ import android.view.ViewGroup;
 
 import com.example.wallebi_app.R;
 
-public class BasicInfoFragment extends Fragment {
+public class SecurityFragment extends Fragment {
+
+
+
+    public SecurityFragment() {
+        // Required empty public constructor
+    }
 
 
 
@@ -18,8 +24,7 @@ public class BasicInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_basic_info, container, false);
-
+        View view =  inflater.inflate(R.layout.fragment_security, container, false);
 
         return view;
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundDef"
-    tools:context=".fragments.setting.BasicInfoFragment">
+    tools:context=".fragments.setting.SecurityFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_8"
-                android:text="@string/basic_info"
+                android:text="@string/securities"
                 android:textColor="?attr/textGray3"
                 android:textSize="@dimen/text_header_16" />
 
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/margin_17"
             android:layout_height="@dimen/height_basic_cards"
-            android:id="@+id/card_email"
+            android:id="@+id/card_password"
             android:backgroundTint="@android:color/transparent">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_email"
+                    android:visibility="invisible"
                     android:layout_margin="@dimen/margin_4"/>
 
                 <LinearLayout
@@ -68,7 +69,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/email"
+                            android:text="@string/password"
                             android:textColor="?attr/textGray3"
                             android:textSize="@dimen/text_header_16"/>
                         <TextView
@@ -79,112 +80,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/email_fake"
-                            android:textColor="?attr/textGray4"
-                            android:textSize="@dimen/text_header_16"
-                            android:id="@+id/txt_email"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="top"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/uid"
-                            android:textColor="?attr/textGray2"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:text="@string/uid_fake"
-                            android:textColor="?attr/textGray2"/>
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:clickable="true"
-                            android:id="@+id/img_cpy"
-                            android:src="@drawable/ic_copy"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:layout_marginTop="@dimen/margin_2"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_line"
-            android:background="?attr/backgroundLevel2"/>
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/margin_17"
-            android:layout_height="@dimen/height_basic_cards"
-            android:id="@+id/card_kyc"
-            android:backgroundTint="@android:color/transparent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_kyc"
-                    android:layout_margin="@dimen/margin_4"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_basiccards_inside"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/kyc_level"
-                            android:textColor="?attr/textGray3"
-                            android:textSize="@dimen/text_header_16"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/unverified"
-                            android:textColor="@color/mvp_red"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:textSize="@dimen/hint_text_size"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"/>
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/level"
+                            android:text="@string/change"
                             android:textColor="?attr/textGray2"
                             android:textSize="@dimen/text_header_16"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/zero"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:textColor="?attr/textGray2"
-                            android:textSize="@dimen/text_header_16"
-                            android:id="@+id/txt_kyc_level"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -192,7 +91,6 @@
                             android:layout_marginStart="@dimen/margin_word_Start"
                             android:src="@drawable/ic_arrow_right"
                             android:layout_marginBottom="@dimen/margin_2"/>
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -205,14 +103,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/max_withdraw_per_day"
-                            android:textColor="?attr/textGray2"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:text="@string/withdraw_fake"
-                            android:id="@+id/txt_max_withdraw"
+                            android:text="@string/help_protect_acc"
                             android:textColor="?attr/textGray2"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -224,12 +115,11 @@
             android:background="?attr/backgroundLevel2"/>
 
 
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/margin_17"
             android:layout_height="@dimen/height_basic_cards"
-            android:id="@+id/card_vip"
+            android:id="@+id/card_onetime"
             android:backgroundTint="@android:color/transparent">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -238,7 +128,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_kyc"
+                    android:src="@drawable/ic_one_time"
                     android:layout_margin="@dimen/margin_4"/>
 
                 <LinearLayout
@@ -256,7 +146,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/vip_level"
+                            android:text="@string/one_time_pass"
                             android:textColor="?attr/textGray3"
                             android:textSize="@dimen/text_header_16"/>
 
@@ -264,30 +154,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"/>
-
-
-                        <TextView
+                        <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/level"
-                            android:textColor="?attr/textGray2"
-                            android:textSize="@dimen/text_header_16"/>
+                            android:id="@+id/radio_one_time"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/zero"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:textColor="?attr/textGray2"
-                            android:textSize="@dimen/text_header_16"
-                            android:id="@+id/txt_vip_level"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:src="@drawable/ic_arrow_right"
-                            android:layout_marginBottom="@dimen/margin_2"/>
 
                     </LinearLayout>
 
@@ -298,37 +169,12 @@
                         android:gravity="top"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/maker"
-                            android:textColor="?attr/textGray2"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:text="@string/maker_vip0"
-                            android:id="@+id/txt_maker"
+                            android:text="@string/help_protect_acc"
                             android:textColor="?attr/textGray2"/>
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_8"
-                            android:text="@string/taker"
-                            android:textColor="?attr/textGray2"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_word_Start"
-                            android:text="@string/maker_vip0"
-                            android:id="@+id/txt_taker"
-                            android:textColor="?attr/textGray2"/>
-
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -343,7 +189,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/margin_17"
             android:layout_height="@dimen/height_basic_cards"
-            android:id="@+id/card_bankcards"
+            android:id="@+id/card_g2f"
             android:backgroundTint="@android:color/transparent">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -352,7 +198,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bankcard"
+                    android:src="@drawable/ic_google_one"
                     android:layout_margin="@dimen/margin_4"/>
 
                 <LinearLayout
@@ -370,7 +216,79 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/bank_accounts"
+                            android:text="@string/google_auth"
+                            android:textColor="?attr/textGray3"
+                            android:textSize="@dimen/text_header_16"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/radio_g2f"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="top"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/help_protect_acc"
+                            android:textColor="?attr/textGray2"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_line"
+            android:background="?attr/backgroundLevel2"/>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin_17"
+            android:layout_height="@dimen/height_basic_cards"
+            android:id="@+id/card_phone"
+            android:backgroundTint="@android:color/transparent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mobile"
+                    android:layout_margin="@dimen/margin_4"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_basiccards_inside"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/phne_numer"
                             android:textColor="?attr/textGray3"
                             android:textSize="@dimen/text_header_16"/>
 
@@ -383,7 +301,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/see_details"
+                            android:text="@string/change"
                             android:textColor="?attr/textGray2"
                             android:textSize="@dimen/text_header_16"/>
 
@@ -407,7 +325,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/you_didnt_add_card"
+                            android:text="@string/link_mobile_protect"
                             android:textColor="?attr/textGray2"/>
 
                     </LinearLayout>
@@ -416,6 +334,5 @@
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-
 
 </FrameLayout>

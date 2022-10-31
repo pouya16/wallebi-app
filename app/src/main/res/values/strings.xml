@@ -174,5 +174,25 @@
     <string name="kyc_level_s">KYC Level:</string>
     <string name="uid">UID:</string>
     <string name="uid_fake">10043524143</string>
+    <string name="basic_info">Basic Info</string>
+    <string name="security_informations">Securities</string>
+    <string name="whitelist">Whitelist</string>
+    <string name="account_activity">Account Activity</string>
+    <string name="log_out">Log Out</string>
+    <string name="kyc_level">KYC Level</string>
+    <string name="unverified">Unverified</string>
+    <string name="max_withdraw_per_day">Max Withdraw per day:</string>
+    <string name="withdraw_fake">1.000 BTC</string>
+    <string name="vip_level">VIP Level</string>
+    <string name="you_didnt_add_card">You didn\'t add any card bank yet.</string>
+    <string name="bank_accounts">Bank Accounts</string>
+    <string name="see_details">See Details</string>
+    <string name="securities">Securities</string>
+    <string name="change">Change</string>
+    <string name="help_protect_acc">Protect Your Account and Transactions</string>
+    <string name="one_time_pass">One Time Password</string>
+    <string name="google_auth">Google Authenticator</string>
+    <string name="phne_numer">Phone Number</string>
+    <string name="link_mobile_protect">Link mobile number to protect your account</string>
 
 </resources>

@@ -25,10 +25,13 @@
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_set_password_activitu.xml" value="0.274903805044891" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_splash.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_welcome.xml" value="0.25" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_basic_info.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_home.xml" value="0.3489583333333333" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_market.xml" value="0.327" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_otp.xml" value="0.5" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_security.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_set_password.xml" value="0.33" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_setting.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_trade.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_transfer.xml" value="0.42756860242501593" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_v_i_p.xml" value="0.26171875" />
