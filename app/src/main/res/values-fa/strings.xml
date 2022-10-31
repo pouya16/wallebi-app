@@ -174,4 +174,10 @@
     <string name="passwrd_match_error">Password and Repeat Password does not match</string>
     <string name="weak_pass">Your Password is Weak</string>
     <string name="sign_google_in">Sign In with Google</string>
+    <string name="pnl">pnl</string>
+    <string name="bank_card">Bank Cards</string>
+    <string name="convert">Convert</string>
+    <string name="email_fake">po**@gmail.com</string>
+    <string name="kyc_level_s">KYC Level:</string>
+    <string name="uid_fake">10043524143</string>
 </resources>
