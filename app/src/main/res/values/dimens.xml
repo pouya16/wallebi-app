@@ -107,4 +107,8 @@
     <dimen name="margin_basiccards_inside">8dp</dimen>
     <dimen name="height_recycler_whitelist">40dp</dimen>
     <dimen name="width_66">66dp</dimen>
+    <dimen name="padding_7">7dp</dimen>
+    <dimen name="margin_page_sides">24dp</dimen>
+    <dimen name="height_search">40dp</dimen>
+    <dimen name="margin_3">3dp</dimen>
 </resources>

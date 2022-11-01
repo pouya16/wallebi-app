@@ -201,4 +201,8 @@
     <string name="mark">Mark</string>
     <string name="send">Send</string>
     <string name="delete">Delete</string>
+    <string name="erc_network">ERC20</string>
+    <string name="network">Network</string>
+    <string name="address">Address</string>
+    <string name="memo_slash_tag">Memo/Tag</string>
 </resources>

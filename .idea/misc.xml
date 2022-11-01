@@ -15,8 +15,10 @@
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/gradient_gray.xml" value="0.314" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/ic_action.xml" value="0.2735" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/ic_img_kyc_process.xml" value="0.314" />
+        <entry key="..\:/wallebiapp/app/src/main/res/drawable/ic_plus.xml" value="0.314" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/login_logo.xml" value="0.226" />
         <entry key="..\:/wallebiapp/app/src/main/res/drawable/logo_welcome.xml" value="0.31" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout-port/recycler_account_activity.xml" value="0.28559213339033773" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_blocked.xml" value="0.720863309352518" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_kyc_main.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/activity_kyc_upgrade1.xml" value="0.33" />
@@ -36,6 +38,7 @@
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_transfer.xml" value="0.42756860242501593" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_v_i_p.xml" value="0.26171875" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_wallet.xml" value="0.33" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_white_list.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_kyc1_flipper1.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_kyc1_flipper2.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_kyc1_flipper3.xml" value="0.26171875" />
@@ -50,9 +53,11 @@
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register_email.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_lauyout_input.xml" value="0.75" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_layout_input.xml" value="0.22" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_account_activity.xml" value="0.12" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_markets.xml" value="0.5" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_order_history.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_wallet.xml" value="0.5" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_whitelist.xml" value="0.7194066749072929" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/snack_error_layout.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/menu/hamburger_menu.xml" value="0.28559213339033773" />
         <entry key="..\:/wallebiapp/app/src/main/res/menu/navigation_menu.xml" value="0.34791666666666665" />
