@@ -105,4 +105,6 @@
     <dimen name="padding_basic_cards">16dp</dimen>
     <dimen name="height_line">2dp</dimen>
     <dimen name="margin_basiccards_inside">8dp</dimen>
+    <dimen name="height_recycler_whitelist">40dp</dimen>
+    <dimen name="width_66">66dp</dimen>
 </resources>

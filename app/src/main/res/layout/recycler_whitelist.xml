@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundLevel3"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_recycler_whitelist"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/margin_top_16"
+            android:paddingEnd="@dimen/margin_top_16">
+
+            <ImageView
+                android:id="@+id/img_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_coin_btc" />
+
+            <TextView
+                android:id="@+id/txt_coin_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_weight="1"
+                android:text="@string/bitcoin_symbol"
+                android:textColor="?attr/textGray3" />
+
+
+            <TextView
+                android:id="@+id/txt_mark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_weight="1"
+                android:text="@string/mark"
+                android:textColor="?attr/textGray3" />
+
+            <ImageButton
+                android:id="@+id/img_expander"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_18"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/ic_arrow_down_wallet" />
+
+
+            <ImageButton
+                android:id="@+id/img_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_18"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/ic_action" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_recycler_whitelist"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            android:id="@+id/layout_more"
+            android:visibility="gone"
+            android:background="?attr/backgroundLevel3"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/margin_top_16"
+            android:paddingEnd="@dimen/margin_top_16">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="@dimen/width_66"
+                android:layout_height="@dimen/margin_26"
+                android:backgroundTint="@android:color/transparent"
+                app:strokeColor="@color/mvp_gray1"
+                android:id="@+id/btn_send"
+                app:cardCornerRadius="@dimen/stroke_1"
+                app:strokeWidth="@dimen/stroke_1">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/mvp_gray1"/>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="@dimen/width_66"
+                android:layout_height="@dimen/margin_26"
+                android:backgroundTint="@android:color/transparent"
+                app:strokeColor="@color/mvp_gray1"
+                android:layout_marginStart="@dimen/margin_18"
+                android:id="@+id/btn_delete"
+                app:cardCornerRadius="@dimen/stroke_1"
+                app:strokeWidth="@dimen/stroke_1">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/mvp_gray1"/>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close_snack"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:id="@+id/img_close"
+                android:layout_marginStart="@dimen/margin_18"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

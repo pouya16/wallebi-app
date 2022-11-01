@@ -198,4 +198,7 @@
     <string name="google_auth">Google Authenticator</string>
     <string name="phne_numer">Phone Number</string>
     <string name="link_mobile_protect">Link mobile number to protect your account</string>
+    <string name="mark">Mark</string>
+    <string name="send">Send</string>
+    <string name="delete">Delete</string>
 </resources>
