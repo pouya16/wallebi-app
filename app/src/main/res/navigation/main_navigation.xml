@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.wallebi_app.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/marketFragment"
         android:name="com.example.wallebi_app.fragments.MarketFragment"
@@ -30,4 +34,42 @@
         android:name="com.example.wallebi_app.fragments.WalletFragment"
         android:label="fragment_wallet"
         tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.wallebi_app.fragments.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_accountActivityFragment"
+            app:destination="@id/accountActivityFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_securityFragment"
+            app:destination="@id/securityFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_basicInfoFragment"
+            app:destination="@id/basicInfoFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_whiteListFragment"
+            app:destination="@id/whiteListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountActivityFragment"
+        android:name="com.example.wallebi_app.fragments.setting.AccountActivityFragment"
+        android:label="fragment_account_activity"
+        tools:layout="@layout/fragment_account_activity" />
+    <fragment
+        android:id="@+id/securityFragment"
+        android:name="com.example.wallebi_app.fragments.setting.SecurityFragment"
+        android:label="fragment_security"
+        tools:layout="@layout/fragment_security" />
+    <fragment
+        android:id="@+id/basicInfoFragment"
+        android:name="com.example.wallebi_app.fragments.setting.BasicInfoFragment"
+        android:label="fragment_basic_info"
+        tools:layout="@layout/fragment_basic_info" />
+    <fragment
+        android:id="@+id/whiteListFragment"
+        android:name="com.example.wallebi_app.fragments.setting.WhiteListFragment"
+        android:label="fragment_white_list"
+        tools:layout="@layout/fragment_white_list" />
 </navigation>

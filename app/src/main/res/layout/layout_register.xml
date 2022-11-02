@@ -321,6 +321,7 @@
             android:id="@+id/txt_btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:layout_marginStart="@dimen/margin_word_Start"
             android:text="@string/login"
             android:textColor="?attr/colorPrimary"

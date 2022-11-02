@@ -6,194 +6,227 @@
     android:background="?attr/backgroundLevel2"
     tools:context=".fragments.setting.WhiteListFragment">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_24"
+        android:layout_marginEnd="@dimen/margin_24"
+        android:orientation="vertical">
+
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_page_sides"
-            android:layout_marginLeft="@dimen/margin_page_sides"
-            android:layout_marginTop="@dimen/margin_top_16"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/margin_17">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="top"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:src="@drawable/ic_arrow_left" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="top"
-                    android:gravity="top"
-                    android:text="@string/whitelist_explain_toggle"
-                    android:textColor="?attr/textGray2"/>
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radio_whitelist"/>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_search"
-                android:layout_marginTop="@dimen/margin_24"
-                android:orientation="horizontal">
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="?attr/backgroundLevel4">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <androidx.appcompat.widget.SearchView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/search_view"/>
-
-                    </RelativeLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/height_search"
-                    android:layout_height="@dimen/height_search"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:id="@+id/card_add"
-                    android:clickable="true"
-                    android:layout_marginStart="@dimen/margin_8">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_plus"
-                            android:background="@android:color/transparent"
-                            android:layout_centerInParent="true"/>
-
-                    </RelativeLayout>
-
-
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_recycler_whitelist"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:id="@+id/layout_hint"
-                android:layout_marginTop="@dimen/margin_20"
-                android:paddingStart="@dimen/margin_top_16"
-                android:paddingEnd="@dimen/margin_top_16">
-
-                <ImageView
-                    android:id="@+id/img_coin"
-                    android:layout_width="wrap_content"
-                    android:visibility="invisible"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_coin_btc" />
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_4"
-                        android:layout_marginTop="@dimen/margin_2"
-                        android:text="@string/coin"
-                        android:textColor="?attr/textGray2" />
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_sort"
-                        android:layout_marginStart="@dimen/margin_word_Start"
-                        android:id="@+id/img_coin_sort"/>
-
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/txt_coin_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_4"
-                        android:layout_marginTop="@dimen/margin_2"
-                        android:text="@string/mark"
-                        android:textColor="?attr/textGray2" />
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_sort"
-                        android:layout_marginStart="@dimen/margin_word_Start"
-                        android:id="@+id/img_mark_sort"/>
-
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/img_expander"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_18"
-                    android:background="@android:color/transparent"
-                    android:clickable="true"
-                    android:visibility="invisible"
-                    android:src="@drawable/ic_arrow_down_wallet" />
-
-
-                <ImageButton
-                    android:id="@+id/img_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_18"
-                    android:background="@android:color/transparent"
-                    android:clickable="true"
-                    android:visibility="invisible"
-                    android:src="@drawable/ic_action" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recycler_whitelist"
-                android:layout_marginTop="@dimen/margin_3"/>
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/whitelist"
+                android:textColor="?attr/textGray3"
+                android:textSize="@dimen/text_header_16" />
 
         </LinearLayout>
 
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_16"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="top"
+                        android:text="@string/whitelist_explain_toggle"
+                        android:textColor="?attr/textGray2" />
+
+                    <RadioButton
+                        android:id="@+id/radio_whitelist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_search"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:backgroundTint="?attr/backgroundLevel4">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.appcompat.widget.SearchView
+                                android:id="@+id/search_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_add"
+                        android:layout_width="@dimen/height_search"
+                        android:layout_height="@dimen/height_search"
+                        android:layout_marginStart="@dimen/margin_8"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:clickable="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_plus" />
+
+                        </RelativeLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layout_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_recycler_whitelist"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_top_16"
+                    android:paddingEnd="@dimen/margin_top_16">
+
+                    <ImageView
+                        android:id="@+id/img_coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_coin_btc"
+                        android:visibility="invisible" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_4"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:text="@string/coin"
+                            android:textColor="?attr/textGray2" />
+
+                        <ImageButton
+                            android:id="@+id/img_coin_sort"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_word_Start"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_sort" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_coin_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_4"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:text="@string/mark"
+                            android:textColor="?attr/textGray2" />
+
+                        <ImageButton
+                            android:id="@+id/img_mark_sort"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_word_Start"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_sort" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/img_expander"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_18"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:src="@drawable/ic_arrow_down_wallet"
+                        android:visibility="invisible" />
+
+
+                    <ImageButton
+                        android:id="@+id/img_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_18"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:src="@drawable/ic_action"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_whitelist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_3" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 </FrameLayout>

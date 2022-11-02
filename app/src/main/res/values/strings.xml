@@ -202,5 +202,17 @@
     <string name="address">Address</string>
     <string name="memo_slash_tag">Memo/Tag</string>
     <string name="whitelist_explain_toggle">Your account will only be able to withdraw to whitelisted withdrawal addresses.</string>
+    <string name="device">Mobile/Android 10</string>
+    <string name="action_enable_g2f">Enable G2F</string>
+    <string name="ip_address">IP Address</string>
+    <string name="ip_fake">121.131.128.65</string>
+    <string name="region">Region</string>
+    <string name="tehran_ir">Tehran, IR</string>
+    <string name="time">Time</string>
+    <string name="fake_time">2022/08/02 19:53</string>
+    <string name="success">Success</string>
+    <string name="device_alone">Device</string>
+    <string name="wrong_password_login">Please enter password corectly</string>
+    <string name="wrong_mobile">Mobile format is not correct</string>
 
 </resources>

@@ -27,27 +27,27 @@
                 android:id="@+id/img_device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_coin_btc" />
+                android:src="@drawable/ic_mobile" />
 
             <TextView
-                android:id="@+id/txt_coin_name"
+                android:id="@+id/txt_device"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4"
                 android:layout_marginTop="@dimen/margin_2"
                 android:layout_weight="1"
-                android:text="@string/bitcoin_symbol"
+                android:text="@string/device"
                 android:textColor="?attr/textGray3" />
 
 
             <TextView
-                android:id="@+id/txt_mark"
+                android:id="@+id/txt_action"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4"
                 android:layout_marginTop="@dimen/margin_2"
                 android:layout_weight="1"
-                android:text="@string/mark"
+                android:text="@string/action_enable_g2f"
                 android:textColor="?attr/textGray3" />
 
             <ImageButton
@@ -90,7 +90,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/network"
+                    android:text="@string/ip_address"
                     android:textColor="?attr/textGray2" />
 
                 <ImageView
@@ -107,7 +107,7 @@
                     android:id="@+id/txt_network"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/erc_network"
+                    android:text="@string/ip_fake"
                     android:textColor="?attr/textGray4" />
 
 
@@ -125,7 +125,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mark"
+                    android:text="@string/region"
                     android:textColor="?attr/textGray2" />
 
                 <ImageView
@@ -139,10 +139,10 @@
                     android:src="@drawable/dashed_line" />
 
                 <TextView
-                    android:id="@+id/txt_mark_expand"
+                    android:id="@+id/txt_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mark"
+                    android:text="@string/tehran_ir"
                     android:textColor="?attr/textGray4" />
 
 
@@ -160,7 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/address"
+                    android:text="@string/time"
                     android:textColor="?attr/textGray2" />
 
                 <ImageView
@@ -174,19 +174,12 @@
                     android:src="@drawable/dashed_line" />
 
                 <TextView
-                    android:id="@+id/txt_address"
+                    android:id="@+id/txt_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fake_address"
+                    android:text="@string/fake_time"
                     android:textColor="?attr/textGray4" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_copy"
-                    android:background="@android:color/transparent"
-                    android:layout_marginStart="@dimen/margin_word_Start"
-                    android:id="@+id/img_cpy_address"/>
 
             </LinearLayout>
 
@@ -213,19 +206,12 @@
                     android:src="@drawable/dashed_line" />
 
                 <TextView
-                    android:id="@+id/txt_memo"
+                    android:id="@+id/txt_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fake_address"
-                    android:textColor="?attr/textGray4" />
+                    android:text="@string/success"
+                    android:textColor="@color/mvp_greem" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_copy"
-                    android:background="@android:color/transparent"
-                    android:layout_marginStart="@dimen/margin_word_Start"
-                    android:id="@+id/img_cpy_memo"/>
 
             </LinearLayout>
 
