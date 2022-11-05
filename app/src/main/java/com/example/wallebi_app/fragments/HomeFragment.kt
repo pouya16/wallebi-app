@@ -48,11 +48,14 @@ class HomeFragment : Fragment() {
         btnLogin.setOnClickListener{
             val intent = Intent(context,LoginRegisterActivity::class.java)
             intent.putExtra("mode",0)
+            context?.startActivity(intent)
+
         }
         btnRegister.setOnClickListener{
 
             val intent = Intent(context,LoginRegisterActivity::class.java)
             intent.putExtra("mode",1)
+            context?.startActivity(intent)
         }
 
 

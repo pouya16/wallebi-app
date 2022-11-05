@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.wallebi_app.MainActivity;
 import com.example.wallebi_app.R;
@@ -48,6 +49,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RegisterTypeModel> call, Response<RegisterTypeModel> response) {
                 if (response.body().getSuccess() == true){
+                    Log.i("Log1", "succeed");
                     if(response.body().getData() == "open"){
                         LoginData.registerModel = 1;
                     }else{
@@ -57,6 +59,7 @@ public class SplashActivity extends AppCompatActivity {
                     SplashActivity.this.startActivity(intent);
                     SplashActivity.this.finish();
                 }else{
+                    Log.i("Log1", "else in Splash");
 
                 }
             }
@@ -64,6 +67,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RegisterTypeModel> call, Throwable t) {
 
+                Log.i("Log1", "failure in Splash");
             }
         });
 

@@ -14,36 +14,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wallebiapp"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
-            android:name=".SetPasswordActivitu"
+            android:name=".acitivities.GetSecuritiesActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginRegisterActivity"
+            android:name=".acitivities.SetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".acitivities.LoginRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".KycUpgrade1"
-            android:exported="false" />
-        <activity
-            android:name=".KycMainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BlockedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WelcomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".acitivities.SplashActivity"
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".acitivities.kyc.KycUpgrade1"
+            android:exported="false" />
+        <activity
+            android:name=".acitivities.kyc.KycMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".acitivities.BlockedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".acitivities.WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
         </activity>
     </application>
 

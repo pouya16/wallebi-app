@@ -108,8 +108,8 @@ public class SetPasswordActivity extends AppCompatActivity {
                 btnSetPassword.setVisibility(View.VISIBLE);
                 try {
                     if (response.body().getSuccess()){
-                        LoginData.primary_key = response.body().getData().getAccess_token();
-                        LoginData.second_key = response.body().getData().getRefresh_token();
+                        LoginData.access_token = response.body().getData().getAccess_token();
+                        LoginData.refresh_token = response.body().getData().getRefresh_token();
                         Intent intent = new Intent(SetPasswordActivity.this,WelcomeActivity.class);
                         startActivity(intent);
                         SetPasswordActivity.this.finish();

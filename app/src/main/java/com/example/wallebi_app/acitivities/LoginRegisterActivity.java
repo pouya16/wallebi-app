@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.wallebi_app.MainActivity;
 import com.example.wallebi_app.R;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.VolleyRequests;
@@ -37,6 +39,7 @@ import com.example.wallebi_app.database.LoginData;
 import com.example.wallebi_app.helpers.StringHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONObject;
 
@@ -68,8 +71,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
     LinearLayout layoutMobile, layoutEmail;
     MaterialButton btnLogin, btnLoginSocial;
     ProgressBar loginProgressBar;
-    TableLayout loginTabs;
-    TabItem tabEmail, tabMobile;
+    TabLayout loginTabs;
+    //TabItem tabEmail, tabMobile;
 
 
     int mode = 0;
@@ -82,7 +85,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_register);
         loadView();
         mode = getIntent().getIntExtra("mode", 0);
+
+
+        Log.i("Log1","mode is : " + mode);
         changeMode();
+
 
 
         //REGISTER LOGIC
@@ -146,7 +153,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         });
 
 
-        tabMobile.setOnClickListener(new View.OnClickListener() {
+        /*tabMobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeLoginType(2);
@@ -157,7 +164,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 changeLoginType(1);
             }
-        });
+        });*/
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +212,37 @@ public class LoginRegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<PreLoginResponse>() {
             @Override
             public void onResponse(Call<PreLoginResponse> call, Response<PreLoginResponse> response) {
+                btnLogin.setVisibility(View.VISIBLE);
+                loginProgressBar.setVisibility(View.GONE);
+                try {
+                    if(response.body().getSuccess()){
+                        if(!response.body().getData().getPermission().getG2f()&&!response.body().getData().getPermission().getOtp()){
+                            LoginData.access_token = response.body().getData().getAccess_token();
+                            LoginData.refresh_token = response.body().getData().getRefresh_token();
+                            Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            LoginRegisterActivity.this.finish();
+                        }else{
+                            Intent intent = new Intent(LoginRegisterActivity.this, GetSecuritiesActivity.class);
+                            intent.putExtra("token",response.body().getData().getAccess_token());
+                            intent.putExtra("mode",0);
+                            if(loginType.compareTo("email") == 0){
+                                intent.putExtra("email",txtEmail.getText().toString());
+                            }else{
+                                intent.putExtra("mobile",txtMobile.getText().toString());
+                            }
+                            intent.putExtra("otp",response.body().getData().getPermission().getOtp());
+                            intent.putExtra("g2f",response.body().getData().getPermission().getG2f());
+                            startActivity(intent);
+                            LoginRegisterActivity.this.finish();
+                        }
+                    }else{
+
+                    }
+                }catch (Exception e){
+                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
+
+                }
 
             }
 
@@ -212,6 +250,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
             public void onFailure(Call<PreLoginResponse> call, Throwable t) {
                 btnLogin.setVisibility(View.VISIBLE);
                 loginProgressBar.setVisibility(View.GONE);
+                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
             }
         });
 
@@ -273,13 +312,17 @@ public class LoginRegisterActivity extends AppCompatActivity {
         if (mode != 0 && LoginData.registerModel != 0) {
             mode = 2;
         }
+        Log.i("Log1","mode in change mode function is: " + mode);
         switch (mode) {
             case 0:
                 viewFlipper.setDisplayedChild(0);
+                break;
             case 1:
                 viewFlipper.setDisplayedChild(1);
+                break;
             case 2:
                 viewFlipper.setDisplayedChild(2);
+                break;
         }
     }
 
@@ -292,6 +335,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<EOtpResponse> call, Response<EOtpResponse> response) {
                 if (response.body().getSuccess()) {
+                    Log.i("Log1","otp is: " );
                     StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.email_otp_send), getString(R.string.otp_header), 1);
                 } else {
                     StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.email_otp_failed), getString(R.string.otp_header), 0);
@@ -380,9 +424,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
         viewFlipper = findViewById(R.id.login_vf);
         signUpProgressBar = findViewById(R.id.progress_signup);
         txtRegister = findViewById(R.id.txt_btn_register);
-        loginTabs = findViewById(R.id.tab_login);
+        loginTabs = findViewById(R.id.tab_login);/*
         tabEmail = findViewById(R.id.tab_email);
-        tabMobile = findViewById(R.id.tab_mobile);
+        tabMobile = findViewById(R.id.tab_mobile);*/
         txtEmailLogin = findViewById(R.id.txt_email_login);
         txtMobile = findViewById(R.id.txt_mobile);
         txtPassword = findViewById(R.id.txt_pass);

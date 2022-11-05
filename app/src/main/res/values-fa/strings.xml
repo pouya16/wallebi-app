@@ -217,4 +217,5 @@
     <string name="device_alone">Device</string>
     <string name="wrong_password_login">Please enter password corectly</string>
     <string name="wrong_mobile">Mobile format is not correct</string>
+    <string name="log_in_failed">Failed to Login</string>
 </resources>
