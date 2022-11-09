@@ -218,4 +218,12 @@
     <string name="wrong_password_login">Please enter password corectly</string>
     <string name="wrong_mobile">Mobile format is not correct</string>
     <string name="log_in_failed">Failed to Login</string>
+    <string name="download_install_auth">Download and install authenticator app</string>
+    <string name="download_from">Download from</string>
+    <string name="google_play">Google Play</string>
+    <string name="how_complete_g2f">How to Complete Google Authentication?</string>
+    <string name="scan_qr_auth">Scan this QR in the Authenticator App</string>
+    <string name="txt_auth_key">Y2BNNACTDWYRGA52JBPN3HY6ZUFCLV47I</string>
+    <string name="unable_g2f_hint">If you are unable to scan the QR code, please enter this code manually into the app.</string>
+    <string name="save_backup">"Save This Backup Key In  A Secure Location "</string>
 </resources>
