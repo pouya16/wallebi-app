@@ -201,6 +201,7 @@
     <string name="mark">Mark</string>
     <string name="send">Send</string>
     <string name="delete">Delete</string>
+    <string name="whitelist_explain_toggle">Your account will only be able to withdraw to whitelisted withdrawal addresses.</string>
     <string name="erc_network">ERC20</string>
     <string name="network">Network</string>
     <string name="address">Address</string>
