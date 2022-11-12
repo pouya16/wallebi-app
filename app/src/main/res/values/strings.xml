@@ -223,5 +223,9 @@
     <string name="txt_auth_key">Y2BNNACTDWYRGA52JBPN3HY6ZUFCLV47I</string>
     <string name="unable_g2f_hint">If you are unable to scan the QR code, please enter this code manually into the app.</string>
     <string name="save_backup">"Save This Backup Key In  A Secure Location "</string>
+    <string name="add_address_whitelist">Adding address to whitelisted</string>
+    <string name="internal_user">Internal User</string>
+    <string name="external_user">External User</string>
+    <string name="save">Save</string>
 
 </resources>

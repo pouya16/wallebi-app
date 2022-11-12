@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="bottom"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/padding_whitelist_add"
+    android:paddingEnd="@dimen/padding_whitelist_add"
+    android:background="?attr/backgroundLevel3"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_12">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_address_whitelist"
+            android:textColor="?attr/textGray3"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/text_header_16"
+            android:layout_centerVertical="true"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/btn_close"
+            android:src="@drawable/ic_down_close"
+            android:background="@android:color/transparent"
+            android:clickable="true"/>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="?attr/textGray3"
+        android:layout_marginTop="@dimen/margin_18"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/internal_user"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:textColor="?attr/textGray2"
+            android:id="@+id/btn_internal"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/external_user"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:textColor="?attr/textGray3"
+            android:id="@+id/btn_external"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:text="@string/internal_user"
+            android:layout_weight="1"
+            android:background="?attr/textGray3"
+            android:textColor="?attr/textGray2"
+            android:id="@+id/view_internal"/>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:text="@string/internal_user"
+            android:layout_weight="1"
+            android:background="?attr/colorPrimary"
+            android:textColor="?attr/textGray2"
+            android:id="@+id/view_External"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_top_16"
+        android:id="@+id/view_flipper_whitelist">
+
+
+
+
+    </ViewFlipper>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:textColor="?attr/backgroundLevel3"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:id="@+id/btn_save"/>
+
+</LinearLayout>

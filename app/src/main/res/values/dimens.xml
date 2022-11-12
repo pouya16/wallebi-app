@@ -113,4 +113,5 @@
     <dimen name="margin_3">3dp</dimen>
     <dimen name="width_download_g2f">247dp</dimen>
     <dimen name="width_download_auth_card">131dp</dimen>
+    <dimen name="padding_whitelist_add">20dp</dimen>
 </resources>
