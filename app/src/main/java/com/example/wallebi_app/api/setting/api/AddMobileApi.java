@@ -1,6 +1,6 @@
 package com.example.wallebi_app.api.setting.api;
 
-import com.example.wallebi_app.api.setting.models.AddMobileBody;
+import com.example.wallebi_app.api.setting.bodies.AddMobileBody;
 import com.example.wallebi_app.api.setting.response.AddMobileResponse;
 
 import retrofit2.Call;

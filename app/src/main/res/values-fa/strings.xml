@@ -231,4 +231,12 @@
     <string name="internal_user">Internal User</string>
     <string name="external_user">External User</string>
     <string name="save">Save</string>
+    <string name="tag">Tag</string>
+    <string name="email_uid">Email or UID</string>
+    <string name="whitelist_internal_explai">1. You can send coins to your friends on WAllebi using their UID or Email</string>
+    <string name="whitelist_internal_explain_s">2.You can send unlimited coins to other Wallebi users.</string>
+    <string name="whitelist_internal_explain_m">3.Internal transactions include no fee.</string>
+    <string name="need_enable_whitelist">You need to enable 2FA for this action. Withdrawals will be disabled for 24 hours after you make this change</string>
+    <string name="enable_google_auth">Enable Google Authenticator</string>
+    <string name="enable_otp_full">Enable One Time Password</string>
 </resources>

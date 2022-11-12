@@ -103,6 +103,15 @@
         android:layout_marginTop="@dimen/margin_top_16"
         android:id="@+id/view_flipper_whitelist">
 
+        <include layout="@layout/layout_whitelist_external"
+            android:id="@+id/layout_external"/>
+
+
+        <include layout="@layout/layout_whitelist_internal"
+            android:id="@+id/layout_internal"/>
+
+
+
 
 
 

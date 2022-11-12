@@ -5,7 +5,7 @@
     <dimen name="main_right">20dp</dimen>
     <dimen name="top_flogo_su">22dp</dimen>
     <dimen name="corner_radius_app_default">2dp</dimen>
-    <dimen name="height_input">36dp</dimen>
+    <dimen name="height_input">48dp</dimen>
     <dimen name="input_inner_left">7dp</dimen>
     <dimen name="input_inner_right">5dp</dimen>
     <dimen name="btn_text_size">12sp</dimen>
@@ -114,4 +114,7 @@
     <dimen name="width_download_g2f">247dp</dimen>
     <dimen name="width_download_auth_card">131dp</dimen>
     <dimen name="padding_whitelist_add">20dp</dimen>
+    <dimen name="padding_external_white">6dp</dimen>
+    <dimen name="padding_32">32dp</dimen>
+    <dimen name="height_btn_huge">58dp</dimen>
 </resources>

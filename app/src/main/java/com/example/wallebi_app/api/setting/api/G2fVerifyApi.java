@@ -1,6 +1,6 @@
 package com.example.wallebi_app.api.setting.api;
 
-import com.example.wallebi_app.api.setting.models.G2fBody;
+import com.example.wallebi_app.api.setting.bodies.G2fBody;
 import com.example.wallebi_app.api.setting.response.G2fResponse;
 
 import retrofit2.Call;

@@ -41,6 +41,7 @@
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_v_i_p.xml" value="0.26171875" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_wallet.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/fragment_white_list.xml" value="0.2864471996579735" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_add_whitelist.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_kyc1_flipper1.xml" value="0.2864471996579735" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_kyc1_flipper2.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_kyc1_flipper3.xml" value="0.26171875" />
@@ -53,6 +54,9 @@
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register.xml" value="0.33" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register_close.xml" value="0.34791666666666665" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_register_email.xml" value="0.33" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_whitelist_external.xml" value="0.2864471996579735" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_whitelist_internal.xml" value="0.2864471996579735" />
+        <entry key="..\:/wallebiapp/app/src/main/res/layout/layout_whitelist_security.xml" value="0.5" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_lauyout_input.xml" value="0.75" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/p_layout_input.xml" value="0.22" />
         <entry key="..\:/wallebiapp/app/src/main/res/layout/recycler_account_activity.xml" value="0.12" />

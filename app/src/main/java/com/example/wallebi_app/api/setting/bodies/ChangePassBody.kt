@@ -1,4 +1,4 @@
-package com.example.wallebi_app.api.setting.models
+package com.example.wallebi_app.api.setting.bodies
 
 data class ChangePassBody(
     val confirm_password:String,

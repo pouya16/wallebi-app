@@ -1,6 +1,6 @@
 package com.example.wallebi_app.api.setting.api;
 
-import com.example.wallebi_app.api.setting.models.ChangePassBody;
+import com.example.wallebi_app.api.setting.bodies.ChangePassBody;
 import com.example.wallebi_app.api.setting.response.ChangePasswordResponse;
 
 import retrofit2.Call;
