@@ -10,8 +10,33 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <com.google.android.material.tabs.TabLayout
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:textColor="?attr/textGray2"
+            android:id="@+id/btn_email"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:textColor="?attr/textGray3"
+            android:id="@+id/btn_phone"/>
+
+    </LinearLayout>
+
+    <!--<com.google.android.material.tabs.TabLayout
         style="@style/tab_home"
         android:layout_width="200dp"
         android:layout_marginTop="@dimen/margin_high"
@@ -30,7 +55,7 @@
             android:id="@+id/tab_mobile"
             android:text="@string/mobile" />
 
-    </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.tabs.TabLayout>-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_mobile"

@@ -71,7 +71,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
     LinearLayout layoutMobile, layoutEmail;
     MaterialButton btnLogin, btnLoginSocial;
     ProgressBar loginProgressBar;
-    TabLayout loginTabs;
+    MaterialButton btnMobile,btnEmail;
+    //TabLayout loginTabs;
     //TabItem tabEmail, tabMobile;
 
 
@@ -152,6 +153,20 @@ public class LoginRegisterActivity extends AppCompatActivity {
             }
         });
 
+
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLoginType(1);
+            }
+        });
+
+        btnMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLoginType(2);
+            }
+        });
 
         /*tabMobile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -424,9 +439,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
         viewFlipper = findViewById(R.id.login_vf);
         signUpProgressBar = findViewById(R.id.progress_signup);
         txtRegister = findViewById(R.id.txt_btn_register);
-        loginTabs = findViewById(R.id.tab_login);/*
+       /* loginTabs = findViewById(R.id.tab_login);
         tabEmail = findViewById(R.id.tab_email);
         tabMobile = findViewById(R.id.tab_mobile);*/
+        btnEmail = findViewById(R.id.btn_email);
+        btnMobile = findViewById(R.id.btn_phone);
         txtEmailLogin = findViewById(R.id.txt_email_login);
         txtMobile = findViewById(R.id.txt_mobile);
         txtPassword = findViewById(R.id.txt_pass);
