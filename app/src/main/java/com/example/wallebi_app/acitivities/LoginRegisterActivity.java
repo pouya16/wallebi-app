@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
@@ -72,6 +75,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
     MaterialButton btnLogin, btnLoginSocial;
     ProgressBar loginProgressBar;
     MaterialButton btnMobile,btnEmail;
+    View viewMobile,viewEmail;
+    ImageButton btnShowPass;
+    Boolean showPass = false;
     //TabLayout loginTabs;
     //TabItem tabEmail, tabMobile;
 
@@ -145,6 +151,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
         // LOGIN LOGIC
 
+        changeLoginType(1);
+
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,6 +176,12 @@ public class LoginRegisterActivity extends AppCompatActivity {
             }
         });
 
+        btnShowPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeShowPass();
+            }
+        });
         /*tabMobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,9 +199,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("Log1","email is: " + txtEmailLogin.getText().toString());
+                Log.i("Log1","pass is: " + txtPassword.getText().toString());
                 if (loginType.compareTo("email") == 0) {
-                    if (StringHelper.isValidEmail(txtEmail.getText())){
-                        if(txtPassword.getText().length()<5){
+                    if (StringHelper.isValidEmail(txtEmailLogin.getText())){
+                        if(txtPassword.getText().length()>5){
                             makeLogin();
                         }else{
                             StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
@@ -197,7 +213,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                     }
                 }else{
                     if(txtMobile.getText().length() == 10){
-                        if(txtPassword.getText().length()<5){
+                        if(txtPassword.getText().length()>5){
                             makeLogin();
                         }else{
                             StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
@@ -213,6 +229,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
     }
 
 
+
+
     public void makeLogin(){
         btnLogin.setVisibility(View.GONE);
         loginProgressBar.setVisibility(View.VISIBLE);
@@ -220,17 +238,33 @@ public class LoginRegisterActivity extends AppCompatActivity {
         PreLoginApi preLoginApi = retrofit.create(PreLoginApi.class);
         Call<PreLoginResponse> call;
         if(loginType.compareTo("email") == 0){
-            call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtEmail.getText().toString(),loginType));
+            HashMap<String,Object> emailHash = new HashMap<>();
+            emailHash.put("password",txtPassword.getText().toString());
+            emailHash.put("type","pass");
+            emailHash.put("username",txtEmail.getText().toString());
+            emailHash.put("username_type",loginType);
+            call = preLoginApi.sendPreLogin(emailHash);
         }else{
-            call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtMobile.getText().toString(),loginType));
+
+            HashMap<String,Object> mobileHash = new HashMap<>();
+            mobileHash.put("password",txtPassword.getText().toString());
+            mobileHash.put("type","pass");
+            mobileHash.put("username",txtMobile.getText().toString());
+            mobileHash.put("username_type",loginType);
+            call = preLoginApi.sendPreLogin(mobileHash);
+            //call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtMobile.getText().toString(),loginType));
         }
         call.enqueue(new Callback<PreLoginResponse>() {
             @Override
             public void onResponse(Call<PreLoginResponse> call, Response<PreLoginResponse> response) {
                 btnLogin.setVisibility(View.VISIBLE);
                 loginProgressBar.setVisibility(View.GONE);
+                Log.i("Log1","response has come");
+                Log.i("Log1","response code is: "  + response.code());
                 try {
                     if(response.body().getSuccess()){
+
+                        Log.i("Log1","success Login");
                         if(!response.body().getData().getPermission().getG2f()&&!response.body().getData().getPermission().getOtp()){
                             LoginData.access_token = response.body().getData().getAccess_token();
                             LoginData.refresh_token = response.body().getData().getRefresh_token();
@@ -253,8 +287,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
                         }
                     }else{
 
+                        Log.i("Log1","failed Login");
                     }
                 }catch (Exception e){
+
+                    Log.i("Log1","failed Login: " + e.toString());
                     StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
 
                 }
@@ -310,12 +347,40 @@ public class LoginRegisterActivity extends AppCompatActivity {
     }
 
 
+    private void changeShowPass(){
+        if(showPass){
+            showPass = false;
+            txtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }else{
+            showPass = true;
+            txtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }
+
+    }
+
     public void changeLoginType(int mode) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels - 40;
+
         if (mode == 1) {
+            btnEmail.setTextColor(getColor(R.color.mvp_gray4));
+            btnMobile.setTextColor(getColor(R.color.mvp_gray2));
+            viewEmail.setBackgroundColor(getColor(R.color.mvp_yellow));
+            viewEmail.setLayoutParams(new LinearLayout.LayoutParams(width/2,2));
+            viewMobile.setBackgroundColor(getColor(R.color.mvp_gray2));
+            viewEmail.setLayoutParams(new LinearLayout.LayoutParams(width/2,1));
             layoutEmail.setVisibility(View.VISIBLE);
             layoutMobile.setVisibility(View.GONE);
             loginType = "email";
         } else {
+            btnEmail.setTextColor(getColor(R.color.mvp_gray2));
+            btnMobile.setTextColor(getColor(R.color.mvp_gray4));
+            viewEmail.setBackgroundColor(getColor(R.color.mvp_gray2));
+            viewEmail.setLayoutParams(new LinearLayout.LayoutParams(width/2,1));
+            viewMobile.setBackgroundColor(getColor(R.color.mvp_yellow));
+            viewEmail.setLayoutParams(new LinearLayout.LayoutParams(width/2,2));
             layoutEmail.setVisibility(View.GONE);
             layoutMobile.setVisibility(View.VISIBLE);
             loginType = "mobile";
@@ -442,6 +507,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
        /* loginTabs = findViewById(R.id.tab_login);
         tabEmail = findViewById(R.id.tab_email);
         tabMobile = findViewById(R.id.tab_mobile);*/
+        viewEmail = findViewById(R.id.view_email);
+        btnShowPass = findViewById(R.id.show_pass_login);
+        viewMobile = findViewById(R.id.view_mobile);
         btnEmail = findViewById(R.id.btn_email);
         btnMobile = findViewById(R.id.btn_phone);
         txtEmailLogin = findViewById(R.id.txt_email_login);

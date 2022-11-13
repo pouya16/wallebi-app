@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
@@ -33,6 +34,35 @@
             android:background="@android:color/transparent"
             android:textColor="?attr/textGray3"
             android:id="@+id/btn_phone"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:text="@string/internal_user"
+            android:layout_weight="1"
+            android:background="?attr/textGray3"
+            android:textColor="?attr/textGray2"
+            android:id="@+id/view_email"/>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:text="@string/internal_user"
+            android:layout_weight="1"
+            android:background="?attr/colorPrimary"
+            android:textColor="?attr/textGray2"
+            android:id="@+id/view_mobile"/>
+
+
 
     </LinearLayout>
 
@@ -171,13 +201,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_16"
         android:id="@+id/layout_email"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_16"
             android:orientation="horizontal">
 
             <TextView
@@ -310,8 +340,9 @@
                                 android:layout_height="match_parent">
 
                                 <ImageButton
-                                    android:id="@+id/c"
+                                    android:id="@+id/show_pass_login"
                                     android:layout_width="wrap_content"
+                                    android:clickable="true"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:background="@android:color/transparent"
