@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputType;
+import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -237,23 +239,29 @@ public class LoginRegisterActivity extends AppCompatActivity {
         Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
         PreLoginApi preLoginApi = retrofit.create(PreLoginApi.class);
         Call<PreLoginResponse> call;
+        RequestBody body;
         if(loginType.compareTo("email") == 0){
-            HashMap<String,Object> emailHash = new HashMap<>();
+            Map<String,Object> emailHash = new ArrayMap<>();
             emailHash.put("password",txtPassword.getText().toString());
             emailHash.put("type","pass");
-            emailHash.put("username",txtEmail.getText().toString());
+            emailHash.put("username","pouyaa16@gmail.com");
             emailHash.put("username_type",loginType);
-            call = preLoginApi.sendPreLogin(emailHash);
+            emailHash.put("captcha_value",true);
+            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(emailHash)).toString());
+            //call = preLoginApi.sendPreLogin(emailHash);
         }else{
 
-            HashMap<String,Object> mobileHash = new HashMap<>();
+            Map<String,Object> mobileHash = new ArrayMap<>();
             mobileHash.put("password",txtPassword.getText().toString());
             mobileHash.put("type","pass");
             mobileHash.put("username",txtMobile.getText().toString());
             mobileHash.put("username_type",loginType);
-            call = preLoginApi.sendPreLogin(mobileHash);
+            mobileHash.put("captcha_value",true);
+            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(mobileHash)).toString());
+            //call = preLoginApi.sendPreLogin(mobileHash);
             //call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtMobile.getText().toString(),loginType));
         }
+        call = preLoginApi.sendPreLogin(body);
         call.enqueue(new Callback<PreLoginResponse>() {
             @Override
             public void onResponse(Call<PreLoginResponse> call, Response<PreLoginResponse> response) {
@@ -262,32 +270,38 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 Log.i("Log1","response has come");
                 Log.i("Log1","response code is: "  + response.code());
                 try {
-                    if(response.body().getSuccess()){
+                    if(response.code() == 200){
 
-                        Log.i("Log1","success Login");
-                        if(!response.body().getData().getPermission().getG2f()&&!response.body().getData().getPermission().getOtp()){
-                            LoginData.access_token = response.body().getData().getAccess_token();
-                            LoginData.refresh_token = response.body().getData().getRefresh_token();
-                            Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            LoginRegisterActivity.this.finish();
-                        }else{
-                            Intent intent = new Intent(LoginRegisterActivity.this, GetSecuritiesActivity.class);
-                            intent.putExtra("token",response.body().getData().getAccess_token());
-                            intent.putExtra("mode",0);
-                            if(loginType.compareTo("email") == 0){
-                                intent.putExtra("email",txtEmail.getText().toString());
+                        if(response.body().getSuccess()){
+
+                            Log.i("Log1","success Login");
+                            if(!response.body().getData().getPermission().getG2f()&&!response.body().getData().getPermission().getOtp()){
+                                LoginData.access_token = response.body().getData().getAccess_token();
+                                LoginData.refresh_token = response.body().getData().getRefresh_token();
+                                Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                LoginRegisterActivity.this.finish();
                             }else{
-                                intent.putExtra("mobile",txtMobile.getText().toString());
+                                Intent intent = new Intent(LoginRegisterActivity.this, GetSecuritiesActivity.class);
+                                intent.putExtra("token",response.body().getData().getAccess_token());
+                                intent.putExtra("mode",0);
+                                if(loginType.compareTo("email") == 0){
+                                    intent.putExtra("email",txtEmail.getText().toString());
+                                }else{
+                                    intent.putExtra("mobile",txtMobile.getText().toString());
+                                }
+                                intent.putExtra("otp",response.body().getData().getPermission().getOtp());
+                                intent.putExtra("g2f",response.body().getData().getPermission().getG2f());
+                                startActivity(intent);
+                                LoginRegisterActivity.this.finish();
                             }
-                            intent.putExtra("otp",response.body().getData().getPermission().getOtp());
-                            intent.putExtra("g2f",response.body().getData().getPermission().getG2f());
-                            startActivity(intent);
-                            LoginRegisterActivity.this.finish();
+                        }else{
+                            StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), response.body().getErr(), 0);
+                            Log.i("Log1","failed Login");
                         }
-                    }else{
-
-                        Log.i("Log1","failed Login");
+                    }else if(response.code() == 429){
+                        StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), response.body().getAvailableIn() + "", 0);
+                        Log.i("Log1","request exceeded");
                     }
                 }catch (Exception e){
 

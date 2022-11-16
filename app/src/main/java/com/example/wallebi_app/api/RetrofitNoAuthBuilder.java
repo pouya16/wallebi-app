@@ -36,7 +36,7 @@ public class RetrofitNoAuthBuilder {
 
         retrofit = new Retrofit.Builder()
                 .client(getUnsafeOkHttpClient().build())
-                .baseUrl("https://api.wallebi.run/")
+                .baseUrl("https://2a7b-195-181-170-79.eu.ngrok.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
