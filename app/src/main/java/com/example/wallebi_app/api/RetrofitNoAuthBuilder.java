@@ -3,6 +3,8 @@ package com.example.wallebi_app.api;
 import android.content.Context;
 
 
+import com.example.wallebi_app.R;
+
 import java.io.IOException;
 import java.security.cert.CertificateException;
 
@@ -34,9 +36,20 @@ public class RetrofitNoAuthBuilder {
         this.context = context;
         HttpsTrustManager.allowAllSSL();
 
+
+        OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+
+        builder.addInterceptor(chain -> {
+            Request request = chain.request().newBuilder().addHeader("M2M", "Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==pouya").build();
+            return chain.proceed(request);
+        });
+
+
+        OkHttpClient client = builder.build();
         retrofit = new Retrofit.Builder()
-                .client(getUnsafeOkHttpClient().build())
-                .baseUrl("https://2a7b-195-181-170-79.eu.ngrok.io/")
+                .client(client)
+                //https://2a7b-195-181-170-79.eu.ngrok.io/
+                .baseUrl(context.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -51,7 +64,7 @@ public class RetrofitNoAuthBuilder {
         }
         return new RetrofitNoAuthBuilder(context);
     }
-
+/*
     public static OkHttpClient.Builder getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
@@ -105,6 +118,6 @@ public class RetrofitNoAuthBuilder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 }

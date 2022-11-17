@@ -1,5 +1,6 @@
 package com.example.wallebi_app.acitivities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,40 +17,32 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.wallebi_app.MainActivity;
 import com.example.wallebi_app.R;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
-import com.example.wallebi_app.api.VolleyRequests;
 import com.example.wallebi_app.api.reg.apis.AskOtpApi;
 import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
 import com.example.wallebi_app.api.reg.apis.PreLoginApi;
-import com.example.wallebi_app.api.reg.model.LoginBody;
 import com.example.wallebi_app.api.reg.model.RegisterNormalBody;
 import com.example.wallebi_app.api.reg.model.SendOtpBody;
 import com.example.wallebi_app.api.reg.responses.EOtpResponse;
-import com.example.wallebi_app.api.reg.responses.PreLoginResponse;
+import com.example.wallebi_app.api.reg.responses.PreLoginRes;
 import com.example.wallebi_app.api.reg.responses.VerifyEmailResponse;
 import com.example.wallebi_app.database.LoginData;
 import com.example.wallebi_app.helpers.StringHelper;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabItem;
-import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +77,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     //TabItem tabEmail, tabMobile;
 
 
+    private OkHttpClient client;
     int mode = 0;
     String loginType = "email";
 
@@ -235,10 +229,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
     public void makeLogin(){
         btnLogin.setVisibility(View.GONE);
-        loginProgressBar.setVisibility(View.VISIBLE);
+        loginProgressBar.setVisibility(View.VISIBLE);/*
         Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
         PreLoginApi preLoginApi = retrofit.create(PreLoginApi.class);
-        Call<PreLoginResponse> call;
+        Call<String> call;
         RequestBody body;
         if(loginType.compareTo("email") == 0){
             Map<String,Object> emailHash = new ArrayMap<>();
@@ -260,11 +254,52 @@ public class LoginRegisterActivity extends AppCompatActivity {
             body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(mobileHash)).toString());
             //call = preLoginApi.sendPreLogin(mobileHash);
             //call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtMobile.getText().toString(),loginType));
-        }
-        call = preLoginApi.sendPreLogin(body);
-        call.enqueue(new Callback<PreLoginResponse>() {
+        }*/
+
+        //call = preLoginApi.sendPreLogin(body);
+        /*@Override
+        public void onFailure(Call call, Throwable t) {
+
+        }*/
+       String postBody="{\n" +
+                "    \"username\": \"pouya16@gmail.com\",\n" +
+                "    \"password\": \"my_pass\",\n" +
+                "    \"type\": \"pass\",\n" +
+                "    \"username_type\": \"password\",\n" +
+                "    \"captcha_value\": \"1\"\n" +
+                "}";
+       final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        RequestBody body = RequestBody.create(postBody,JSON);
+        client = new OkHttpClient();
+        final Request request = new Request.Builder().url("https://api.wallebi.run/v1/UserService/pre_login/")
+                .addHeader("M2M","Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==pouya")
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
-            public void onResponse(Call<PreLoginResponse> call, Response<PreLoginResponse> response) {
+            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
+/*
+                btnLogin.setVisibility(View.VISIBLE);
+                loginProgressBar.setVisibility(View.GONE);*/
+                Log.i("Log1","error is"  + e.toString());
+            }
+
+            @Override
+            public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws IOException {
+
+                /*
+                btnLogin.setVisibility(View.VISIBLE);
+                loginProgressBar.setVisibility(View.GONE);*/
+                Log.i("Log1","response is"  + response.body().string());
+            }
+        });
+
+
+        /*call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
                 btnLogin.setVisibility(View.VISIBLE);
                 loginProgressBar.setVisibility(View.GONE);
                 Log.i("Log1","response has come");
@@ -272,7 +307,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 try {
                     if(response.code() == 200){
 
-                        if(response.body().getSuccess()){
+                        *//*if(response.body().getSuccess()){
 
                             Log.i("Log1","success Login");
                             if(!response.body().getData().getPermission().getG2f()&&!response.body().getData().getPermission().getOtp()){
@@ -298,10 +333,13 @@ public class LoginRegisterActivity extends AppCompatActivity {
                         }else{
                             StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), response.body().getErr(), 0);
                             Log.i("Log1","failed Login");
-                        }
+                        }*//*
                     }else if(response.code() == 429){
-                        StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), response.body().getAvailableIn() + "", 0);
-                        Log.i("Log1","request exceeded");
+                        StringHelper.showSnackBar(LoginRegisterActivity.this, response.body(), getString(R.string.login) + "", 0);
+                        Log.i("Log1","request exceeded : " + response.body());
+                    }else if(response.code() == 404){
+                        Log.i("Log1","user pass error" +response.body().toString());
+                        StringHelper.showSnackBar(LoginRegisterActivity.this, response.body(), getString(R.string.login) + "", 0);
                     }
                 }catch (Exception e){
 
@@ -313,13 +351,12 @@ public class LoginRegisterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PreLoginResponse> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 btnLogin.setVisibility(View.VISIBLE);
                 loginProgressBar.setVisibility(View.GONE);
                 StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
             }
-        });
-
+        });*/
 
     }
 
