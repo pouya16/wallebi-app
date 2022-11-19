@@ -6,24 +6,13 @@ import android.content.Context;
 import com.example.wallebi_app.R;
 
 import java.io.IOException;
-import java.security.cert.CertificateException;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class RetrofitNoAuthBuilder {
@@ -60,7 +49,7 @@ public class RetrofitNoAuthBuilder {
                 .client(httpClient.build())
                 //https://2a7b-195-181-170-79.eu.ngrok.io/
                 .baseUrl(context.getString(R.string.base_url))
-                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
