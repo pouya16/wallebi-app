@@ -16,16 +16,20 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class RetrofitNoAuthBuilder {
     Retrofit retrofit;
     Context context;
+    private OkHttpClient client;
     private static RetrofitNoAuthBuilder retrofitBuilder = null;
 
     public Retrofit getRetrofit() {
@@ -37,20 +41,26 @@ public class RetrofitNoAuthBuilder {
         HttpsTrustManager.allowAllSSL();
 
 
-        OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-        builder.addInterceptor(chain -> {
-            Request request = chain.request().newBuilder().addHeader("M2M", "Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==pouya").build();
-            return chain.proceed(request);
+        httpClient.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request().newBuilder().addHeader("M2M", "Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==").build();
+                return chain.proceed(request);
+            }
         });
+        /*
+        final Request request = new Request.Builder().url("https://api.wallebi.run/v1/UserService/pre_login/")
+                .addHeader("M2M","Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==")
+                .build();*/
 
 
-        OkHttpClient client = builder.build();
         retrofit = new Retrofit.Builder()
-                .client(client)
+                .client(httpClient.build())
                 //https://2a7b-195-181-170-79.eu.ngrok.io/
                 .baseUrl(context.getString(R.string.base_url))
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 
 
@@ -64,6 +74,8 @@ public class RetrofitNoAuthBuilder {
         }
         return new RetrofitNoAuthBuilder(context);
     }
+
+
 /*
     public static OkHttpClient.Builder getUnsafeOkHttpClient() {
         try {

@@ -43,6 +43,11 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void getRegisterType(Context context){
+        LoginData.registerModel = 1;
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        SplashActivity.this.startActivity(intent);
+        SplashActivity.this.finish();
+/*
         registerType = retrofit.create(RegisterType.class);
         Call<RegisterTypeModel> call = registerType.getTypeApi();
         call.enqueue(new Callback<RegisterTypeModel>() {
@@ -69,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 Log.i("Log1", "failure in Splash");
             }
-        });
+        });*/
 
 
     }

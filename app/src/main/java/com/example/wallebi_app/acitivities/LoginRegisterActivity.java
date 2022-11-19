@@ -22,6 +22,8 @@ import android.widget.ViewFlipper;
 
 import com.example.wallebi_app.MainActivity;
 import com.example.wallebi_app.R;
+import com.example.wallebi_app.api.BodyHandlingModel;
+import com.example.wallebi_app.api.BodyMaker;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.reg.apis.AskOtpApi;
 import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
@@ -38,6 +40,8 @@ import com.google.android.material.button.MaterialButton;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -229,8 +233,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
     public void makeLogin(){
         btnLogin.setVisibility(View.GONE);
-        loginProgressBar.setVisibility(View.VISIBLE);/*
-        Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
+        loginProgressBar.setVisibility(View.VISIBLE);
+        /*Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
         PreLoginApi preLoginApi = retrofit.create(PreLoginApi.class);
         Call<String> call;
         RequestBody body;
@@ -242,7 +246,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
             emailHash.put("username_type",loginType);
             emailHash.put("captcha_value",true);
             body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(emailHash)).toString());
-            //call = preLoginApi.sendPreLogin(emailHash);
+            call = preLoginApi.sendPreLogin(body);
         }else{
 
             Map<String,Object> mobileHash = new ArrayMap<>();
@@ -252,52 +256,13 @@ public class LoginRegisterActivity extends AppCompatActivity {
             mobileHash.put("username_type",loginType);
             mobileHash.put("captcha_value",true);
             body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(mobileHash)).toString());
-            //call = preLoginApi.sendPreLogin(mobileHash);
-            //call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtMobile.getText().toString(),loginType));
-        }*/
-
-        //call = preLoginApi.sendPreLogin(body);
-        /*@Override
-        public void onFailure(Call call, Throwable t) {
-
-        }*/
-       String postBody="{\n" +
-                "    \"username\": \"pouya16@gmail.com\",\n" +
-                "    \"password\": \"my_pass\",\n" +
-                "    \"type\": \"pass\",\n" +
-                "    \"username_type\": \"password\",\n" +
-                "    \"captcha_value\": \"1\"\n" +
-                "}";
-       final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-        RequestBody body = RequestBody.create(postBody,JSON);
-        client = new OkHttpClient();
-        final Request request = new Request.Builder().url("https://api.wallebi.run/v1/UserService/pre_login/")
-                .addHeader("M2M","Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==pouya")
-                .post(body)
-                .build();
-
-        client.newCall(request).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
-/*
-                btnLogin.setVisibility(View.VISIBLE);
-                loginProgressBar.setVisibility(View.GONE);*/
-                Log.i("Log1","error is"  + e.toString());
-            }
-
-            @Override
-            public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws IOException {
-
-                /*
-                btnLogin.setVisibility(View.VISIBLE);
-                loginProgressBar.setVisibility(View.GONE);*/
-                Log.i("Log1","response is"  + response.body().string());
-            }
-        });
+            ///call = preLoginApi.sendPreLogin(mobileHash);
+            call = preLoginApi.sendPreLogin(body);
+        }
 
 
-        /*call.enqueue(new Callback<String>() {
+
+        call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 btnLogin.setVisibility(View.VISIBLE);
@@ -307,7 +272,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 try {
                     if(response.code() == 200){
 
-                        *//*if(response.body().getSuccess()){
+
+                        Log.i("Log1","request exceeded : " + response.body());
+                        */
+        /*if(response.body().getSuccess()){
 
                             Log.i("Log1","success Login");
                             if(!response.body().getData().getPermission().getG2f()&&!response.body().getData().getPermission().getOtp()){
@@ -333,7 +301,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
                         }else{
                             StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), response.body().getErr(), 0);
                             Log.i("Log1","failed Login");
-                        }*//*
+                        }*/
+        /*
                     }else if(response.code() == 429){
                         StringHelper.showSnackBar(LoginRegisterActivity.this, response.body(), getString(R.string.login) + "", 0);
                         Log.i("Log1","request exceeded : " + response.body());
@@ -357,6 +326,54 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
             }
         });*/
+
+        String testString = "{\n" +
+                "    \"username\": \"pouya16@gmail.com\",\n" +
+                "    \"password\": \"my_pass\",\n" +
+                "    \"type\": \"pass\",\n" +
+                "    \"username_type\": \"password\",\n" +
+                "    \"captcha_value\": \"1\"\n" +
+                "}";
+
+        List<BodyHandlingModel> bodyList = new ArrayList<>();
+        bodyList.add(new BodyHandlingModel("username","pouya16@gmail.com","string"));
+        bodyList.add(new BodyHandlingModel("password","my_pass","string"));
+        bodyList.add(new BodyHandlingModel("type","pass","string"));
+        bodyList.add(new BodyHandlingModel("username_type","password","string"));
+        bodyList.add(new BodyHandlingModel("captcha_value","1","string"));
+        String postBody= BodyMaker.Companion.getBody(bodyList);
+
+        Log.i("Log1","testString is: " + testString);
+        Log.i("Log1", "generated string is: " + postBody);
+
+
+       final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        RequestBody body = RequestBody.create(testString,JSON);
+        client = new OkHttpClient();
+        final Request request = new Request.Builder().url("https://api.wallebi.run/v1/UserService/pre_login/")
+                .addHeader("M2M","Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==pouya")
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
+
+                btnLogin.setVisibility(View.VISIBLE);
+                loginProgressBar.setVisibility(View.GONE);
+                Log.i("Log1","error is"  + e.toString());
+            }
+
+            @Override
+            public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws IOException {
+
+
+                btnLogin.setVisibility(View.VISIBLE);
+                loginProgressBar.setVisibility(View.GONE);
+                Log.i("Log1","response is"  + response.body().string());
+            }
+        });
 
     }
 
@@ -386,12 +403,12 @@ public class LoginRegisterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<VerifyEmailResponse> call, Throwable t) {
+            public void onFailure(Call<VerifyEmailResponse> call, Throwable t) {/*
                 signUpProgressBar.setVisibility(View.GONE);
                 btnSignUp.setVisibility(View.VISIBLE);
                 btnSignUpSocial.setActivated(true);
                 StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.sign_up_failed), getString(R.string.sign_up), 0);
-
+*/
             }
         });
 
