@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
@@ -24,6 +25,8 @@ import com.example.wallebi_app.MainActivity;
 import com.example.wallebi_app.R;
 import com.example.wallebi_app.api.BodyHandlingModel;
 import com.example.wallebi_app.api.BodyMaker;
+import com.example.wallebi_app.api.HttpCallback;
+import com.example.wallebi_app.api.HttpUtil;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.reg.apis.AskOtpApi;
 import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
@@ -234,106 +237,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     public void makeLogin(){
         btnLogin.setVisibility(View.GONE);
         loginProgressBar.setVisibility(View.VISIBLE);
-        /*Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
-        PreLoginApi preLoginApi = retrofit.create(PreLoginApi.class);
-        Call<String> call;
-        RequestBody body;
-        if(loginType.compareTo("email") == 0){
-            Map<String,Object> emailHash = new ArrayMap<>();
-            emailHash.put("password",txtPassword.getText().toString());
-            emailHash.put("type","pass");
-            emailHash.put("username","pouyaa16@gmail.com");
-            emailHash.put("username_type",loginType);
-            emailHash.put("captcha_value",true);
-            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(emailHash)).toString());
-            call = preLoginApi.sendPreLogin(body);
-        }else{
 
-            Map<String,Object> mobileHash = new ArrayMap<>();
-            mobileHash.put("password",txtPassword.getText().toString());
-            mobileHash.put("type","pass");
-            mobileHash.put("username",txtMobile.getText().toString());
-            mobileHash.put("username_type",loginType);
-            mobileHash.put("captcha_value",true);
-            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(mobileHash)).toString());
-            ///call = preLoginApi.sendPreLogin(mobileHash);
-            call = preLoginApi.sendPreLogin(body);
-        }
-
-
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                btnLogin.setVisibility(View.VISIBLE);
-                loginProgressBar.setVisibility(View.GONE);
-                Log.i("Log1","response has come");
-                Log.i("Log1","response code is: "  + response.code());
-                try {
-                    if(response.code() == 200){
-
-
-                        Log.i("Log1","request exceeded : " + response.body());
-                        */
-        /*if(response.body().getSuccess()){
-
-                            Log.i("Log1","success Login");
-                            if(!response.body().getData().getPermission().getG2f()&&!response.body().getData().getPermission().getOtp()){
-                                LoginData.access_token = response.body().getData().getAccess_token();
-                                LoginData.refresh_token = response.body().getData().getRefresh_token();
-                                Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                LoginRegisterActivity.this.finish();
-                            }else{
-                                Intent intent = new Intent(LoginRegisterActivity.this, GetSecuritiesActivity.class);
-                                intent.putExtra("token",response.body().getData().getAccess_token());
-                                intent.putExtra("mode",0);
-                                if(loginType.compareTo("email") == 0){
-                                    intent.putExtra("email",txtEmail.getText().toString());
-                                }else{
-                                    intent.putExtra("mobile",txtMobile.getText().toString());
-                                }
-                                intent.putExtra("otp",response.body().getData().getPermission().getOtp());
-                                intent.putExtra("g2f",response.body().getData().getPermission().getG2f());
-                                startActivity(intent);
-                                LoginRegisterActivity.this.finish();
-                            }
-                        }else{
-                            StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), response.body().getErr(), 0);
-                            Log.i("Log1","failed Login");
-                        }*/
-        /*
-                    }else if(response.code() == 429){
-                        StringHelper.showSnackBar(LoginRegisterActivity.this, response.body(), getString(R.string.login) + "", 0);
-                        Log.i("Log1","request exceeded : " + response.body());
-                    }else if(response.code() == 404){
-                        Log.i("Log1","user pass error" +response.body().toString());
-                        StringHelper.showSnackBar(LoginRegisterActivity.this, response.body(), getString(R.string.login) + "", 0);
-                    }
-                }catch (Exception e){
-
-                    Log.i("Log1","failed Login: " + e.toString());
-                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                btnLogin.setVisibility(View.VISIBLE);
-                loginProgressBar.setVisibility(View.GONE);
-                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
-            }
-        });*/
-
-        String testString = "{\n" +
-                "    \"username\": \"pouya16@gmail.com\",\n" +
-                "    \"password\": \"my_pass\",\n" +
-                "    \"type\": \"pass\",\n" +
-                "    \"username_type\": \"password\",\n" +
-                "    \"captcha_value\": \"1\"\n" +
-                "}";
 
         List<BodyHandlingModel> bodyList = new ArrayList<>();
         bodyList.add(new BodyHandlingModel("username","pouya16@gmail.com","string"));
@@ -343,37 +247,47 @@ public class LoginRegisterActivity extends AppCompatActivity {
         bodyList.add(new BodyHandlingModel("captcha_value","1","string"));
         String postBody= BodyMaker.Companion.getBody(bodyList);
 
-        Log.i("Log1","testString is: " + testString);
+        //Log.i("Log1","testString is: " + testString);
         Log.i("Log1", "generated string is: " + postBody);
 
+        HttpCallback callback = new HttpCallback() {
 
-       final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-        RequestBody body = RequestBody.create(testString,JSON);
-        client = new OkHttpClient();
-        final Request request = new Request.Builder().url("https://api.wallebi.run/v1/UserService/pre_login/")
-                .addHeader("M2M","Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==")
-                .post(body)
-                .build();
-
-        client.newCall(request).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
-
-                btnLogin.setVisibility(View.VISIBLE);
+            private void resetUi(){
                 loginProgressBar.setVisibility(View.GONE);
-                Log.i("Log1","error is"  + e.toString());
+                btnLogin.setVisibility(View.VISIBLE);
+            }
+
+            Handler mainHandler = new Handler(getBaseContext().getMainLooper());
+
+            @Override
+            public void onFialure(okhttp3.Response response, Throwable throwable) {
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        resetUi();
+                        
+                        Log.i("Log1",response.body().toString());
+                    }
+                });
             }
 
             @Override
-            public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws IOException {
-
-
-                btnLogin.setVisibility(View.VISIBLE);
-                loginProgressBar.setVisibility(View.GONE);
-                Log.i("Log1","response is"  + response.body().string());
+            public void onSuccess(okhttp3.Response response) {
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        resetUi();
+                        Log.i("Log1","" + response.code());
+                        Log.i("Log1",response.body().toString());
+                    }
+                });
             }
-        });
+        };
+
+        HttpUtil httpUtil = new HttpUtil(this);
+        httpUtil.post("v1/UserService/pre_login/",postBody,null,callback,HttpUtil.MODE_NO_AUTH);
+
+
 
     }
 

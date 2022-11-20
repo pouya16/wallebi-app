@@ -1,6 +1,8 @@
 package com.example.wallebi_app.api;
 
 import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -50,6 +52,8 @@ public class HttpUtil {
     private void call(Request request,final HttpCallback callback){
         client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
+
+            Handler mainHandler = new Handler(context.getMainLooper());
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 callback.onFialure(null,e);
