@@ -260,11 +260,11 @@ public class StringHelper {
     }
 
 
-    public static void showSnackBar(Activity context, String message, String header, int mode){
+    public static void showSnackBar(Context context, String message, String header, int mode){
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        View layout = inflater.inflate(R.layout.snack_error_layout,
-                 context.findViewById(R.id.toast_layout_root));
+        //TODO SOLVE THE INFLATING PROBLEM
+        View layout = inflater.inflate(R.layout.snack_error_layout, null);
 
         ImageButton image =  layout.findViewById(R.id.snackbar_close);
         TextView textHeader = layout.findViewById(R.id.txt_title_snack);

@@ -27,6 +27,7 @@ import com.example.wallebi_app.api.BodyHandlingModel;
 import com.example.wallebi_app.api.BodyMaker;
 import com.example.wallebi_app.api.HttpCallback;
 import com.example.wallebi_app.api.HttpUtil;
+import com.example.wallebi_app.api.ResponseErrorHandler;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.reg.apis.AskOtpApi;
 import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
@@ -240,10 +241,19 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
         List<BodyHandlingModel> bodyList = new ArrayList<>();
-        bodyList.add(new BodyHandlingModel("username","pouya16@gmail.com","string"));
-        bodyList.add(new BodyHandlingModel("password","my_pass","string"));
+        String email ="";
+        String loginMode = "email";
+        if(loginType.compareTo("email") == 0){
+            email = txtEmailLogin.getText().toString();
+            loginMode = "email";
+        }else{
+            email = txtMobile.getText().toString();
+            loginMode = "mobile";
+        }
+        bodyList.add(new BodyHandlingModel("username",email,"string"));
+        bodyList.add(new BodyHandlingModel("password",txtPassword.getText().toString(),"string"));
         bodyList.add(new BodyHandlingModel("type","pass","string"));
-        bodyList.add(new BodyHandlingModel("username_type","password","string"));
+        bodyList.add(new BodyHandlingModel("username_type",loginMode,"string"));
         bodyList.add(new BodyHandlingModel("captcha_value","1","string"));
         String postBody= BodyMaker.Companion.getBody(bodyList);
 
@@ -261,26 +271,46 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFialure(okhttp3.Response response, Throwable throwable) {
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        resetUi();
-                        
-                        Log.i("Log1",response.body().toString());
-                    }
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);
+                    responseErrorHandler.createError(response.code(),jsonObject);
+
+                }catch (Exception e){
+
+                }
+                mainHandler.post(() -> {
+                    resetUi();
                 });
             }
 
-            @Override
-            public void onSuccess(okhttp3.Response response) {
-                mainHandler.post(new Runnable() {
+            /*mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         resetUi();
-                        Log.i("Log1","" + response.code());
+
                         Log.i("Log1",response.body().toString());
                     }
-                });
+                });*/
+
+            @Override
+            public void onSuccess(okhttp3.Response response) {
+
+                Log.i("Log1","" + response.code());
+                Log.i("Log1",response.body().toString());
+                try{
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    if(response.code() == 200){
+                        Log.i("Log1","it\\s 200 yes");
+
+                    }else{
+                        ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(getApplicationContext());
+                        responseErrorHandler.createError(response.code(),jsonObject);
+                    }
+                }catch (Exception e){
+                    Log.i("Log1","failed to convert to json");
+                }
+                mainHandler.post(() -> resetUi());
             }
         };
 
