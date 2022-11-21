@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wallebi_app.R;
+import com.example.wallebi_app.base.MyApplication;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -260,11 +261,10 @@ public class StringHelper {
     }
 
 
-    public static void showSnackBar(Context context, String message, String header, int mode){
+    public static void showSnackBar(Activity context, String message, String header, int mode){
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        //TODO SOLVE THE INFLATING PROBLEM
-        View layout = inflater.inflate(R.layout.snack_error_layout, null);
+        View layout = inflater.inflate(R.layout.snack_error_layout, context.findViewById(R.id.toast_layout_root));
 
         ImageButton image =  layout.findViewById(R.id.snackbar_close);
         TextView textHeader = layout.findViewById(R.id.txt_title_snack);

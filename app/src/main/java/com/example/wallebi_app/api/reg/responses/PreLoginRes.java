@@ -1,7 +1,5 @@
 package com.example.wallebi_app.api.reg.responses;
 
-import com.example.wallebi_app.api.reg.model.DataLogin;
-
 public class PreLoginRes {
 
     String message;
@@ -12,14 +10,7 @@ public class PreLoginRes {
     DataLogin data;
 
 
-    public PreLoginRes(String message, Boolean success, int availableIn, String err, int remain, DataLogin data) {
-        this.message = message;
-        this.success = success;
-        this.availableIn = availableIn;
-        this.err = err;
-        this.remain = remain;
-        this.data = data;
-    }
+
 
     public PreLoginRes() {
     }

@@ -239,4 +239,12 @@
     <string name="need_enable_whitelist">You need to enable 2FA for this action. Withdrawals will be disabled for 24 hours after you make this change</string>
     <string name="enable_google_auth">Enable Google Authenticator</string>
     <string name="enable_otp_full">Enable One Time Password</string>
+    <string name="network_error">Network Error</string>
+    <string name="error_response_key">err</string>
+    <string name="available_in">Available In:</string>
+    <string name="remain_response_key">remain</string>
+    <string name="remain_dotted">Remain:</string>
+    <string name="availableIn">Available in:</string>
+    <string name="available_response_key">availableIn</string>
+    <string name="failed_json">Failed to convert response</string>
 </resources>

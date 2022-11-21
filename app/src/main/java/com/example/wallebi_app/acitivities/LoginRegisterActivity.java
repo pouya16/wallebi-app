@@ -2,13 +2,13 @@ package com.example.wallebi_app.acitivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.collection.ArrayMap;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.InputType;
-import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -32,25 +32,25 @@ import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.reg.apis.AskOtpApi;
 import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
 import com.example.wallebi_app.api.reg.apis.PreLoginApi;
+import com.example.wallebi_app.api.reg.responses.DataLogin;
 import com.example.wallebi_app.api.reg.model.RegisterNormalBody;
 import com.example.wallebi_app.api.reg.model.SendOtpBody;
 import com.example.wallebi_app.api.reg.responses.EOtpResponse;
-import com.example.wallebi_app.api.reg.responses.PreLoginRes;
+import com.example.wallebi_app.api.reg.responses.PreLoginResponse;
 import com.example.wallebi_app.api.reg.responses.VerifyEmailResponse;
 import com.example.wallebi_app.database.LoginData;
 import com.example.wallebi_app.helpers.StringHelper;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -85,7 +85,6 @@ public class LoginRegisterActivity extends AppCompatActivity {
     //TabItem tabEmail, tabMobile;
 
 
-    private OkHttpClient client;
     int mode = 0;
     String loginType = "email";
 
@@ -106,50 +105,41 @@ public class LoginRegisterActivity extends AppCompatActivity {
         //REGISTER LOGIC
 
         main_url = getString(R.string.base_url);
-        btnSendEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (StringHelper.isValidEmail(txtEmail.getText())) {
-                    btnSendEmail.setActivated(false);
-                    sendEmail(txtEmail.getText().toString());
-                    countDown(btnSendEmail);
-                } else {
-                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.wrong_email), getString(R.string.email_header), 0);
-                }
+        btnSendEmail.setOnClickListener(view -> {
+            if (StringHelper.isValidEmail(txtEmail.getText())) {
+                btnSendEmail.setActivated(false);
+                sendEmail(txtEmail.getText().toString());
+                countDown(btnSendEmail);
+            } else {
+                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.wrong_email), getString(R.string.email_header), 0);
             }
         });
 
-        txtLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mode = 0;
-                changeMode();
-            }
+        txtLogin.setOnClickListener(view -> {
+            mode = 0;
+            changeMode();
         });
 
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (StringHelper.isValidEmail(txtEmail.getText())) {
-                    if (txtOTP.getText().length() == 6) {
-                        if (checkTerms.isChecked()) {
-                            btnSignUpSocial.setActivated(false);
-                            btnSignUp.setVisibility(View.GONE);
-                            signUpProgressBar.setVisibility(View.VISIBLE);
-                            signUp(txtEmail.getText().toString(), txtOTP.getText().toString());
-                        } else {
-                            StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.should_accept_terms), getString(R.string.term_of_use), 0);
-                        }
+        btnSignUp.setOnClickListener(view -> {
+            if (StringHelper.isValidEmail(txtEmail.getText())) {
+                if (txtOTP.getText().length() == 6) {
+                    if (checkTerms.isChecked()) {
+                        btnSignUpSocial.setActivated(false);
+                        btnSignUp.setVisibility(View.GONE);
+                        signUpProgressBar.setVisibility(View.VISIBLE);
+                        signUp(txtEmail.getText().toString(), txtOTP.getText().toString());
                     } else {
-                        StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.wrong_email_otp), getString(R.string.email_header), 0);
+                        StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.should_accept_terms), getString(R.string.term_of_use), 0);
                     }
-
                 } else {
-                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.wrong_email), getString(R.string.email_header), 0);
+                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.wrong_email_otp), getString(R.string.email_header), 0);
                 }
 
+            } else {
+                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.wrong_email), getString(R.string.email_header), 0);
             }
+
         });
 
 
@@ -157,76 +147,41 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
         changeLoginType(1);
 
-        txtRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mode = 1;
-                changeMode();
-            }
+        txtRegister.setOnClickListener(view -> {
+            mode = 1;
+            changeMode();
         });
 
 
-        btnEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeLoginType(1);
-            }
-        });
-
-        btnMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeLoginType(2);
-            }
-        });
-
-        btnShowPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeShowPass();
-            }
-        });
-        /*tabMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeLoginType(2);
-            }
-        });
-        tabEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeLoginType(1);
-            }
-        });*/
+        btnEmail.setOnClickListener(v -> changeLoginType(1));
+        btnMobile.setOnClickListener(v -> changeLoginType(2));
+        btnShowPass.setOnClickListener(view -> changeShowPass());
 
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("Log1","email is: " + txtEmailLogin.getText().toString());
-                Log.i("Log1","pass is: " + txtPassword.getText().toString());
-                if (loginType.compareTo("email") == 0) {
-                    if (StringHelper.isValidEmail(txtEmailLogin.getText())){
-                        if(txtPassword.getText().length()>5){
-                            makeLogin();
-                        }else{
-                            StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
-                        }
+        btnLogin.setOnClickListener(view -> {
+            Log.i("Log1","email is: " + txtEmailLogin.getText().toString());
+            Log.i("Log1","pass is: " + txtPassword.getText().toString());
+            if (loginType.compareTo("email") == 0) {
+                if (StringHelper.isValidEmail(txtEmailLogin.getText())){
+                    if(txtPassword.getText().length()>5){
+                        makeLogin();
                     }else{
-                        StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_email),getString(R.string.email),0);
+                        StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
                     }
                 }else{
-                    if(txtMobile.getText().length() == 10){
-                        if(txtPassword.getText().length()>5){
-                            makeLogin();
-                        }else{
-                            StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
-                        }
-                    }else{
-                        StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_mobile),getString(R.string.email),0);
-                    }
-
+                    StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_email),getString(R.string.email),0);
                 }
+            }else{
+                if(txtMobile.getText().length() == 10){
+                    if(txtPassword.getText().length()>5){
+                        makeLogin();
+                    }else{
+                        StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
+                    }
+                }else{
+                    StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_mobile),getString(R.string.email),0);
+                }
+
             }
         });
 
@@ -241,9 +196,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
         List<BodyHandlingModel> bodyList = new ArrayList<>();
-        String email ="";
+        String email;
         String loginMode = "email";
         if(loginType.compareTo("email") == 0){
+            txtEmailLogin.getText().toString();
             email = txtEmailLogin.getText().toString();
             loginMode = "email";
         }else{
@@ -260,6 +216,87 @@ public class LoginRegisterActivity extends AppCompatActivity {
         //Log.i("Log1","testString is: " + testString);
         Log.i("Log1", "generated string is: " + postBody);
 
+        /*Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
+        PreLoginApi preLoginApi = retrofit.create(PreLoginApi.class);
+        Call<PreLoginResponse> call;
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),postBody);
+        call = preLoginApi.sendPreLogin(body);
+        if(loginType.compareTo("email") == 0){
+            Map<String,Object> emailHash = new ArrayMap<>();
+            emailHash.put("password",txtPassword.getText().toString());
+            emailHash.put("type","pass");
+            emailHash.put("username",txtEmailLogin.getText().toString());
+            emailHash.put("username_type",loginType);
+            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(emailHash)).toString());
+            call = preLoginApi.sendPreLogin(body);
+        }else{
+
+            Map<String,Object> mobileHash = new ArrayMap<>();
+            mobileHash.put("password",txtPassword.getText().toString());
+            mobileHash.put("type","pass");
+            mobileHash.put("username",txtMobile.getText().toString());
+            mobileHash.put("username_type",loginType);
+            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(mobileHash)).toString());
+            ///call = preLoginApi.sendPreLogin(mobileHash);
+            call = preLoginApi.sendPreLogin(body);
+            //call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtMobile.getText().toString(),loginType));
+        }
+        call.enqueue(new Callback<PreLoginResponse>() {
+            @Override
+            public void onResponse(Call<PreLoginResponse> call, Response<PreLoginResponse> response) {
+                btnLogin.setVisibility(View.VISIBLE);
+                loginProgressBar.setVisibility(View.GONE);
+                Log.i("Log1","response has come");
+                Log.i("Log1","response code is: "  + response.code());
+                try {
+                    if(response.body().getSuccess()){
+
+                        Log.i("Log1","success Login");
+                        if(!response.body().getData().getPermissions().getG2f()&&!response.body().getData().getPermissions().getOtp()){
+                            LoginData.access_token = response.body().getData().getAccess_token();
+                            LoginData.refresh_token = response.body().getData().getRefresh_token();
+                            Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            LoginRegisterActivity.this.finish();
+                        }else{
+                            Intent intent = new Intent(LoginRegisterActivity.this, GetSecuritiesActivity.class);
+                            intent.putExtra("token",response.body().getData().getAccess_token());
+                            intent.putExtra("mode",0);
+                            if(loginType.compareTo("email") == 0){
+                                intent.putExtra("email",txtEmail.getText().toString());
+                            }else{
+                                intent.putExtra("mobile",txtMobile.getText().toString());
+                            }
+                            intent.putExtra("otp",response.body().getData().getPermissions().getOtp());
+                            intent.putExtra("g2f",response.body().getData().getPermissions().getG2f());
+                            startActivity(intent);
+                            LoginRegisterActivity.this.finish();
+                        }
+                    }else{
+
+                        Log.i("Log1","failed Login");
+                        Log.i("Log1", "error is: "  + response.body().getErr());
+                    }
+                }catch (Exception e){
+
+                    Log.i("Log1","failed Login: " + e.toString());
+                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PreLoginResponse> call, Throwable t) {
+                btnLogin.setVisibility(View.VISIBLE);
+                loginProgressBar.setVisibility(View.GONE);
+                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
+            }
+        });*/
+
+
+
+
         HttpCallback callback = new HttpCallback() {
 
             private void resetUi(){
@@ -274,7 +311,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);
-                    responseErrorHandler.createError(response.code(),jsonObject);
+                    responseErrorHandler.createError(response.code(),jsonObject,getString(R.string.log_in_failed));
 
                 }catch (Exception e){
 
@@ -284,31 +321,26 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 });
             }
 
-            /*mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        resetUi();
-
-                        Log.i("Log1",response.body().toString());
-                    }
-                });*/
-
             @Override
             public void onSuccess(okhttp3.Response response) {
 
                 Log.i("Log1","" + response.code());
-                Log.i("Log1",response.body().toString());
                 try{
-                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String res =  response.body().string();
+                    Log.i("Log1",res);
+                    JSONObject jsonObject = new JSONObject(res);
+                    Log.i("Log1","converted to json");
                     if(response.code() == 200){
-                        Log.i("Log1","it\\s 200 yes");
+                        Gson gson = new Gson();
+                        DataLogin data = gson.fromJson(jsonObject.getJSONObject("data").toString(),DataLogin.class);
+                        Log.i("Log1","access token: " + data.getAccess_token());
 
                     }else{
-                        ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(getApplicationContext());
-                        responseErrorHandler.createError(response.code(),jsonObject);
+                        ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);
+                        responseErrorHandler.createError(response.code(),jsonObject,getString(R.string.log_in_failed));
                     }
                 }catch (Exception e){
-                    Log.i("Log1","failed to convert to json");
+                    Log.i("Log1","failed to convert to json: " + e);
                 }
                 mainHandler.post(() -> resetUi());
             }
