@@ -309,7 +309,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
             @Override
             public void onFialure(okhttp3.Response response, Throwable throwable) {
                 try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String res = response.body().string();
+                    Log.i("Log1: ","response is: " + res);
+                    JSONObject jsonObject = new JSONObject(res);
                     ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);
                     responseErrorHandler.createError(response.code(),jsonObject,getString(R.string.log_in_failed));
 
@@ -327,13 +329,30 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 Log.i("Log1","" + response.code());
                 try{
                     String res =  response.body().string();
-                    Log.i("Log1",res);
+                    Log.i("Log1: ","response: " + res);
                     JSONObject jsonObject = new JSONObject(res);
-                    Log.i("Log1","converted to json");
                     if(response.code() == 200){
                         Gson gson = new Gson();
                         DataLogin data = gson.fromJson(jsonObject.getJSONObject("data").toString(),DataLogin.class);
-                        Log.i("Log1","access token: " + data.getAccess_token());
+                        Log.i("Log1","otp: " + data.getPermissions().getOtp());
+                        Log.i("Log1","g2f: " + data.getPermissions().getG2f());
+                        LoginData.access_token = data.getAccess_token();
+                        LoginData.refresh_token = data.getRefresh_token();
+                        if(data.getPermissions().needPermission()){
+                            Intent intent = new Intent(LoginRegisterActivity.this, GetSecuritiesActivity.class);
+                            intent.putExtra("token",data.getAccess_token());
+                            intent.putExtra("mode",0);
+                            if(loginType.compareTo("email") == 0){
+                                intent.putExtra("email",txtEmail.getText().toString());
+                            }else{
+                                intent.putExtra("mobile",txtMobile.getText().toString());
+                            }
+                            startActivity(intent);
+                        }else{
+                            //Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
+                            //startActivity(intent);
+                        }
+                        LoginRegisterActivity.this.finish();
 
                     }else{
                         ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);

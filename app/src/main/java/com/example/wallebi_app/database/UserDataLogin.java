@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 
 
-public class UserData {
+public class UserDataLogin {
 
 
     //show if in get marketPref or userLoginModel
@@ -30,7 +30,7 @@ public class UserData {
     SharedPreferences.Editor editor;
 
 
-    public UserData(Context context) {
+    public UserDataLogin(Context context) {
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME,0);
         editor = pref.edit();
@@ -38,12 +38,12 @@ public class UserData {
 
 
     // constructor for login data
-    public UserData(LoginModel loginModel, Context context) {
+    public UserDataLogin(LoginModel loginModel, Context context) {
         this.userName = loginModel.getUserName().get();
         this.password = loginModel.getPassword().get();
         this.token = loginModel.getToken();
         this.context = context;
-        new UserData(context);
+        new UserDataLogin(context);
     }
 
 

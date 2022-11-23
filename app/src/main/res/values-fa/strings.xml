@@ -247,4 +247,7 @@
     <string name="availableIn">Available in:</string>
     <string name="available_response_key">availableIn</string>
     <string name="failed_json">Failed to convert response</string>
+    <string name="message_response_key">message</string>
+    <string name="failed_otp">Failed to send OTP to your mobile</string>
+    <string name="success_otp">OTP successfuly sent to your mobile</string>
 </resources>

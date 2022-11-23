@@ -107,7 +107,6 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="+98"
                             android:textColor="@color/mvp_gray1"
@@ -232,7 +231,7 @@
             android:background="@android:color/transparent"
             android:backgroundTint="@android:color/transparent"
             android:layout_marginBottom="@dimen/margin_top_16"
-            android:id="@+id/card_edmail"
+            android:id="@+id/card_email"
             android:clickable="false"
             android:elevation="0dp"
             app:cardElevation="0dp">
