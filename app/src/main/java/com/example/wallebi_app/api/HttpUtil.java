@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.example.wallebi_app.database.LoginData;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -61,6 +63,7 @@ public class HttpUtil {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
                 callback.onSuccess(response);
             }
         });

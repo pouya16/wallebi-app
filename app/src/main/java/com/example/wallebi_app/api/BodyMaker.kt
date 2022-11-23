@@ -7,16 +7,6 @@ class BodyMaker {
 
     companion object {
 
-
-        /*"{\n" +
-                "    \"username\": \"pouya16@gmail.com\",\n" +
-                "    \"password\": \"my_pass\",\n" +
-                "    \"type\": \"pass\",\n" +
-                "    \"username_type\": \"password\",\n" +
-                "    \"captcha_value\": \"1\"\n" +
-                "}";*/
-
-
         @JvmOverloads
         fun getBody(list: List<BodyHandlingModel>? = null): String? {
             list?.let {
