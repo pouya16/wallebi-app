@@ -32,6 +32,7 @@ import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.reg.apis.AskOtpApi;
 import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
 import com.example.wallebi_app.api.reg.apis.PreLoginApi;
+import com.example.wallebi_app.api.reg.model.DataEmailVerify;
 import com.example.wallebi_app.api.reg.responses.DataLogin;
 import com.example.wallebi_app.api.reg.model.RegisterNormalBody;
 import com.example.wallebi_app.api.reg.model.SendOtpBody;
@@ -216,87 +217,6 @@ public class LoginRegisterActivity extends AppCompatActivity {
         //Log.i("Log1","testString is: " + testString);
         Log.i("Log1", "generated string is: " + postBody);
 
-        /*Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
-        PreLoginApi preLoginApi = retrofit.create(PreLoginApi.class);
-        Call<PreLoginResponse> call;
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),postBody);
-        call = preLoginApi.sendPreLogin(body);
-        if(loginType.compareTo("email") == 0){
-            Map<String,Object> emailHash = new ArrayMap<>();
-            emailHash.put("password",txtPassword.getText().toString());
-            emailHash.put("type","pass");
-            emailHash.put("username",txtEmailLogin.getText().toString());
-            emailHash.put("username_type",loginType);
-            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(emailHash)).toString());
-            call = preLoginApi.sendPreLogin(body);
-        }else{
-
-            Map<String,Object> mobileHash = new ArrayMap<>();
-            mobileHash.put("password",txtPassword.getText().toString());
-            mobileHash.put("type","pass");
-            mobileHash.put("username",txtMobile.getText().toString());
-            mobileHash.put("username_type",loginType);
-            body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(mobileHash)).toString());
-            ///call = preLoginApi.sendPreLogin(mobileHash);
-            call = preLoginApi.sendPreLogin(body);
-            //call = preLoginApi.sendPreLogin(new LoginBody(txtPassword.getText().toString(),"pass",txtMobile.getText().toString(),loginType));
-        }
-        call.enqueue(new Callback<PreLoginResponse>() {
-            @Override
-            public void onResponse(Call<PreLoginResponse> call, Response<PreLoginResponse> response) {
-                btnLogin.setVisibility(View.VISIBLE);
-                loginProgressBar.setVisibility(View.GONE);
-                Log.i("Log1","response has come");
-                Log.i("Log1","response code is: "  + response.code());
-                try {
-                    if(response.body().getSuccess()){
-
-                        Log.i("Log1","success Login");
-                        if(!response.body().getData().getPermissions().getG2f()&&!response.body().getData().getPermissions().getOtp()){
-                            LoginData.access_token = response.body().getData().getAccess_token();
-                            LoginData.refresh_token = response.body().getData().getRefresh_token();
-                            Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            LoginRegisterActivity.this.finish();
-                        }else{
-                            Intent intent = new Intent(LoginRegisterActivity.this, GetSecuritiesActivity.class);
-                            intent.putExtra("token",response.body().getData().getAccess_token());
-                            intent.putExtra("mode",0);
-                            if(loginType.compareTo("email") == 0){
-                                intent.putExtra("email",txtEmail.getText().toString());
-                            }else{
-                                intent.putExtra("mobile",txtMobile.getText().toString());
-                            }
-                            intent.putExtra("otp",response.body().getData().getPermissions().getOtp());
-                            intent.putExtra("g2f",response.body().getData().getPermissions().getG2f());
-                            startActivity(intent);
-                            LoginRegisterActivity.this.finish();
-                        }
-                    }else{
-
-                        Log.i("Log1","failed Login");
-                        Log.i("Log1", "error is: "  + response.body().getErr());
-                    }
-                }catch (Exception e){
-
-                    Log.i("Log1","failed Login: " + e.toString());
-                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<PreLoginResponse> call, Throwable t) {
-                btnLogin.setVisibility(View.VISIBLE);
-                loginProgressBar.setVisibility(View.GONE);
-                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.log_in_failed), getString(R.string.login), 0);
-            }
-        });*/
-
-
-
-
         HttpCallback callback = new HttpCallback() {
 
             private void resetUi(){
@@ -372,40 +292,74 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
     }
 
+
+
     public void signUp(String email, String code) {
-        Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
-        NormalRegisterApi registerApi = retrofit.create(NormalRegisterApi.class);
-        Call<VerifyEmailResponse> call = registerApi.registerEmail(new RegisterNormalBody(code, email));
-        call.enqueue(new Callback<VerifyEmailResponse>() {
+
+        String endPoint = "v1/UserService/signup/confirm_code/";
+        List<BodyHandlingModel> bodyList = new ArrayList<>();
+        if(txtReferral.getText().toString().length()>0){
+            //bodyList
+        }
+        bodyList.add(new BodyHandlingModel("email",email,"string"));
+        bodyList.add(new BodyHandlingModel("code",code,"string"));
+        String postBody= BodyMaker.Companion.getBody(bodyList);
+
+        HttpCallback httpCallback = new HttpCallback() {
+
+            private void resetUI(){
+            }
+            Handler mainHandler = new Handler(getBaseContext().getMainLooper());
+
             @Override
-            public void onResponse(Call<VerifyEmailResponse> call, Response<VerifyEmailResponse> response) {
-                signUpProgressBar.setVisibility(View.GONE);
-                btnSignUp.setVisibility(View.VISIBLE);
-                btnSignUpSocial.setActivated(true);
+            public void onFialure(okhttp3.Response response, Throwable throwable) {
                 try {
-                    if (response.body().getSuccess()) {
-                        Intent intent = new Intent(LoginRegisterActivity.this, SetPasswordActivity.class);
-                        intent.putExtra("email", email);
-                        intent.putExtra("allow_key", response.body().getData().getAllow_key());
-                        startActivity(intent);
-                        LoginRegisterActivity.this.finish();
-                    } else {
-                        StringHelper.showSnackBar(LoginRegisterActivity.this, response.body().getErr(), getString(R.string.sign_up), 0);
-                    }
-                } catch (Exception e) {
-                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.sign_up_failed), getString(R.string.sign_up), 0);
+                    String res = response.body().string();
+                    Log.i("Log1: ","response is: " + res);
+                    JSONObject jsonObject = new JSONObject(res);
+                    ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);
+                    responseErrorHandler.createError(response.code(),jsonObject,getString(R.string.log_in_failed));
+
+                }catch (Exception e){
+
                 }
+                mainHandler.post(() -> {
+                    resetUI();
+                });
             }
 
             @Override
-            public void onFailure(Call<VerifyEmailResponse> call, Throwable t) {/*
-                signUpProgressBar.setVisibility(View.GONE);
-                btnSignUp.setVisibility(View.VISIBLE);
-                btnSignUpSocial.setActivated(true);
-                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.sign_up_failed), getString(R.string.sign_up), 0);
-*/
+            public void onSuccess(okhttp3.Response response) {
+                resetUI();
+                Log.i("Log1","" + response.code());
+                try{
+                    String res =  response.body().string();
+                    Log.i("Log1: ","response: " + res);
+                    JSONObject jsonObject = new JSONObject(res);
+                    if(response.code() == 200){
+                        Gson gson = new Gson();
+                        DataEmailVerify data = gson.fromJson(jsonObject.getJSONObject("data").toString(),DataEmailVerify.class);
+                        Intent intent = new Intent(LoginRegisterActivity.this, SetPasswordActivity.class);
+                        intent.putExtra("email", email);
+                        intent.putExtra("allow_key", data.getAllow_key());
+                        startActivity(intent);
+                        LoginRegisterActivity.this.finish();
+                    }else{
+                        ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);
+                        responseErrorHandler.createError(response.code(),jsonObject,getString(R.string.log_in_failed));
+                    }
+                }catch (Exception e){
+                    Log.i("Log1","failed to convert to json: " + e);
+                }
+                mainHandler.post(() -> resetUI());
+
             }
-        });
+        };
+
+        HttpUtil httpUtil = new HttpUtil(this);
+        httpUtil.post(endPoint,postBody,null,httpCallback,HttpUtil.MODE_NO_AUTH);
+
+
 
     }
 
@@ -420,6 +374,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         }
 
     }
+
 
     public void changeLoginType(int mode) {
 
@@ -471,65 +426,57 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
     public void sendEmail(String email) {
-        Retrofit retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
-        AskOtpApi askOtpApi = retrofit.create(AskOtpApi.class);
-        Call<EOtpResponse> call = askOtpApi.sendEOtp(new SendOtpBody(email));
-        call.enqueue(new Callback<EOtpResponse>() {
+        String url = "v1/UserService/signup/send_code/";
+
+        List<BodyHandlingModel> bodyList = new ArrayList<>();
+        if(txtReferral.getText().toString().length()>0){
+            //bodyList
+        }
+        bodyList.add(new BodyHandlingModel("email",email,"string"));
+        String postBody= BodyMaker.Companion.getBody(bodyList);
+        HttpCallback httpCallback = new HttpCallback() {
+
+            private void resetUI(){
+                signUpProgressBar.setVisibility(View.GONE);
+                btnSignUp.setVisibility(View.VISIBLE);
+            }
+            Handler mainHandler = new Handler(getBaseContext().getMainLooper());
+
             @Override
-            public void onResponse(Call<EOtpResponse> call, Response<EOtpResponse> response) {
-                if (response.body().getSuccess()) {
-                    Log.i("Log1","otp is: " );
-                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.email_otp_send), getString(R.string.otp_header), 1);
-                } else {
-                    StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.email_otp_failed), getString(R.string.otp_header), 0);
+            public void onFialure(okhttp3.Response response, Throwable throwable) {
+                try {
+                    String res = response.body().string();
+                    Log.i("Log1: ","response is: " + res);
+                    JSONObject jsonObject = new JSONObject(res);
+                    ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler(LoginRegisterActivity.this);
+                    responseErrorHandler.createError(response.code(),jsonObject,getString(R.string.log_in_failed));
+
+                }catch (Exception e){
+
                 }
+                mainHandler.post(() -> {
+                    resetUI();
+                });
             }
 
             @Override
-            public void onFailure(Call<EOtpResponse> call, Throwable t) {
-                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.email_otp_failed), getString(R.string.otp_header), 0);
-            }
-        });
-
-        /*String url = main_url + "v1/UserService/signup/send_code/";
-        StringRequest getRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        countDown(btnSendEmail);
-                        try {
-                            jsonObject = new JSONObject(response);
-                            Boolean success = jsonObject.getBoolean("success");
-                            if(success){
-
-                            }else{
-
-                            }
-                        }catch (Exception e){
-
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
+            public void onSuccess(okhttp3.Response response) {
+                resetUI();
+                Log.i("Log1","" + response.code());
+                try{
+                    String res =  response.body().string();
+                    Log.i("Log1: ","response: " + res);
+                }catch (Exception e){
+                    Log.i("Log1","failed to convert to json: " + e);
                 }
+                mainHandler.post(() -> resetUI());
 
-        ) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("M2M", "Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==");
-
-                return params;
             }
         };
-        queue.add(getRequest);
-*/
+
+        HttpUtil httpUtil = new HttpUtil(this);
+        httpUtil.post(url,postBody,null,httpCallback,HttpUtil.MODE_NO_AUTH);
+
 
     }
 
