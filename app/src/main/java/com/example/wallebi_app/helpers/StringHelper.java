@@ -369,6 +369,8 @@ public class StringHelper {
             currentScore = 0;
         }
 
+        Log.i("Log1","score is : " + currentScore);
+
         return  currentScore;
     }
 

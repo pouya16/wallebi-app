@@ -5,6 +5,8 @@
     android:background="@android:color/transparent"
     android:backgroundTint="@android:color/transparent"
     android:layout_width="match_parent"
+    android:layout_marginStart="@dimen/margin_register_start"
+    android:layout_marginEnd="@dimen/margin_register_end"
     android:layout_height="match_parent">
 
 
@@ -68,7 +70,7 @@
 
 
             <EditText
-                android:id="@+id/txt_input"
+                android:id="@+id/txt_input_closed"
                 android:layout_width="0dp"
                 android:backgroundTint="@android:color/transparent"
                 android:background="@android:color/transparent"
@@ -101,7 +103,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_register_closed"
         android:layout_marginTop="@dimen/margin_top_16"
         android:layout_width="match_parent"
         android:layout_height="@dimen/vtn_default_height"
@@ -126,7 +128,7 @@
             android:textSize="@dimen/size_12" />
 
         <TextView
-            android:id="@+id/txt_btn_login"
+            android:id="@+id/txt_btn_login_closed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_word_Start"

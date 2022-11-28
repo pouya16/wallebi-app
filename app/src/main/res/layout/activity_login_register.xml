@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
             <include
                 android:id="@+id/layout_login"
                 layout="@layout/layout_login" />
@@ -42,6 +43,7 @@
             <include
                 android:id="@+id/layout_register_close"
                 layout="@layout/layout_register_close" />
+
         </ViewFlipper>
 
 

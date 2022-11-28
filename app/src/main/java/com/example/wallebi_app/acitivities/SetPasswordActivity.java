@@ -79,7 +79,7 @@ public class SetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(txtPass.getText().toString().compareTo(txtPassRepeat.getText().toString()) == 0){
-                    if(StringHelper.checkComplexity(txtPass.getText().toString())>3){
+                    if(StringHelper.checkComplexity(txtPass.getText().toString())>=2){
                         singUp(email,allow_access,txtPass.getText().toString());
                     }else{
                         StringHelper.showSnackBar(SetPasswordActivity.this,getString(R.string.weak_pass),getString(R.string.set_password),0);

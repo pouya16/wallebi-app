@@ -72,6 +72,13 @@ public class LoginRegisterActivity extends AppCompatActivity {
     ProgressBar signUpProgressBar;
 
 
+
+    //REGISTER CLOSED
+    EditText txtEmailClosed;
+    MaterialButton btnDoneClosed;
+    TextView txtLoginClosed;
+
+
     // Login Mode Views:
     TextView txtRegister;
     EditText txtEmailLogin, txtMobile, txtPassword;
@@ -87,6 +94,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
     int mode = 0;
+    int permanent_mode;
     String loginType = "email";
 
 
@@ -95,11 +103,27 @@ public class LoginRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
         loadView();
-        mode = getIntent().getIntExtra("mode", 0);
+        permanent_mode = getIntent().getIntExtra("mode", 0);
+        mode = permanent_mode;
 
 
         Log.i("Log1","mode is : " + mode);
         changeMode();
+
+        //REGISTER CLOSED LOGIC
+        btnDoneClosed.setOnClickListener(view -> {
+            if (StringHelper.isValidEmail(txtEmail.getText())) {
+                StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.your_email_saved),getString(R.string.email_header),0);
+                LoginRegisterActivity.this.finish();
+            } else {
+                StringHelper.showSnackBar(LoginRegisterActivity.this, getString(R.string.wrong_email), getString(R.string.email_header), 1);
+            }
+        });
+
+        txtLoginClosed.setOnClickListener(view -> {
+            mode = 0;
+            changeMode();
+        });
 
 
 
@@ -145,11 +169,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
         // LOGIN LOGIC
-
         changeLoginType(1);
 
         txtRegister.setOnClickListener(view -> {
-            mode = 1;
+            mode = permanent_mode;
             changeMode();
         });
 
@@ -530,6 +553,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login);
         btnLoginSocial = findViewById(R.id.btn_login_social);
         loginProgressBar = findViewById(R.id.progress_login);
+
+        //Resgister mode closed
+        txtLoginClosed = findViewById(R.id.txt_btn_login_closed);
+        btnDoneClosed = findViewById(R.id.btn_register_closed);
+        txtEmailClosed = findViewById(R.id.txt_input_closed);
 
     }
 
