@@ -38,7 +38,7 @@ public class HttpUtil {
     }
 
 
-    public void get(String url,Map<String,String> map,HttpCallback callback, int mode){
+    public void get(String url,Map<String,String> map, HttpCallback callback, int mode){
         call(createRequest(mainUrl+url,map,null,mode),callback);
     }
 
