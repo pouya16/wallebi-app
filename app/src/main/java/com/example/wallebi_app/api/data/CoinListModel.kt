@@ -1,4 +1,4 @@
-package com.example.wallebi_app.api.lists
+package com.example.wallebi_app.api.data
 
 data class CoinListModel(
     val id:Int,

@@ -22,6 +22,7 @@ class TransferFragment : Fragment() {
 
     var mode = 0
     var actionMode = 0
+    var typeMode = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +31,25 @@ class TransferFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_transfer, container, false)
         loadViews(view)
+
+        // HANDLE ACTION PART :
         view.findViewById<RadioButton>(R.id.radio_withdraw).setOnClickListener {setModeWithdraw(view)}
-        view.findViewById<RadioButton>(R.id.radio_withdraw).setOnClickListener {setModeDeposit(view)}
+        view.findViewById<RadioButton>(R.id.radio_deposit).setOnClickListener {setModeDeposit(view)}
         view.findViewById<ImageButton>(R.id.img_action_collapse).setOnClickListener{
             view.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.GONE
         }
+
+        // HANDLE CHOOSE TYPE PART :
+        view.findViewById<RadioButton>(R.id.radio_coin).setOnClickListener {setModeCoin(view)}
+        view.findViewById<RadioButton>(R.id.radio_fiat).setOnClickListener {setModeFiat(view)}
+        view.findViewById<ImageButton>(R.id.img_type_collapse).setOnClickListener{
+            view.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
+            view.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        }
+
 
         return view
     }
@@ -44,9 +58,9 @@ class TransferFragment : Fragment() {
         super.onResume()
         var arg = arguments
         if(arg == null){
-
+            mode = 0
         }else{
-
+            mode = arg.getInt("mode",0)
         }
         loadMode(view)
 
@@ -62,6 +76,28 @@ class TransferFragment : Fragment() {
 
     }
 
+    private fun setModeFiat(v:View){
+        typeMode = 2
+        setType(v,requireContext().getString(R.string.fiat))
+    }
+
+    private fun setModeCoin(v:View){
+        typeMode = 1
+        setType(v,requireContext().getString(R.string.coin))
+    }
+
+    private fun setType(v:View,text:String){
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_coinfiat_collapse).text = text
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.VISIBLE
+        cardCoin.visibility = View.VISIBLE
+        cardSkelet.visibility = View.VISIBLE
+        cardAddress.visibility = View.GONE
+        cardAmount.visibility = View.GONE
+    }
+
     private fun setModeDeposit(v:View){
         actionMode = 2
         setMode(v,requireContext().getString(R.string.deposit))
@@ -73,8 +109,10 @@ class TransferFragment : Fragment() {
     }
 
     private fun setMode(v:View,text:String){
-        v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.VISIBLE
         v.findViewById<TextView>(R.id.txt_action_collapse).text = text
         cardType.visibility = View.VISIBLE
         cardSkelet.visibility = View.VISIBLE
