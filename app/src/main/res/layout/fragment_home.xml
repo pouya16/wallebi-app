@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/backgroundDef"
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
@@ -297,10 +298,14 @@
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    app:cornerRadius="2dp"
+                    android:backgroundTint="?attr/backgroundDef"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="?attr/btnColorSecondary"
+                    android:textColor="?attr/colorSecondaryVariant"
                     android:layout_height="wrap_content"
                     android:text="@string/register"
                     android:layout_margin="@dimen/margin_8"
-                    android:backgroundTint="@color/mvp_greem"
                     android:id="@+id/btn_by"/>
 
                 <com.google.android.material.button.MaterialButton

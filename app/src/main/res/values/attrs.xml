@@ -8,6 +8,9 @@
     <attr name="backgroundLevel2" format="color"/>
     <attr name="textColorHint" format="color"/>
     <attr name="metaTextColor" format="color"/>
+    <attr name="btnColorPrimary" format="color"/>
+    <attr name="btnColorSecondary" format="color"/>
+    <attr name="btnColorGray" format="color"/>
     <attr name="textGray3" format="color"/>
     <attr name="textGray4" format="color"/>
     <attr name="textGray2" format="color"/>
