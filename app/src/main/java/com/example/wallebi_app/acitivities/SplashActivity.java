@@ -14,6 +14,7 @@ import com.example.wallebi_app.api.HttpCallback;
 import com.example.wallebi_app.api.HttpUtil;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
 import com.example.wallebi_app.api.data.CoinListModel;
+import com.example.wallebi_app.api.data.GetCoinsApi;
 import com.example.wallebi_app.api.reg.apis.RegisterType;
 import com.example.wallebi_app.api.reg.model.RegisterTypeModel;
 import com.example.wallebi_app.database.DataAccess;
@@ -58,6 +59,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void getFiatList(){
+        GetCoinsApi getFiat = new GetCoinsApi(this,GetCoinsApi.MODE_FIAT);
+        /*
         String address = "v0/CryptoService/fiat_list/";
         HttpCallback callback = new HttpCallback() {
             @Override
@@ -94,12 +97,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         HttpUtil httpUtil = new HttpUtil(this);
-        httpUtil.get(address,null,callback,HttpUtil.MODE_NO_AUTH);
+        httpUtil.get(address,null,callback,HttpUtil.MODE_NO_AUTH);*/
     }
 
 
     private void getCoinList(){
-        String address = "v0/CryptoService/crypto_list/";
+        GetCoinsApi getCoinsApi = new GetCoinsApi(this,GetCoinsApi.MODE_CRYPTO);
+        /*String address = "v0/CryptoService/crypto_list/";
         HttpCallback callback = new HttpCallback() {
             @Override
             public void onFialure(okhttp3.Response response, Throwable throwable) {
@@ -135,7 +139,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         HttpUtil httpUtil = new HttpUtil(this);
-        httpUtil.get(address,null,callback,HttpUtil.MODE_NO_AUTH);
+        httpUtil.get(address,null,callback,HttpUtil.MODE_NO_AUTH);*/
     }
 
     private void getRegisterType(Context context){

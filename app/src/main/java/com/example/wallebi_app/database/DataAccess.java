@@ -15,6 +15,7 @@ public class DataAccess {
 
     public void createCryptoList(ArrayList<CoinListModel> models){
         cryptoListModels = null;
+        cryptoListModels = new ArrayList<>();
         for (CoinListModel model:
              models) {
             if(model.is_active()){
@@ -29,18 +30,28 @@ public class DataAccess {
 
 
     public void createFiatList(ArrayList<CoinListModel> models){
-        cryptoListModels = null;
+        coinListModels = null;
+        coinListModels = new ArrayList<>();
         for (CoinListModel model:
                 models) {
             if(model.is_active()){
-                cryptoListModels.add(model);
+                coinListModels.add(model);
             }
         }
     }
 
     public ArrayList<CoinListModel> getFiatListModels(){
-        return cryptoListModels;
+        return coinListModels;
     }
+
+    /*public String[] getFiatsStringArray(){
+        if(coinListModels != null){
+            String fiatsArray[] = new String[coinListModels.size()];
+            for (int i = 0;i<coinListModels.size();i++) {
+                fiatsArray[i] = coinListModels.get(i).getName()
+            }
+        }
+    }*/
 
 
 }

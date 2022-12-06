@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import com.example.wallebi_app.R;
 import com.example.wallebi_app.database.LoginData;
 
 import java.io.IOException;
@@ -23,21 +24,21 @@ import okhttp3.Response;
 public class GetMeApi {
     private OkHttpClient client;
     String address = "v0/UserService/me/";
-    private final String mainUrl = "https://api.wallebi.run/";
+    private String mainUrl = "";
     Context context;
     Button btn;
     ProgressBar progressBar;
 
     public GetMeApi(Context context, Button btn, ProgressBar progressBar,HttpCallback callback) {
-        this.context = context;
         this.btn = btn;
         this.progressBar = progressBar;
-        call(createRequest(),callback);
+        new GetMeApi(context,callback);
     }
 
     public GetMeApi(Context context,HttpCallback callback) {
         this.context = context;
         call(createRequest(),callback);
+        mainUrl = context.getString(R.string.base_url);
     }
 
     private void call(Request request, final HttpCallback callback){

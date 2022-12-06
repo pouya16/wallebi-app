@@ -251,4 +251,5 @@
     <string name="failed_otp">Failed to send OTP to your mobile</string>
     <string name="success_otp">OTP successfuly sent to your mobile</string>
     <string name="your_email_saved">Your Email saved successfully we inform you right after next opening</string>
+    <string name="choose">Choose</string>
 </resources>

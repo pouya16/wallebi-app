@@ -2,13 +2,11 @@ package com.example.wallebi_app.api;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.wallebi_app.R;
 import com.example.wallebi_app.database.LoginData;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
@@ -23,7 +21,7 @@ import okhttp3.Response;
 
 public class HttpUtil {
     private OkHttpClient client;
-    private final String mainUrl = "https://api.wallebi.run/";
+    private String mainUrl = "";
     private Context context;
 
     public static final int GET = 0;
@@ -35,6 +33,7 @@ public class HttpUtil {
 
     public HttpUtil(Context context) {
         this.context = context;
+        mainUrl = context.getString(R.string.base_url);
     }
 
 
