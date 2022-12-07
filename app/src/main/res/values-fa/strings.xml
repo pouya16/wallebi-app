@@ -256,4 +256,6 @@
     <string name="iban_example">IR 06-0170-0000-0000-4321-1234-25</string>
     <string name="card">Card</string>
     <string name="add_new">Add New</string>
+    <string name="add_new_iban">Add New IBAN</string>
+    <string name="add_new_card">Add New Card</string>
 </resources>

@@ -5,8 +5,6 @@ import androidx.databinding.ObservableField;
 public class LoginModel {
     public ObservableField<String> userName;
     private ObservableField<String> password;
-    private String token;
-    private String refreshToken;
     private String captcha;
 
     public LoginModel() {
@@ -15,23 +13,13 @@ public class LoginModel {
     public LoginModel(String userName, String password, String token) {
         this.userName = new ObservableField<>(userName);
         this.password = new ObservableField<>(password);
-        this.token = token;
     }
 
     public LoginModel(String userName, String password, String token, String captcha) {
         this.userName = new ObservableField<>(userName);
         this.password = new ObservableField<>(password);
-        this.token = token;
-        this.refreshToken = captcha;
     }
 
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
 
     public String getCaptcha() {
         return captcha;
@@ -49,7 +37,4 @@ public class LoginModel {
         return password;
     }
 
-    public String getToken() {
-        return token;
-    }
 }

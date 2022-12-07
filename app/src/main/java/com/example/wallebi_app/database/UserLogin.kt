@@ -30,7 +30,6 @@ class UserLogin(context:Context) {
                 .putString("user", userModel.userName)
                 .putString("password", userModel.password)
                 .putString("email", userModel.email)
-                .putString("mobile", userModel.mobile)
                 .apply()
         }catch (e: Exception){return false}
         return true;
@@ -40,8 +39,7 @@ class UserLogin(context:Context) {
         return UserModel(
             sharedPreferences.getString("user","")!!,
             sharedPreferences.getString("password","")!!,
-            sharedPreferences.getString("email","")!!,
-            sharedPreferences.getString("mobile","")!!
+            sharedPreferences.getString("email","")!!
         )
     }
 

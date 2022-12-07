@@ -254,5 +254,7 @@
     <string name="card">Card</string>
     <string name="iban">IBAN</string>
     <string name="add_new">Add New</string>
+    <string name="add_new_iban">Add New IBAN</string>
+    <string name="add_new_card">Add New Card</string>
 
 </resources>

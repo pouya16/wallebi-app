@@ -49,18 +49,37 @@
                 android:layout_height="2dp"/>
         </LinearLayout>
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_24"
             android:layout_marginBottom="@dimen/margin_24"
+            android:visibility="gone"
             android:layout_weight="1"
             android:id="@+id/recycler_cards"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/progressbar"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/img_no_card"
+            android:src="@drawable/img_card_empty"
+            android:layout_gravity="center_horizontal"/>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_add"
+            android:layout_gravity="bottom"
             android:text="@string/add_new"
             android:textColor="?attr/backgroundDef"/>
 

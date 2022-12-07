@@ -2,7 +2,9 @@ package com.example.wallebi_app.acitivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
 import androidx.collection.ArrayMap;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.wallebi_app.MainActivity;
@@ -28,19 +31,12 @@ import com.example.wallebi_app.api.BodyMaker;
 import com.example.wallebi_app.api.HttpCallback;
 import com.example.wallebi_app.api.HttpUtil;
 import com.example.wallebi_app.api.ResponseErrorHandler;
-import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
-import com.example.wallebi_app.api.reg.apis.AskOtpApi;
-import com.example.wallebi_app.api.reg.apis.NormalRegisterApi;
-import com.example.wallebi_app.api.reg.apis.PreLoginApi;
 import com.example.wallebi_app.api.reg.model.DataEmailVerify;
 import com.example.wallebi_app.api.reg.responses.DataLogin;
-import com.example.wallebi_app.api.reg.model.RegisterNormalBody;
-import com.example.wallebi_app.api.reg.model.SendOtpBody;
-import com.example.wallebi_app.api.reg.responses.EOtpResponse;
-import com.example.wallebi_app.api.reg.responses.PreLoginResponse;
-import com.example.wallebi_app.api.reg.responses.VerifyEmailResponse;
 import com.example.wallebi_app.database.LoginData;
+import com.example.wallebi_app.database.UserLogin;
 import com.example.wallebi_app.helpers.StringHelper;
+import com.example.wallebi_app.models.UserModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
@@ -50,6 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -80,6 +77,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
     // Login Mode Views:
+    ImageButton btnFingerLogin;
     TextView txtRegister;
     EditText txtEmailLogin, txtMobile, txtPassword;
     LinearLayout layoutMobile, layoutEmail;
@@ -89,6 +87,14 @@ public class LoginRegisterActivity extends AppCompatActivity {
     View viewMobile,viewEmail;
     ImageButton btnShowPass;
     Boolean showPass = false;
+
+
+    //BIOMETRICS
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+
+
     //TabLayout loginTabs;
     //TabItem tabEmail, tabMobile;
 
@@ -128,7 +134,6 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
         //REGISTER LOGIC
-
         main_url = getString(R.string.base_url);
         btnSendEmail.setOnClickListener(view -> {
             if (StringHelper.isValidEmail(txtEmail.getText())) {
@@ -171,6 +176,53 @@ public class LoginRegisterActivity extends AppCompatActivity {
         // LOGIN LOGIC
         changeLoginType(1);
 
+        UserLogin userLogin = new UserLogin(this);
+
+
+        ///BIO METRICS :
+        executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(LoginRegisterActivity.this,
+                executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(getApplicationContext(),
+                                "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                UserLogin userLogin1 = new UserLogin(LoginRegisterActivity.this);
+                makeLogin(userLogin1.getUser().getEmail(),userLogin1.getUser().getPassword(),"email");
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(getApplicationContext(), "Authentication failed",
+                                Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric login for my app")
+                .setSubtitle("Log in using your biometric credential")
+                .setNegativeButtonText("Use account password")
+                .build();
+        if(userLogin.getUser().getEmail() == ""){
+            btnFingerLogin.setVisibility(View.GONE);
+        }
+
+        btnFingerLogin.setOnClickListener(view -> {
+            biometricPrompt.authenticate(promptInfo);
+        });
+
+
         txtRegister.setOnClickListener(view -> {
             mode = permanent_mode;
             changeMode();
@@ -188,7 +240,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
             if (loginType.compareTo("email") == 0) {
                 if (StringHelper.isValidEmail(txtEmailLogin.getText())){
                     if(txtPassword.getText().length()>5){
-                        makeLogin();
+                        makeLogin(txtEmailLogin.getText().toString(),txtPassword.getText().toString(),"email");
                     }else{
                         StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
                     }
@@ -198,7 +250,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
             }else{
                 if(txtMobile.getText().length() == 10){
                     if(txtPassword.getText().length()>5){
-                        makeLogin();
+                        makeLogin(txtMobile.getText().toString(),txtPassword.getText().toString(),"mobile");
                     }else{
                         StringHelper.showSnackBar(LoginRegisterActivity.this,getString(R.string.wrong_password_login),getString(R.string.email),0);
                     }
@@ -214,26 +266,23 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
 
 
-    public void makeLogin(){
+    public void makeLogin(String email,String password,String mode){
         btnLogin.setVisibility(View.GONE);
         loginProgressBar.setVisibility(View.VISIBLE);
 
 
         List<BodyHandlingModel> bodyList = new ArrayList<>();
-        String email;
-        String loginMode = "email";
-        if(loginType.compareTo("email") == 0){
+        //String loginMode = "email";
+        /*if(loginType.compareTo("email") == 0){
             txtEmailLogin.getText().toString();
-            email = txtEmailLogin.getText().toString();
             loginMode = "email";
         }else{
-            email = txtMobile.getText().toString();
             loginMode = "mobile";
-        }
+        }*/
         bodyList.add(new BodyHandlingModel("username",email,"string"));
-        bodyList.add(new BodyHandlingModel("password",txtPassword.getText().toString(),"string"));
+        bodyList.add(new BodyHandlingModel("password",password,"string"));
         bodyList.add(new BodyHandlingModel("type","pass","string"));
-        bodyList.add(new BodyHandlingModel("username_type",loginMode,"string"));
+        bodyList.add(new BodyHandlingModel("username_type",mode,"string"));
         bodyList.add(new BodyHandlingModel("captcha_value","1","string"));
         String postBody= BodyMaker.Companion.getBody(bodyList);
 
@@ -279,6 +328,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
                         DataLogin data = gson.fromJson(jsonObject.getJSONObject("data").toString(),DataLogin.class);
                         Log.i("Log1","otp: " + data.getPermissions().getOtp());
                         Log.i("Log1","g2f: " + data.getPermissions().getG2f());
+                        UserLogin userLogin = new UserLogin(LoginRegisterActivity.this);
+                        userLogin.saveUser(new UserModel(email,txtPassword.getText().toString(),email));
                         LoginData.access_token = data.getAccess_token();
                         LoginData.refresh_token = data.getRefresh_token();
                         if(data.getPermissions().needPermission()){

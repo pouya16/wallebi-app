@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bankFragment"
+            app:destination="@id/bankFragment" />
     </fragment>
     <fragment
         android:id="@+id/marketFragment"
@@ -72,4 +75,9 @@
         android:name="com.example.wallebi_app.fragments.setting.WhiteListFragment"
         android:label="fragment_white_list"
         tools:layout="@layout/fragment_white_list" />
+    <fragment
+        android:id="@+id/bankFragment"
+        android:name="com.example.wallebi_app.fragments.users.BankFragment"
+        android:label="fragment_bank"
+        tools:layout="@layout/fragment_bank" />
 </navigation>

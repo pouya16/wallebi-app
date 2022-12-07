@@ -1,16 +1,15 @@
 package com.example.wallebi_app.fragments
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import com.example.wallebi_app.R
 import com.example.wallebi_app.acitivities.LoginRegisterActivity
 import com.example.wallebi_app.database.LoginData
@@ -48,10 +47,20 @@ class HomeFragment : Fragment() {
             txtEmailAddress.text = userModel.email
         }
 
+        view.findViewById<MaterialCardView>(R.id.btn_bankcards).setOnClickListener {
+            if(LoginData.access_token.length > 3){
+                findNavController(it).navigate(R.id.action_homeFragment_to_bankFragment)
+            }else{
+                val intent = Intent(context,LoginRegisterActivity::class.java)
+                intent.putExtra("mode",0)
+                context?.startActivity(intent)
+            }
+        }
+
 
         view.findViewById<MaterialCardView>(R.id.btn_setting).setOnClickListener {
             if(isLogin){
-                Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_settingFragment)
+                findNavController(it).navigate(R.id.action_homeFragment_to_settingFragment)
             }else{
                 val intent = Intent(context,LoginRegisterActivity::class.java)
                 intent.putExtra("mode",0)
@@ -82,6 +91,9 @@ class HomeFragment : Fragment() {
         if(LoginData.access_token!=null && LoginData.access_token.length > 4){
             txtLoginStatus.text = "You are Login"
             isLogin = true
+        }
+        if(LoginData.meClass == null){
+
         }
 
     }

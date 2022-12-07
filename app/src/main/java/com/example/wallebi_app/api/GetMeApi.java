@@ -10,6 +10,11 @@ import androidx.annotation.NonNull;
 
 import com.example.wallebi_app.R;
 import com.example.wallebi_app.database.LoginData;
+import com.example.wallebi_app.database.models.MeModel;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
@@ -58,6 +63,15 @@ public class GetMeApi {
                     String res =  response.body().string();
                     Log.i("Log2: ","response: " + res);
                     if(response.code() == 200){
+                        try {
+                            JSONObject jsonObject = new JSONObject(res);
+                            if(jsonObject.getBoolean("success")){
+                                Gson gson = new Gson();
+                                LoginData.meClass = gson.fromJson(String.valueOf(jsonObject.getJSONArray("msg")), MeModel.class);
+                            }
+                        }catch (Exception e){
+
+                        }
                     }else{
 
                     }

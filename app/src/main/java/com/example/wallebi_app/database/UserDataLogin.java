@@ -13,7 +13,6 @@ public class UserDataLogin {
     // user login data
     final String USER_NAME = "user_name";
     final String PASSWORD = "password";
-    final String TOKEN = "token";
     final String PREF_NAME = "LoginPref";
 
 
@@ -41,7 +40,6 @@ public class UserDataLogin {
     public UserDataLogin(LoginModel loginModel, Context context) {
         this.userName = loginModel.getUserName().get();
         this.password = loginModel.getPassword().get();
-        this.token = loginModel.getToken();
         this.context = context;
         new UserDataLogin(context);
     }
@@ -59,7 +57,6 @@ public class UserDataLogin {
             success = true;
             editor.putString(USER_NAME,userName);
             editor.putString(PASSWORD,password);
-            editor.putString(TOKEN,token);
             editor.commit();
         }
         return success;
@@ -82,7 +79,6 @@ public class UserDataLogin {
     public LoginModel getLogin(){
         userName = pref.getString(USER_NAME,null);
         password = pref.getString(PASSWORD,null);
-        token = pref.getString(TOKEN,null);
         return new LoginModel(userName,password,token);
     }
 
