@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:padding="@dimen/padding_12"
+    android:background="?attr/backgroundDef"
+    android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButton
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bank_example"
+            android:textColor="?attr/textGray3"
+            android:id="@+id/txt_bank_name"
+            android:layout_marginStart="@dimen/margin_word_Start"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_withdraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/backgroundDef"
+            app:strokeWidth="@dimen/stroke_2"
+            app:strokeColor="?attr/btnColorSecondary"
+            android:textColor="?attr/btnColorSecondary"
+            android:text="@string/withdraw"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/backgroundDef"
+            app:strokeWidth="@dimen/stroke_2"
+            app:strokeColor="?attr/btnColorGray"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_word_Start"
+            android:textColor="?attr/btnColorGray"
+            android:text="@string/delete"/>
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/btn_secondary_stoke"
-        android:text="@string/withdraw"/>
+        android:text="@string/iban_example"
+        android:textColor="?attr/textGray4"
+        android:id="@+id/txt_acc_number"
+        android:textSize="@dimen/text_header_16"
+        android:layout_marginTop="@dimen/padding_12"
+        android:layout_marginStart="@dimen/margin_word_Start"/>
+
+
+
 
 </LinearLayout>

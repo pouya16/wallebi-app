@@ -252,4 +252,8 @@
     <string name="success_otp">OTP successfuly sent to your mobile</string>
     <string name="your_email_saved">Your Email saved successfully we inform you right after next opening</string>
     <string name="choose">Choose</string>
+    <string name="bank_example">Melli</string>
+    <string name="iban_example">IR 06-0170-0000-0000-4321-1234-25</string>
+    <string name="card">Card</string>
+    <string name="add_new">Add New</string>
 </resources>

@@ -3,8 +3,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundDef"
+    android:padding="@dimen/padding_24"
     tools:context=".fragments.users.BankFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_card"
+                android:layout_width="@dimen/btn_width_tab"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:text="@string/card" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_iban"
+                android:layout_width="@dimen/btn_width_tab"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:text="@string/iban" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_card"
+                android:background="?attr/textGray2"
+                android:layout_width="@dimen/btn_width_tab"
+                android:layout_height="1dp"/>
+            <View
+                android:id="@+id/view_iban"
+                android:background="?attr/colorPrimary"
+                android:layout_width="@dimen/btn_width_tab"
+                android:layout_height="2dp"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_24"
+            android:layout_marginBottom="@dimen/margin_24"
+            android:layout_weight="1"
+            android:id="@+id/recycler_cards"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_add"
+            android:text="@string/add_new"
+            android:textColor="?attr/backgroundDef"/>
+
+
+    </LinearLayout>
 
 
 </FrameLayout>

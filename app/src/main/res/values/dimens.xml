@@ -117,4 +117,6 @@
     <dimen name="padding_external_white">6dp</dimen>
     <dimen name="padding_32">32dp</dimen>
     <dimen name="height_btn_huge">58dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
+    <dimen name="btn_width_tab">80dp</dimen>
 </resources>
