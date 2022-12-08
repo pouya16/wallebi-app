@@ -73,7 +73,7 @@ public class BankFragment extends Fragment {
 
             @Override
             public void onSuccess(Response response) {
-                
+
             }
         };
         httpUtil.get("v0/UserService/get_bank_accounts/",null,callback,HttpUtil.MODE_AUTH);

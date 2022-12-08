@@ -46,6 +46,50 @@ public class GetMeApi {
         mainUrl = context.getString(R.string.base_url);
     }
 
+    public GetMeApi(Context context) {
+        this.context = context;
+        call(createRequest());
+        mainUrl = context.getString(R.string.base_url);
+    }
+
+    private void call(Request request){
+
+        if(LoginData.access_token.length() < 3){
+            client = new OkHttpClient();
+            client.newCall(request).enqueue(new Callback() {
+                Handler mainHandler = new Handler(context.getMainLooper());
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    Log.i("Log1","" + response.code());
+                    String res =  response.body().string();
+                    Log.i("Log2: ","response: " + res);
+                    if(response.code() == 200){
+                        try {
+                            JSONObject jsonObject = new JSONObject(res);
+                            if(jsonObject.getBoolean("success")){
+                                Gson gson = new Gson();
+                                LoginData.meClass = gson.fromJson(String.valueOf(jsonObject.getJSONArray("msg")), MeModel.class);
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }else{
+
+                    }
+
+                }
+            });
+        }else{
+            Log.i("Log1","User is not Loged in");
+        }
+
+
+    }
+
     private void call(Request request, final HttpCallback callback){
 
         if(LoginData.access_token.length() < 3){

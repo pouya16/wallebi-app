@@ -1,18 +1,28 @@
 package com.example.wallebi_app.fragments
 
+import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import com.example.wallebi_app.R
+import com.example.wallebi_app.api.GetMeApi
+import com.example.wallebi_app.api.HttpCallback
 import com.example.wallebi_app.api.data.CoinListModel
 import com.example.wallebi_app.api.data.GetCoinsApi
+import com.example.wallebi_app.api.data.NetworkModel
 import com.example.wallebi_app.database.DataAccess
+import com.example.wallebi_app.database.LoginData
+import com.example.wallebi_app.helpers.StringHelper
 import com.google.android.material.card.MaterialCardView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import okhttp3.Response
+import org.json.JSONObject
 
 class TransferFragment : Fragment() {
 
@@ -24,16 +34,20 @@ class TransferFragment : Fragment() {
     lateinit var cardAmount:MaterialCardView
     lateinit var cardSkelet:MaterialCardView
     lateinit var spinnerCoin:Spinner
+    lateinit var spinnerAddress:Spinner
+    lateinit var progressBar_main: ProgressBar
 
     // DEFINE COINS SPINNDER PART
     var data_fiat:ArrayList<CoinListModel> = ArrayList()
     var data_crypto:ArrayList<CoinListModel> = ArrayList()
     lateinit var adapterCoins:ArrayAdapter<CoinListModel>
 
+    //network addresses model
+    var networksArrayList: ArrayList<NetworkModel> = ArrayList()
 
     var mode = 0
-    var actionMode = 0
-    var typeMode = 0
+    var actionMode = 0 //withdraw 1 deposit 2
+    var typeMode = 0 //fiat 2 crypto is 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,17 +67,28 @@ class TransferFragment : Fragment() {
             GetCoinsApi(context,GetCoinsApi.MODE_FIAT)
         }else
             Log.i("Log1","data exist")
+        if(LoginData.meClass == null){
+            var getMeApi = GetMeApi(context)
+        }
 
+        //check login
+        //todo uncomment this
+        /*if(LoginData.access_token.length < 3){
+            StringHelper.showSnackBar(context as Activity?,"need login first","Login",2);
+            findNavController().navigate(R.id.action_transferFragment_to_homeFragment)
+        }*/
 
         //HANDLE CHOOSE COIN PART
         spinnerCoin.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>,
                                         v: View, position: Int, id: Long) {
-                if(typeMode == 1){
-                    //setCoin(view, data_crypto[position].fullname)
-                }else{
-                    //setCoin(view, data_fiat[position].fullname)
+                if(position!=0){
+                    if(typeMode == 1){
+                        setCoin(view, data_crypto[position].fullname)
+                    }else{
+                        setCoin(view, data_fiat[position].fullname)
+                    }
                 }
             }
 
@@ -109,6 +134,7 @@ class TransferFragment : Fragment() {
         }
         loadMode(view)
 
+
     }
 
 
@@ -134,6 +160,7 @@ class TransferFragment : Fragment() {
 
         cardAddress.visibility = View.VISIBLE
         if(actionMode == 1){
+            chooseNetwork(v)
             cardSkelet.visibility = View.VISIBLE
         }else{
             cardSkelet.visibility = View.GONE
@@ -141,18 +168,73 @@ class TransferFragment : Fragment() {
         cardAmount.visibility = View.GONE
     }
 
+    private fun chooseNetwork(v:View){
+        v.findViewById<TextView>(R.id.choose_address_expanded_title).text = "Choose Network"
+        progressBar_main.visibility = View.VISIBLE
+    }
+
+    private fun getNetworks(v:View){
+
+        val adress = "v0/CryptoService/network_list_2/"
+        val callback: HttpCallback = object : HttpCallback {
+
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post { progressBar_main.visibility = View.GONE
+                StringHelper.showSnackBar(context as Activity,"failed to get data","Network",2)}
+            }
+
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", "response: $res")
+                    val jsonObject = JSONObject(res)
+                    if(response.code == 200){
+                        if(jsonObject.getBoolean("success")){
+                            val gson = Gson()
+                            val networkListType =
+                                object : TypeToken<java.util.ArrayList<NetworkModel?>?>() {}.type
+                            networksArrayList.clear()
+                            networksArrayList = gson.fromJson(jsonObject.getJSONArray("msg").toString(),networkListType)
+                            
+
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "failed to convert to json: $e")
+                }
+                mainHandler.post { progressBar_main.visibility = View.GONE }
+            }
+        }
+
+    }
+
 
     private fun setModeFiat(v:View){
         typeMode = 2
         data_fiat = DataAccess().fiatListModels
+        data_fiat.add(0,CoinListModel(0,"Select Fiat","","",true));
         adapterCoins =
             context?.let { ArrayAdapter(it,android.R.layout.simple_spinner_dropdown_item,data_fiat) }!!
         setType(v,requireContext().getString(R.string.fiat),adapterCoins)
+        //todo uncomment this
+        /*if(LoginData.meClass.kyc_level.level == 1){
+        }else if (LoginData.meClass.kyc_level.state == 1){
+            StringHelper.showSnackBar(context as Activity?,"your kyc process is pending", "Kyc", 1)
+        }else{
+            StringHelper.showSnackBar(context as Activity?,"you need to pass the kyc", "Kyc", 2)
+        }*/
     }
 
     private fun setModeCoin(v:View){
         typeMode = 1
         data_crypto = DataAccess().cryptoListModels
+        data_fiat.add(0,CoinListModel(0,"Select Coin","","",true));
         adapterCoins =
             context?.let { ArrayAdapter(it,android.R.layout.simple_spinner_dropdown_item,data_crypto) }!!
         setType(v,requireContext().getString(R.string.coin),adapterCoins)
@@ -185,6 +267,13 @@ class TransferFragment : Fragment() {
     private fun setModeWithdraw(v:View){
         actionMode = 1
         setMode(v,requireContext().getString(R.string.withdraw))
+        //todo uncomment this
+        /*if(LoginData.meClass.kyc_level.level == 1){
+        }else if (LoginData.meClass.kyc_level.state == 1){
+            StringHelper.showSnackBar(context as Activity?,"your kyc process is pending", "Kyc", 1)
+        }else{
+            StringHelper.showSnackBar(context as Activity?,"you need to pass the kyc", "Kyc", 2)
+        }*/
     }
 
     private fun setMode(v:View,text:String){
@@ -223,6 +312,8 @@ class TransferFragment : Fragment() {
         cardAmount = v.findViewById(R.id.card_amount)
         cardSkelet = v.findViewById(R.id.card_end)
         spinnerCoin = v.findViewById(R.id.spinner_coin)
+        progressBar_main = v.findViewById(R.id.progressbar)
+        spinnerAddress = v.findViewById(R.id.spinner_address)
     }
 
 }

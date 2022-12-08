@@ -31,7 +31,11 @@
         android:id="@+id/transferFragment"
         android:name="com.example.wallebi_app.fragments.TransferFragment"
         android:label="fragment_transfer"
-        tools:layout="@layout/fragment_transfer" />
+        tools:layout="@layout/fragment_transfer" >
+        <action
+            android:id="@+id/action_transferFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.example.wallebi_app.fragments.WalletFragment"

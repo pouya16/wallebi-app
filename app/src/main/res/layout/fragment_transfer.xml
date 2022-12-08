@@ -301,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_top_16"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -338,10 +338,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="@dimen/margin_top_16"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/choose_address_expanded_titl"
+                        android:id="@+id/choose_address_expanded_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/choose_address"
@@ -732,6 +732,12 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_top_12"
+                android:id="@+id/progressbar"/>
         </LinearLayout>
 
     </ScrollView>

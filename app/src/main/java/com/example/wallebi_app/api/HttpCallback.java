@@ -4,6 +4,6 @@ import okhttp3.Response;
 
 public interface HttpCallback {
 
-    public void onFialure(Response response, Throwable throwable);
-    public void onSuccess(Response response);
+    void onFialure(Response response, Throwable throwable);
+    void onSuccess(Response response);
 }
