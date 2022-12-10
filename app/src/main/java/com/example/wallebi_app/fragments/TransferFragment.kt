@@ -10,8 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.wallebi_app.R
-import com.example.wallebi_app.api.GetMeApi
-import com.example.wallebi_app.api.HttpCallback
+import com.example.wallebi_app.api.*
 import com.example.wallebi_app.api.data.CoinListModel
 import com.example.wallebi_app.api.data.GetCoinsApi
 import com.example.wallebi_app.api.data.NetworkModel
@@ -27,23 +26,25 @@ import org.json.JSONObject
 class TransferFragment : Fragment() {
 
 
-    lateinit var cardAction:MaterialCardView
-    lateinit var cardType:MaterialCardView
-    lateinit var cardCoin:MaterialCardView
-    lateinit var cardAddress:MaterialCardView
-    lateinit var cardAmount:MaterialCardView
-    lateinit var cardSkelet:MaterialCardView
-    lateinit var spinnerCoin:Spinner
-    lateinit var spinnerAddress:Spinner
+    lateinit var cardAction: MaterialCardView
+    lateinit var cardType: MaterialCardView
+    lateinit var cardCoin: MaterialCardView
+    lateinit var cardAddress: MaterialCardView
+    lateinit var cardAmount: MaterialCardView
+    lateinit var cardSkelet: MaterialCardView
+    lateinit var spinnerCoin: Spinner
+    lateinit var spinnerAddress: Spinner
     lateinit var progressBar_main: ProgressBar
 
     // DEFINE COINS SPINNDER PART
-    var data_fiat:ArrayList<CoinListModel> = ArrayList()
-    var data_crypto:ArrayList<CoinListModel> = ArrayList()
-    lateinit var adapterCoins:ArrayAdapter<CoinListModel>
+    var data_fiat: ArrayList<CoinListModel> = ArrayList()
+    var data_crypto: ArrayList<CoinListModel> = ArrayList()
+    lateinit var adapterCoins: ArrayAdapter<CoinListModel>
+    var ticker = ""
 
     //network addresses model
     var networksArrayList: ArrayList<NetworkModel> = ArrayList()
+    lateinit var adapterNetworks: ArrayAdapter<NetworkModel>
 
     var mode = 0
     var actionMode = 0 //withdraw 1 deposit 2
@@ -56,39 +57,45 @@ class TransferFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_transfer, container, false)
         loadViews(view)
-
-        //LOAD DATA
-        var data = DataAccess()
-        if(data.cryptoListModels == null){
-            GetCoinsApi(context,GetCoinsApi.MODE_CRYPTO)
-        }else
-            Log.i("Log1","data exist")
-        if(data.fiatListModels == null){
-            GetCoinsApi(context,GetCoinsApi.MODE_FIAT)
-        }else
-            Log.i("Log1","data exist")
-        if(LoginData.meClass == null){
-            var getMeApi = GetMeApi(context)
-        }
-
         //check login
         //todo uncomment this
         /*if(LoginData.access_token.length < 3){
             StringHelper.showSnackBar(context as Activity?,"need login first","Login",2);
             findNavController().navigate(R.id.action_transferFragment_to_homeFragment)
         }*/
+        //LOAD DATA
+        var data = DataAccess()
+        if (data.cryptoListModels == null) {
+            GetCoinsApi(context, GetCoinsApi.MODE_CRYPTO)
+        } else
+            Log.i("Log1", "data exist")
+        if (data.fiatListModels == null) {
+            GetCoinsApi(context, GetCoinsApi.MODE_FIAT)
+        } else
+            Log.i("Log1", "data exist")
+        if (LoginData.meClass == null) {
+            var getMeApi = GetMeApi(context)
+        }
+
+        progressBar_main.visibility = View.GONE
 
         //HANDLE CHOOSE COIN PART
         spinnerCoin.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        v: View, position: Int, id: Long) {
-                if(position!=0){
-                    if(typeMode == 1){
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                v: View, position: Int, id: Long
+            ) {
+                if (position != 0) {
+                    if (typeMode == 1) {
+                        ticker = data_crypto[position].name
                         setCoin(view, data_crypto[position].fullname)
-                    }else{
+                    } else {
                         setCoin(view, data_fiat[position].fullname)
                     }
+                } else {
+                    ticker = ""
+                    cardAddress.visibility = View.GONE
                 }
             }
 
@@ -103,17 +110,19 @@ class TransferFragment : Fragment() {
 
 
         // HANDLE ACTION PART :
-        view.findViewById<RadioButton>(R.id.radio_withdraw).setOnClickListener {setModeWithdraw(view)}
-        view.findViewById<RadioButton>(R.id.radio_deposit).setOnClickListener {setModeDeposit(view)}
-        view.findViewById<ImageButton>(R.id.img_action_collapse).setOnClickListener{
+        view.findViewById<RadioButton>(R.id.radio_withdraw)
+            .setOnClickListener { setModeWithdraw(view) }
+        view.findViewById<RadioButton>(R.id.radio_deposit)
+            .setOnClickListener { setModeDeposit(view) }
+        view.findViewById<ImageButton>(R.id.img_action_collapse).setOnClickListener {
             view.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.GONE
         }
 
         // HANDLE CHOOSE TYPE PART :
-        view.findViewById<RadioButton>(R.id.radio_coin).setOnClickListener {setModeCoin(view)}
-        view.findViewById<RadioButton>(R.id.radio_fiat).setOnClickListener {setModeFiat(view)}
-        view.findViewById<ImageButton>(R.id.img_type_collapse).setOnClickListener{
+        view.findViewById<RadioButton>(R.id.radio_coin).setOnClickListener { setModeCoin(view) }
+        view.findViewById<RadioButton>(R.id.radio_fiat).setOnClickListener { setModeFiat(view) }
+        view.findViewById<ImageButton>(R.id.img_type_collapse).setOnClickListener {
             view.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.GONE
             view.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
@@ -127,10 +136,10 @@ class TransferFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         var arg = arguments
-        if(arg == null){
+        if (arg == null) {
             mode = 0
-        }else{
-            mode = arg.getInt("mode",0)
+        } else {
+            mode = arg.getInt("mode", 0)
         }
         loadMode(view)
 
@@ -138,16 +147,16 @@ class TransferFragment : Fragment() {
     }
 
 
-    private fun loadMode(v: View?){
-        when(mode){
-            0->{
+    private fun loadMode(v: View?) {
+        when (mode) {
+            0 -> {
                 loadZero(v!!)
             }
         }
 
     }
 
-    private fun setCoin(v:View,coin:String){
+    private fun setCoin(v: View, coin: String) {
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
@@ -159,23 +168,26 @@ class TransferFragment : Fragment() {
         v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.VISIBLE
 
         cardAddress.visibility = View.VISIBLE
-        if(actionMode == 1){
+        Log.i("Log1", " action mode is : $actionMode ")
+        if (actionMode == 2) {
             chooseNetwork(v)
             cardSkelet.visibility = View.VISIBLE
-        }else{
+        } else {
             cardSkelet.visibility = View.GONE
         }
         cardAmount.visibility = View.GONE
     }
 
-    private fun chooseNetwork(v:View){
+    private fun chooseNetwork(v: View) {
         v.findViewById<TextView>(R.id.choose_address_expanded_title).text = "Choose Network"
         progressBar_main.visibility = View.VISIBLE
+        getNetworks(v)
     }
 
-    private fun getNetworks(v:View){
+    private fun getNetworks(v: View) {
 
-        val adress = "v0/CryptoService/network_list_2/"
+        Log.i("Log1", "ticker is: $ticker");
+        val address_network = "v0/CryptoService/network_list_2/"
         val callback: HttpCallback = object : HttpCallback {
 
             var mainHandler: Handler = Handler(context!!.getMainLooper())
@@ -183,8 +195,15 @@ class TransferFragment : Fragment() {
                 try {
                 } catch (e: Exception) {
                 }
-                mainHandler.post { progressBar_main.visibility = View.GONE
-                StringHelper.showSnackBar(context as Activity,"failed to get data","Network",2)}
+                mainHandler.post {
+                    progressBar_main.visibility = View.GONE
+                    StringHelper.showSnackBar(
+                        context as Activity,
+                        "failed to get data",
+                        "Network",
+                        2
+                    )
+                }
             }
 
             override fun onSuccess(response: Response) {
@@ -193,14 +212,25 @@ class TransferFragment : Fragment() {
                     val res = response.body!!.string()
                     Log.i("Log1: ", "response: $res")
                     val jsonObject = JSONObject(res)
-                    if(response.code == 200){
-                        if(jsonObject.getBoolean("success")){
+                    if (response.code == 200) {
+                        if (jsonObject.getBoolean("success")) {
                             val gson = Gson()
                             val networkListType =
                                 object : TypeToken<java.util.ArrayList<NetworkModel?>?>() {}.type
                             networksArrayList.clear()
-                            networksArrayList = gson.fromJson(jsonObject.getJSONArray("msg").toString(),networkListType)
-                            
+                            networksArrayList = gson.fromJson(
+                                jsonObject.getJSONArray("msg").toString(),
+                                networkListType
+                            )
+                            networksArrayList.add(
+                                0,
+                                NetworkModel(
+                                    "Choose Network",
+                                    "Choose Network",
+                                    0.0,
+                                    "Choose Network"
+                                )
+                            )
 
                         }
                     }
@@ -208,20 +238,43 @@ class TransferFragment : Fragment() {
                 } catch (e: Exception) {
                     Log.i("Log1", "failed to convert to json: $e")
                 }
-                mainHandler.post { progressBar_main.visibility = View.GONE }
+                mainHandler.post {
+                    progressBar_main.visibility = View.GONE
+                    adapterNetworks =
+                        context?.let {
+                            ArrayAdapter(
+                                it,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                networksArrayList
+                            )
+                        }!!
+                    spinnerAddress.adapter = adapterNetworks
+                }
             }
         }
+        var httpUtil = HttpUtil(context)
+        var bodyModel = BodyHandlingModel("ticker", ticker, "string")
+        var bodyList = ArrayList<BodyHandlingModel>()
+        bodyList.add(bodyModel)
+        var body = BodyMaker.getBody(bodyList)
+        httpUtil.post(address_network, body, null, callback, HttpUtil.MODE_NO_AUTH)
 
     }
 
 
-    private fun setModeFiat(v:View){
+    private fun setModeFiat(v: View) {
         typeMode = 2
         data_fiat = DataAccess().fiatListModels
-        data_fiat.add(0,CoinListModel(0,"Select Fiat","","",true));
+        data_fiat.add(0, CoinListModel(0, "Select Fiat", "", "", true));
         adapterCoins =
-            context?.let { ArrayAdapter(it,android.R.layout.simple_spinner_dropdown_item,data_fiat) }!!
-        setType(v,requireContext().getString(R.string.fiat),adapterCoins)
+            context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    data_fiat
+                )
+            }!!
+        setType(v, requireContext().getString(R.string.fiat), adapterCoins)
         //todo uncomment this
         /*if(LoginData.meClass.kyc_level.level == 1){
         }else if (LoginData.meClass.kyc_level.state == 1){
@@ -231,16 +284,22 @@ class TransferFragment : Fragment() {
         }*/
     }
 
-    private fun setModeCoin(v:View){
+    private fun setModeCoin(v: View) {
         typeMode = 1
         data_crypto = DataAccess().cryptoListModels
-        data_fiat.add(0,CoinListModel(0,"Select Coin","","",true));
+        data_fiat.add(0, CoinListModel(0, "Select Coin", "", "", true));
         adapterCoins =
-            context?.let { ArrayAdapter(it,android.R.layout.simple_spinner_dropdown_item,data_crypto) }!!
-        setType(v,requireContext().getString(R.string.coin),adapterCoins)
+            context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    data_crypto
+                )
+            }!!
+        setType(v, requireContext().getString(R.string.coin), adapterCoins)
     }
 
-    private fun setType(v:View,text:String,adapter: ArrayAdapter<CoinListModel>){
+    private fun setType(v: View, text: String, adapter: ArrayAdapter<CoinListModel>) {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerCoin.adapter = null
         spinnerCoin.adapter = adapter
@@ -252,21 +311,21 @@ class TransferFragment : Fragment() {
         v.findViewById<TextView>(R.id.txt_coinfiat_collapse).text = text
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.VISIBLE
-        v.findViewById<TextView>(R.id.txt_choose).text = getString(R.string.choose) + " " +text
+        v.findViewById<TextView>(R.id.txt_choose).text = getString(R.string.choose) + " " + text
         cardCoin.visibility = View.VISIBLE
         cardSkelet.visibility = View.VISIBLE
         cardAddress.visibility = View.GONE
         cardAmount.visibility = View.GONE
     }
 
-    private fun setModeDeposit(v:View){
+    private fun setModeDeposit(v: View) {
         actionMode = 2
-        setMode(v,requireContext().getString(R.string.deposit))
+        setMode(v, requireContext().getString(R.string.deposit))
     }
 
-    private fun setModeWithdraw(v:View){
+    private fun setModeWithdraw(v: View) {
         actionMode = 1
-        setMode(v,requireContext().getString(R.string.withdraw))
+        setMode(v, requireContext().getString(R.string.withdraw))
         //todo uncomment this
         /*if(LoginData.meClass.kyc_level.level == 1){
         }else if (LoginData.meClass.kyc_level.state == 1){
@@ -276,7 +335,7 @@ class TransferFragment : Fragment() {
         }*/
     }
 
-    private fun setMode(v:View,text:String){
+    private fun setMode(v: View, text: String) {
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.GONE
@@ -289,10 +348,10 @@ class TransferFragment : Fragment() {
         cardAmount.visibility = View.GONE
     }
 
-    private fun loadZero(v:View){
+    private fun loadZero(v: View) {
         cardAction.visibility = View.VISIBLE
         cardSkelet.visibility = View.VISIBLE
-        cardType.visibility  = View.GONE
+        cardType.visibility = View.GONE
         cardCoin.visibility = View.GONE
         cardAddress.visibility = View.GONE
         cardAmount.visibility = View.GONE
@@ -304,7 +363,7 @@ class TransferFragment : Fragment() {
         radioAction.clearCheck()
     }
 
-    private fun loadViews(v:View){
+    private fun loadViews(v: View) {
         cardAction = v.findViewById(R.id.card_action)
         cardType = v.findViewById(R.id.card_fiat_coin)
         cardCoin = v.findViewById(R.id.card_coin_name)

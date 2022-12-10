@@ -609,6 +609,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         txtLoginClosed = findViewById(R.id.txt_btn_login_closed);
         btnDoneClosed = findViewById(R.id.btn_register_closed);
         txtEmailClosed = findViewById(R.id.txt_input_closed);
+        btnFingerLogin = findViewById(R.id.btn_login_finger);
 
     }
 

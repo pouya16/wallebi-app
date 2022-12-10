@@ -54,12 +54,15 @@ public class GetMeApi {
 
     private void call(Request request){
 
-        if(LoginData.access_token.length() < 3){
+        Log.i("Log1", "access inside get me is : " + LoginData.access_token );
+        if(LoginData.access_token.length() > 3){
             client = new OkHttpClient();
             client.newCall(request).enqueue(new Callback() {
                 Handler mainHandler = new Handler(context.getMainLooper());
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+                    Log.i("Log2: ","failed: " + e.toString());
                 }
 
                 @Override
@@ -92,7 +95,7 @@ public class GetMeApi {
 
     private void call(Request request, final HttpCallback callback){
 
-        if(LoginData.access_token.length() < 3){
+        if(LoginData.access_token.length() > 3){
             client = new OkHttpClient();
             client.newCall(request).enqueue(new Callback() {
                 Handler mainHandler = new Handler(context.getMainLooper());
@@ -103,23 +106,6 @@ public class GetMeApi {
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    Log.i("Log1","" + response.code());
-                    String res =  response.body().string();
-                    Log.i("Log2: ","response: " + res);
-                    if(response.code() == 200){
-                        try {
-                            JSONObject jsonObject = new JSONObject(res);
-                            if(jsonObject.getBoolean("success")){
-                                Gson gson = new Gson();
-                                LoginData.meClass = gson.fromJson(String.valueOf(jsonObject.getJSONArray("msg")), MeModel.class);
-                            }
-                        }catch (Exception e){
-
-                        }
-                    }else{
-
-                    }
-
                     callback.onSuccess(response);
                 }
             });
@@ -131,7 +117,10 @@ public class GetMeApi {
     }
 
     private Request createRequest(){
-        Request.Builder request = new Request.Builder().url(mainUrl + address);
+        mainUrl = context.getString(R.string.base_url);
+        String ad = mainUrl + address;
+        Log.i("Log1",ad);
+        Request.Builder request = new Request.Builder().url(ad);
         request.addHeader("M2M","Basic MlFYeTRBSGpYcDVGODFvZ2o5ZVpJUnpoOXhRZU9VZVQ4b2VqQkhlWTp0OVhIZ0M5WG5CZmhhZVBwb2M2VlZNUWpGNTcycUtOTlNkSWp1VldScHZreWZLWHBzV3JINVZRdGpreFlodGlLYmluU09MeFhyYkZNdDNSQWdMVG5EbVFVTElIVHBtcHNzMGFFYnBDWU52VWdsUm9DNlYyWFFIbXhrb0VYVEtNYw==pouya");
         request.addHeader("authorization","Bearer " + LoginData.access_token);
         return request.build();

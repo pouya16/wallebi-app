@@ -319,7 +319,11 @@
 
             </LinearLayout>
 
-
+            <ProgressBar
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/progressbar"/>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
