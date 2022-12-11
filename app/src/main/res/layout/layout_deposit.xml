@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundDef"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_26"
+    android:layout_height="match_parent">
+    
+    <ImageView
+        android:layout_width="@dimen/width_qr"
+        android:layout_height="@dimen/width_qr"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/mvp_gray1"
+        android:layout_marginTop="@dimen/margin_top_16"
+        android:id="@+id/img_qr"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/depoit_to"
+        android:textColor="?attr/textGray2"
+        android:layout_marginTop="@dimen/margin_top_16"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/margin_18"
+            android:text="@string/test_address"
+            android:textColor="?attr/textGray3"
+            android:id="@+id/txt_deposit_address"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_copy"
+            android:clickable="true"
+            android:id="@+id/img_cpy_address"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tag"
+        android:textColor="?attr/textGray2"
+        android:layout_marginTop="@dimen/margin_top_16"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:id="@+id/layout_tag"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/margin_18"
+            android:text="@string/test_tag"
+            android:textColor="?attr/textGray3"
+            android:id="@+id/txt_tag_address"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_copy"
+            android:clickable="true"
+            android:id="@+id/img_cpy_tag"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:backgroundTint="?attr/backgroundDef"
+            app:strokeWidth="@dimen/stroke_2"
+            app:strokeColor="?attr/btnColorGray"
+            android:text="@string/transactions"
+            app:icon="@drawable/ic_transactions"
+            app:iconGravity="textStart"
+            android:textColor="?attr/btnColorGray"
+            app:iconTint="?attr/btnColorGray"
+            android:id="@+id/btn_transaction"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/share"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/margin_8"
+            android:textColor="?attr/backgroundDef"
+            app:iconTint="?attr/backgroundDef"
+            app:icon="@drawable/ic_share"
+            app:iconGravity="textStart"
+            android:id="@+id/btn_share"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_deposit_alert_1"
+        android:layout_marginTop="@dimen/margin_18"
+        android:textColor="?attr/textGray2"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_deposit_alert_2"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textColor="?attr/textGray2"/>
+
+
+
+</LinearLayout>

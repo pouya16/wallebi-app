@@ -258,4 +258,9 @@
     <string name="add_new">Add New</string>
     <string name="add_new_iban">Add New IBAN</string>
     <string name="add_new_card">Add New Card</string>
+    <string name="depoit_to">Deposit to</string>
+    <string name="test_address">dafkawejfiajiojdsfijio1jfiji12jfri1mknefnjn1o2neo1nc1</string>
+    <string name="test_tag">123141</string>
+    <string name="transactions">Transaction</string>
+    <string name="share">Share</string>
 </resources>
