@@ -266,5 +266,16 @@
     <string name="alert_1_suffix">" deposit. Deposit of other assets will lead to permanent asset loss."</string>
     <string name="alert_2_prefix">2. Min. amount per deposit is</string>
     <string name="alert_2_suffix">. Assets less than Min. amount will NOT be credited and will be lost. Wallebi will have no obligation to compensate for the loss.</string>
+    <string name="choose_currency">Choose Currency</string>
+    <string name="currency">Currency</string>
+    <string name="choose_card">Choose Card</string>
+    <string name="choose_iban">Choose IBAN</string>
+    <string name="deposit_pre_invoice">Deposit Pre-Invoice</string>
+    <string name="requested_amount">Requested Amount</string>
+    <string name="amount_example">100,000</string>
+    <string name="irt">IRT</string>
+    <string name="fee">Fee</string>
+    <string name="deposit_amount">Deposit Amount</string>
+    <string name="card_example">6104-3389-1147-1601</string>
 
 </resources>

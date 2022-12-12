@@ -204,12 +204,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_top_16"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/coin"
+                        android:id="@+id/txt_choose_header"
                         android:textColor="?attr/textGray2"
                         android:textSize="@dimen/default_input_text_size" />
 
@@ -241,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="@dimen/margin_top_16"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -359,7 +360,7 @@
                         <RelativeLayout
                             android:id="@+id/layout_address_whitelist_on"
                             android:layout_width="match_parent"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:layout_height="match_parent">
 
                             <Spinner
@@ -374,7 +375,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:visibility="visible">
+                            android:visibility="gone">
 
                             <EditText
                                 android:id="@+id/txt_address"
@@ -417,7 +418,7 @@
                         android:layout_height="@dimen/input_default_height"
                         android:layout_marginTop="@dimen/margin_top_16"
                         android:backgroundTint="@color/mvp_bg_dark3"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:cardCornerRadius="@dimen/corner_radius_app_default">
 
                         <LinearLayout
@@ -693,6 +694,202 @@
                         android:textColor="?attr/colorPrimary"
                         android:textSize="@dimen/default_input_text_size"
                         android:visibility="gone" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_pre_invoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:backgroundTint="?attr/backgroundLevel2">
+
+                <include layout="@layout/layout_deposit"
+                    android:id="@+id/layout_deposit"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_top_16"
+                    android:visibility="visible">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="?attr/backgroundDef"
+                        app:strokeColor="?attr/btnColorGray"
+                        app:strokeWidth="@dimen/stroke_2">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/txt_header_preinvoice"
+                                android:text="@string/deposit_pre_invoice"
+                                android:textColor="?attr/textGray2"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="@dimen/margin_18"
+                                android:layout_marginBottom="@dimen/margin_18"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_preinvoice"
+                                android:layout_marginEnd="@dimen/margin_preinvoice"
+                                android:layout_marginBottom="@dimen/margin_preinvoice"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/requested_amount"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_requested_header"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/amount_example"
+                                    android:layout_marginEnd="@dimen/margin_word_Start"
+                                    android:textColor="?attr/textGray4"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_amount"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/irt"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_fiat"/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_preinvoice"
+                                android:layout_marginEnd="@dimen/margin_preinvoice"
+                                android:layout_marginBottom="@dimen/margin_preinvoice"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fee"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_fee"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/amount_example"
+                                    android:layout_marginEnd="@dimen/margin_word_Start"
+                                    android:textColor="?attr/textGray4"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_fee_show"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/irt"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_fiat2"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_preinvoice"
+                                android:layout_marginEnd="@dimen/margin_preinvoice"
+                                android:layout_marginBottom="@dimen/margin_preinvoice"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/deposit_amount"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_deposit_header"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/amount_example"
+                                    android:layout_marginEnd="@dimen/margin_word_Start"
+                                    android:textColor="?attr/textGray4"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_deposit_amount"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/irt"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_fiat3"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_preinvoice"
+                                android:layout_marginEnd="@dimen/margin_preinvoice"
+                                android:layout_marginBottom="@dimen/margin_preinvoice"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/requested_amount"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_card_header"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/card_example"
+                                    android:layout_marginEnd="@dimen/margin_word_Start"
+                                    android:textColor="?attr/textGray4"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_pre_card"/>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
 
                 </LinearLayout>
 

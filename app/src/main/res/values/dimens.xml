@@ -121,4 +121,6 @@
     <dimen name="btn_width_tab">80dp</dimen>
     <dimen name="padding_26">26dp</dimen>
     <dimen name="width_qr">128dp</dimen>
+    <dimen name="margin_preinvoice">12dp</dimen>
+    <dimen name="text_small">10sp</dimen>
 </resources>

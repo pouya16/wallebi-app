@@ -92,8 +92,6 @@ public class BankFragment extends Fragment {
             @Override
             public void onSuccess(Response response) {
                 progressBar.setVisibility(View.GONE);
-
-
             }
         };
         httpUtil.get(address,null,callback,HttpUtil.MODE_AUTH);

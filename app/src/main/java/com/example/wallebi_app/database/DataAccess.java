@@ -1,6 +1,7 @@
 package com.example.wallebi_app.database;
 
 import com.example.wallebi_app.api.bank.BankAccountsModel;
+import com.example.wallebi_app.api.bank.IbanAccountsModel;
 import com.example.wallebi_app.api.data.CoinListModel;
 
 import java.util.ArrayList;
@@ -10,11 +11,21 @@ public class DataAccess {
 
     private static ArrayList<CoinListModel> cryptoListModels = null;
     private static ArrayList<CoinListModel> coinListModels = null;
-    private static ArrayList<BankAccountsModel> bankAccountsModels = null;
+    private static ArrayList<BankAccountsModel> bankAccountsModels = new ArrayList<>();
+    private static ArrayList<IbanAccountsModel> ibanAccountsModels = new ArrayList<>();
+
+    public void createIbanModel(ArrayList<IbanAccountsModel> models){
+        bankAccountsModels = null;
+        bankAccountsModels = new ArrayList<>();
+        for (IbanAccountsModel model:
+                models) {
+            ibanAccountsModels.add(model);
+        }
+    }
 
 
 
-    public void createBankModel(ArrayList<BankAccountsModel> models){
+    public static void createBankModel(ArrayList<BankAccountsModel> models){
         bankAccountsModels = null;
         bankAccountsModels = new ArrayList<>();
         for (BankAccountsModel model:
@@ -23,12 +34,24 @@ public class DataAccess {
         }
     }
 
-    public ArrayList<BankAccountsModel> addBankModel(BankAccountsModel model){
+    public static ArrayList<IbanAccountsModel> addIbanModel(IbanAccountsModel model){
+        if (bankAccountsModels == null){
+            ibanAccountsModels = new ArrayList<>();
+        }
+        ibanAccountsModels.add(model);
+        return ibanAccountsModels;
+    }
+
+    public static ArrayList<BankAccountsModel> addBankModel(BankAccountsModel model){
         if (bankAccountsModels == null){
             bankAccountsModels = new ArrayList<>();
         }
         bankAccountsModels.add(model);
         return bankAccountsModels;
+    }
+
+    public static ArrayList<IbanAccountsModel> getIbanAccountsModels() {
+        return ibanAccountsModels;
     }
 
     public static ArrayList<BankAccountsModel> getBankAccountsModels() {

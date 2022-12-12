@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import androidmads.library.qrgenearator.QRGEncoder
 import androidx.fragment.app.Fragment
 import com.example.wallebi_app.R
 import com.example.wallebi_app.api.*
+import com.example.wallebi_app.api.bank.BankAccountsModel
+import com.example.wallebi_app.api.bank.IbanAccountsModel
 import com.example.wallebi_app.api.data.CoinListModel
 import com.example.wallebi_app.api.data.DepositAddressModel
 import com.example.wallebi_app.api.data.GetCoinsApi
@@ -30,6 +33,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.zxing.WriterException
 import okhttp3.Response
 import org.json.JSONObject
+import org.w3c.dom.Text
 
 
 class TransferFragment : Fragment() {
@@ -63,10 +67,20 @@ class TransferFragment : Fragment() {
     //network addresses model
     var networksArrayList: ArrayList<NetworkModel> = ArrayList()
     lateinit var adapterNetworks: ArrayAdapter<NetworkModel>
+    lateinit var adapterBankAccounts: ArrayAdapter<BankAccountsModel>
+    lateinit var adapterBankIbans: ArrayAdapter<IbanAccountsModel>
+
+    //DEFINE FIAT CARDS SPINNER PART:
+    var dataBankCards: ArrayList<BankAccountsModel> = ArrayList()
+    var dataBankIbans: ArrayList<IbanAccountsModel> = ArrayList()
 
     var mode = 0
     var actionMode = 0 //withdraw 1 deposit 2
+    val ACTION_WITHDRAW = 1
+    val ACTION_DEPOSIT = 2
     var typeMode = 0 //fiat 2 crypto is 1
+    val TYPE_FIAT = 2
+    val TYPE_CRYPTO = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,7 +106,10 @@ class TransferFragment : Fragment() {
         } else
             Log.i("Log1", "data exist")
         if (LoginData.meClass == null) {
-            var getMeApi = GetMeApi(context)
+            GetMeApi(context)
+        }
+        if(DataAccess.getBankAccountsModels() == null){
+            GetBankCardsApi(requireContext())
         }
 
         progressBar_main.visibility = View.GONE
@@ -104,9 +121,13 @@ class TransferFragment : Fragment() {
                 parent: AdapterView<*>,
                 v: View, position: Int, id: Long
             ) {
-                if (position != 0) {
-                    showDepositAddress(view,ticker,networksArrayList[position].ticker)
-                } else {
+                if(typeMode == TYPE_CRYPTO){
+                    if (position != 0) {
+                        showDepositAddress(view,ticker,networksArrayList[position].ticker)
+                    } else {
+                    }
+                }else{
+
                 }
             }
 
@@ -303,6 +324,63 @@ class TransferFragment : Fragment() {
 
     }
 
+    private fun setFiat(v:View,coin:String){
+        v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_coinname_collapse).text = coin
+        v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.GONE
+        v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
+        v.findViewById<RelativeLayout>(R.id.layout_address_whitelist_on).visibility = View.VISIBLE
+        if (actionMode == ACTION_DEPOSIT){
+            v.findViewById<TextView>(R.id.choose_address_expanded_title).text = requireContext().getString(R.string.choose_card)
+            loadBankCards(v)
+        }else{
+            v.findViewById<TextView>(R.id.choose_address_expanded_title).text = requireContext().getString(R.string.choose_iban)
+            loadBankIbans(v)
+        }
+    }
+
+    private fun loadBankCards(v:View){
+        dataBankCards = DataAccess.getBankAccountsModels()
+        dataBankCards.add(0, BankAccountsModel(0,"Choose Card","",""))
+        dataBankCards.add(BankAccountsModel(1,"6104338911471601","","melat"))//test
+        dataBankCards.add(BankAccountsModel(0,"Add New Card","",""))
+        adapterBankAccounts =
+            context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    dataBankCards
+                )
+            }!!
+        spinnerAddress.adapter = adapterBankAccounts
+    }
+
+    private fun loadBankIbans(v:View){
+        dataBankIbans = DataAccess.getIbanAccountsModels()
+        dataBankIbans.add(0,IbanAccountsModel(0,"","Choose IBAN",""))
+        dataBankIbans.add(IbanAccountsModel(1,"","IR4800001056748156489445616","melat"))
+        dataBankIbans.add(IbanAccountsModel(0,"","Add new IBAN",""))
+        adapterBankIbans =
+            context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    dataBankIbans
+                )
+            }!!
+        spinnerAddress.adapter = adapterBankIbans
+
+    }
+
+
+
     private fun setCoin(v: View, coin: String) {
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
@@ -427,6 +505,9 @@ class TransferFragment : Fragment() {
 
 
     private fun setModeFiat(v: View) {
+
+        v.findViewById<TextView>(R.id.txt_choose).text = requireContext().getString(R.string.choose_currency)
+        v.findViewById<TextView>(R.id.txt_choose_header).text = requireContext().getString(R.string.currency)
         typeMode = 2
         data_fiat = DataAccess().fiatListModels
         data_fiat.add(0, CoinListModel(0, "Select Fiat", "", "", true));
@@ -449,6 +530,8 @@ class TransferFragment : Fragment() {
     }
 
     private fun setModeCoin(v: View) {
+        v.findViewById<TextView>(R.id.txt_choose).text = requireContext().getString(R.string.choose_coin)
+        v.findViewById<TextView>(R.id.txt_choose_header).text = requireContext().getString(R.string.coin)
         typeMode = 1
         data_crypto = DataAccess().cryptoListModels
         data_fiat.add(0, CoinListModel(0, "Select Coin", "", "", true));
@@ -511,6 +594,7 @@ class TransferFragment : Fragment() {
         cardAddress.visibility = View.GONE
         cardAmount.visibility = View.GONE
     }
+
 
     private fun loadZero(v: View) {
         cardAction.visibility = View.VISIBLE
