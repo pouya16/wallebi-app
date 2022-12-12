@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/backgroundDef"
     tools:context=".fragments.setting.SettingFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,10 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="@dimen/margin_17"
             android:layout_height="wrap_content">
-            <ImageView
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow_left"
+                android:background="@android:color/transparent"
                 android:clickable="true"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/img_back"/>
@@ -136,6 +138,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_copy"
+                            android:id="@+id/img_cpy_uid"
                             android:background="@android:color/transparent"
                             android:clickable="true"
                             android:layout_marginStart="@dimen/margin_word_Start"
@@ -196,6 +199,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_17"
+            android:id="@+id/card_basic"
             android:clickable="true"
             android:backgroundTint="@android:color/transparent">
             <LinearLayout
@@ -233,6 +237,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:id="@+id/card_securities"
             android:backgroundTint="@android:color/transparent">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -269,6 +274,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:id="@+id/card_whitelist"
             android:backgroundTint="@android:color/transparent">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -373,4 +379,16 @@
 
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundDef"
+        android:id="@+id/layout_load">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 </FrameLayout>

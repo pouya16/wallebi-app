@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.wallebi_app.R;
+import com.example.wallebi_app.adapters.BankCardsAdapter;
 import com.example.wallebi_app.api.HttpCallback;
 import com.example.wallebi_app.api.HttpUtil;
 import com.example.wallebi_app.api.bank.BankAccountsModel;
@@ -53,15 +54,32 @@ public class BankFragment extends Fragment {
         bankCards = new ArrayList<>();
         bankIbans = new ArrayList<>();
 
+        btnCard.setOnClickListener(v->setModeCard());
+        btnIban.setOnClickListener(v->setModeIban());
+
 
 
 
         return view;
     }
 
+    public void LoadData(ArrayList<BankAccountsModel> arrayList){
+        if(arrayList.size()>0){
+            recyclerView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            imgNoCard.setVisibility(View.GONE);
+            BankCardsAdapter bankCardsAdapter = new BankCardsAdapter(arrayList,requireContext(),mode);
+            recyclerView.setAdapter(bankCardsAdapter);
+        }else{
+            recyclerView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+            imgNoCard.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     public void getCards(){
-
+        String address = "v0/UserService/get_bank_accounts/";
         HttpUtil httpUtil = new HttpUtil(getContext());
         HttpCallback callback = new HttpCallback() {
             @Override
@@ -73,30 +91,42 @@ public class BankFragment extends Fragment {
 
             @Override
             public void onSuccess(Response response) {
+                progressBar.setVisibility(View.GONE);
+
 
             }
         };
-        httpUtil.get("v0/UserService/get_bank_accounts/",null,callback,HttpUtil.MODE_AUTH);
+        httpUtil.get(address,null,callback,HttpUtil.MODE_AUTH);
 
     }
 
     public void changeMode(){
         if(mode == 0){
-            mode = 1;
-            btnIban.setTextColor(getContext().getColor(R.color.mvp_gray4));
-            btnCard.setTextColor(getContext().getColor(R.color.mvp_gray2));
-            lineIban.setBackgroundColor(getContext().getColor(R.color.mvp_yellow));
-            lineCard.setBackgroundColor(getContext().getColor(R.color.mvp_gray2));
-            btnAddNew.setText(getContext().getString(R.string.add_new_iban));
+            setModeIban();
         }else{
-            mode = 0;
-            btnIban.setTextColor(getContext().getColor(R.color.mvp_gray2));
-            btnCard.setTextColor(getContext().getColor(R.color.mvp_gray4));
-            lineCard.setBackgroundColor(getContext().getColor(R.color.mvp_yellow));
-            lineIban.setBackgroundColor(getContext().getColor(R.color.mvp_gray2));
-            btnAddNew.setText(getContext().getString(R.string.add_new_card));
+            setModeCard();
         }
     }
+
+    private void setModeIban(){
+        mode = 1;
+        btnIban.setTextColor(getContext().getColor(R.color.mvp_gray4));
+        btnCard.setTextColor(getContext().getColor(R.color.mvp_gray2));
+        lineIban.setBackgroundColor(getContext().getColor(R.color.mvp_yellow));
+        lineCard.setBackgroundColor(getContext().getColor(R.color.mvp_gray2));
+        btnAddNew.setText(getContext().getString(R.string.add_new_iban));
+    }
+
+    private void setModeCard(){
+        mode = 0;
+        btnIban.setTextColor(getContext().getColor(R.color.mvp_gray2));
+        btnCard.setTextColor(getContext().getColor(R.color.mvp_gray4));
+        lineCard.setBackgroundColor(getContext().getColor(R.color.mvp_yellow));
+        lineIban.setBackgroundColor(getContext().getColor(R.color.mvp_gray2));
+        btnAddNew.setText(getContext().getString(R.string.add_new_card));
+    }
+
+
 
     public void loadViews(View v){
         btnCard = v.findViewById(R.id.btn_card);

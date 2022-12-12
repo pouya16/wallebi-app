@@ -73,7 +73,14 @@
         android:id="@+id/basicInfoFragment"
         android:name="com.example.wallebi_app.fragments.setting.BasicInfoFragment"
         android:label="fragment_basic_info"
-        tools:layout="@layout/fragment_basic_info" />
+        tools:layout="@layout/fragment_basic_info" >
+        <action
+            android:id="@+id/action_basicInfoFragment_to_VIPFragment"
+            app:destination="@id/VIPFragment" />
+        <action
+            android:id="@+id/action_basicInfoFragment_to_bankFragment"
+            app:destination="@id/bankFragment" />
+    </fragment>
     <fragment
         android:id="@+id/whiteListFragment"
         android:name="com.example.wallebi_app.fragments.setting.WhiteListFragment"
@@ -84,4 +91,9 @@
         android:name="com.example.wallebi_app.fragments.users.BankFragment"
         android:label="fragment_bank"
         tools:layout="@layout/fragment_bank" />
+    <fragment
+        android:id="@+id/VIPFragment"
+        android:name="com.example.wallebi_app.fragments.users.VIPFragment"
+        android:label="fragment_v_i_p"
+        tools:layout="@layout/fragment_v_i_p" />
 </navigation>

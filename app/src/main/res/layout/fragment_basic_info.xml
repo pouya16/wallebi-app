@@ -18,11 +18,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_17">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
                 android:clickable="true"
                 android:src="@drawable/ic_arrow_left" />
 
@@ -100,6 +101,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/txt_uid"
                             android:layout_marginStart="@dimen/margin_word_Start"
                             android:text="@string/uid_fake"
                             android:textColor="?attr/textGray2"/>
@@ -161,6 +163,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/unverified"
+                            android:id="@+id/kyc_verification"
                             android:textColor="@color/mvp_red"
                             android:layout_marginStart="@dimen/margin_word_Start"
                             android:textSize="@dimen/hint_text_size"/>
@@ -407,6 +410,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/txt_back_account_number"
                             android:text="@string/you_didnt_add_card"
                             android:textColor="?attr/textGray2"/>
 

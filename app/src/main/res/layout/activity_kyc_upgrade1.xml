@@ -31,9 +31,8 @@
                 <include layout="@layout/layout_kyc1_flipper4"
                     android:id="@+id/layout_kyc_1"/>
 
-
-                <include layout="@layout/layout_kyc1_flipper2"
-                    android:id="@+id/layout_kyc_2"/>
+                <!--<include layout="@layout/layout_kyc1_flipper2"
+                    android:id="@+id/layout_kyc_2"/>-->
 
 
                 <include layout="@layout/layout_kyc1_flipper3"
@@ -42,7 +41,6 @@
 
                 <include layout="@layout/layout_kyc1_flipper4"
                     android:id="@+id/layout_kyc_4"/>
-
 
 
             </ViewFlipper>
