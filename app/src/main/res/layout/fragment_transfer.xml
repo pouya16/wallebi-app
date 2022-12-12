@@ -306,6 +306,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/txt_address_header_label"
                         android:text="@string/recepiant_address"
                         android:textColor="?attr/textGray2"
                         android:textSize="@dimen/default_input_text_size" />
@@ -358,6 +359,7 @@
                         <RelativeLayout
                             android:id="@+id/layout_address_whitelist_on"
                             android:layout_width="match_parent"
+                            android:visibility="gone"
                             android:layout_height="match_parent">
 
                             <Spinner
@@ -372,7 +374,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:visibility="visible">
 
                             <EditText
                                 android:id="@+id/txt_address"
@@ -415,7 +417,7 @@
                         android:layout_height="@dimen/input_default_height"
                         android:layout_marginTop="@dimen/margin_top_16"
                         android:backgroundTint="@color/mvp_bg_dark3"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:cardCornerRadius="@dimen/corner_radius_app_default">
 
                         <LinearLayout
@@ -479,7 +481,7 @@
 
                 <include layout="@layout/layout_deposit"
                     android:id="@+id/layout_deposit"
-                    android:visibility="visible"/>
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:id="@+id/layout_collapse_amount"
@@ -487,7 +489,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_top_16"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"

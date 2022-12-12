@@ -1,6 +1,9 @@
 package com.example.wallebi_app.fragments
 
+import android.R.attr.bitmap
 import android.app.Activity
+import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -8,20 +11,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidmads.library.qrgenearator.QRGContents
+import androidmads.library.qrgenearator.QRGEncoder
 import androidx.fragment.app.Fragment
 import com.example.wallebi_app.R
 import com.example.wallebi_app.api.*
 import com.example.wallebi_app.api.data.CoinListModel
+import com.example.wallebi_app.api.data.DepositAddressModel
 import com.example.wallebi_app.api.data.GetCoinsApi
 import com.example.wallebi_app.api.data.NetworkModel
 import com.example.wallebi_app.database.DataAccess
 import com.example.wallebi_app.database.LoginData
 import com.example.wallebi_app.helpers.StringHelper
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.google.zxing.WriterException
 import okhttp3.Response
 import org.json.JSONObject
+
 
 class TransferFragment : Fragment() {
 
@@ -35,6 +44,15 @@ class TransferFragment : Fragment() {
     lateinit var spinnerCoin: Spinner
     lateinit var spinnerAddress: Spinner
     lateinit var progressBar_main: ProgressBar
+
+    //deposit layout items:
+    lateinit var btnShare:MaterialButton
+    lateinit var btnTransaction:MaterialButton
+    lateinit var btnCpyAddress: ImageButton
+    lateinit var btnCpyTag: ImageButton
+    lateinit var txtDepositAddress: TextView
+    lateinit var txtTagAddress: TextView
+    var depositAddressModel: DepositAddressModel? = null
 
     // DEFINE COINS SPINNDER PART
     var data_fiat: ArrayList<CoinListModel> = ArrayList()
@@ -78,6 +96,24 @@ class TransferFragment : Fragment() {
         }
 
         progressBar_main.visibility = View.GONE
+
+        //HANDLE DEPOSIT PART :
+        spinnerAddress.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                v: View, position: Int, id: Long
+            ) {
+                if (position != 0) {
+                    showDepositAddress(view,ticker,networksArrayList[position].ticker)
+                } else {
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
 
         //HANDLE CHOOSE COIN PART
         spinnerCoin.onItemSelectedListener = object :
@@ -156,6 +192,117 @@ class TransferFragment : Fragment() {
 
     }
 
+
+    private fun showDepositAddress(v:View,ticker:String,network:String){
+        cardAmount.visibility = View.VISIBLE
+        Log.i("Log1","ticker is: $ticker  + network is : $network")
+        v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.VISIBLE
+        v.findViewById<TextView>(R.id.txt_address_header_label).text = "Network"
+        v.findViewById<TextView>(R.id.txt_address_label).text = network
+        v.findViewById<MaterialCardView>(R.id.card_address).visibility = View.VISIBLE
+        v.findViewById<MaterialCardView>(R.id.card_end).visibility = View.GONE
+        v.findViewById<ProgressBar>(R.id.progress_deposit).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_deposit_inside).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
+        v.findViewById<View>(R.id.layout_deposit).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_amount).visibility = View.GONE
+        var address = "v0/CryptoService/wallet_address/"
+        val callback:HttpCallback = object :HttpCallback{
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post {
+                    v.findViewById<ProgressBar>(R.id.progress_deposit).visibility = View.GONE
+                    StringHelper.showSnackBar(
+                        context as Activity,
+                        "failed to get data",
+                        "Network",
+                        2
+                    )
+                }
+            }
+
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", "response: $res")
+                    val jsonObject = JSONObject(res)
+                    if (response.code == 200) {
+                        if (jsonObject.getBoolean("success")) {
+                            var gson = Gson()
+                            depositAddressModel = gson.fromJson(jsonObject.getJSONObject("msg").toString(),DepositAddressModel::class.java)
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "failed to convert to json: $e")
+                }
+                mainHandler.post {
+                    v.findViewById<ProgressBar>(R.id.progress_deposit).visibility = View.GONE
+                    if(depositAddressModel!=null){
+                        Log.i("Log1","deposit model is not null")
+                        v.findViewById<LinearLayout>(R.id.layout_deposit_inside).visibility = View.VISIBLE
+                        v.findViewById<TextView>(R.id.txt_deposit_address).text = depositAddressModel!!.address
+                        var imageQr = v.findViewById<ImageView>(R.id.img_qr)
+                        var qrgEncoder =
+                            QRGEncoder(depositAddressModel!!.address, QRGContents.Type.TEXT,148)
+                        qrgEncoder.colorBlack = Color.WHITE
+                        qrgEncoder.colorWhite = Color.BLACK
+                        try {
+                            // Getting QR-Code as Bitmap
+                            var bitmap = qrgEncoder.bitmap
+                            // Setting Bitmap to ImageView
+                            imageQr.setImageBitmap(bitmap)
+                        } catch (e: WriterException) {
+                            Log.v("Log1", e.toString())
+                        }
+                        v.findViewById<TextView>(R.id.txt_deposit_alert_1).text = context!!.getString(R.string.alert_1_prefix) +
+                                " " + ticker + " - " + network + " " + context!!.getString(R.string.alert_1_suffix)
+
+                        v.findViewById<TextView>(R.id.txt_deposit_alert_2).text = context!!.getString(R.string.alert_2_prefix) +
+                                " " + depositAddressModel!!.fee + context!!.getString(R.string.alert_2_suffix)
+                        if(depositAddressModel!!.memo !=null){
+                            Log.i("Log1","memo is: ${depositAddressModel!!.memo}")
+                            if(depositAddressModel!!.memo.toString().length>1){
+                                xrpVisibilityDeposit(v,View.VISIBLE)
+                                v.findViewById<TextView>(R.id.txt_tag_address).text = depositAddressModel!!.memo.toString()
+                                v.findViewById<TextView>(R.id.txt_deposit_alert_3).text = context!!.getString(R.string.alert_xrp_3)
+                            }else{
+                                xrpVisibilityDeposit(v,View.GONE)
+                            }
+                        }else{
+                            Log.i("Log1","memo is null")
+                            xrpVisibilityDeposit(v,View.GONE)
+                        }
+                    }
+                }
+            }
+        }
+
+        var httpUtil = HttpUtil(context)
+        var bodyModel = BodyHandlingModel("ticker", ticker, "string")
+        var bodyModel2 = BodyHandlingModel("network", network, "string")
+        var bodyList = ArrayList<BodyHandlingModel>()
+        bodyList.add(bodyModel)
+        bodyList.add(bodyModel2)
+        var body = BodyMaker.getBody(bodyList)
+        httpUtil.post(address, body, null, callback, HttpUtil.MODE_AUTH)
+
+    }
+    private fun xrpVisibilityDeposit(v:View,visibility:Int){
+        v.findViewById<TextView>(R.id.txt_tag_header).visibility = visibility
+        v.findViewById<LinearLayout>(R.id.layout_tag).visibility = visibility
+        v.findViewById<TextView>(R.id.txt_deposit_alert_3).visibility = visibility
+    }
+
+    private fun getWhitelist(v:View){
+
+    }
+
     private fun setCoin(v: View, coin: String) {
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
@@ -171,8 +318,25 @@ class TransferFragment : Fragment() {
         Log.i("Log1", " action mode is : $actionMode ")
         if (actionMode == 2) {
             chooseNetwork(v)
+            v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.GONE
+            v.findViewById<MaterialButton>(R.id.btn_accept_address).visibility = View.GONE
+            v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
             cardSkelet.visibility = View.VISIBLE
         } else {
+            v.findViewById<MaterialButton>(R.id.btn_accept_address).visibility = View.VISIBLE
+            if(ticker.compareTo("XRP") == 0){
+                v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.VISIBLE
+            }else{
+                v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
+            }
+            if (LoginData.meClass.is_withdraw_whitelist){
+                progressBar_main.visibility = View.VISIBLE
+                getWhitelist(v)
+            }else{
+                v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.VISIBLE
+                v.findViewById<RelativeLayout>(R.id.layout_address_whitelist_on).visibility = View.GONE
+            }
+            v.findViewById<TextView>(R.id.choose_address_expanded_title).text = requireContext().getString(R.string.choose_address)
             cardSkelet.visibility = View.GONE
         }
         cardAmount.visibility = View.GONE
@@ -373,6 +537,12 @@ class TransferFragment : Fragment() {
         spinnerCoin = v.findViewById(R.id.spinner_coin)
         progressBar_main = v.findViewById(R.id.progressbar)
         spinnerAddress = v.findViewById(R.id.spinner_address)
+        btnShare = v.findViewById(R.id.btn_share)
+        btnTransaction = v.findViewById(R.id.btn_transaction)
+        btnCpyAddress = v.findViewById(R.id.img_cpy_address)
+        btnCpyTag = v.findViewById(R.id.img_cpy_tag)
+        txtDepositAddress = v.findViewById(R.id.txt_deposit_address)
+        txtTagAddress = v.findViewById(R.id.txt_tag_address)
     }
 
 }

@@ -44,6 +44,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        LoginData.access_token = "ban2UZe9X4OI4sW87z14L4RhYvkKU3";
         getCoinList();
         getFiatList();
         retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();

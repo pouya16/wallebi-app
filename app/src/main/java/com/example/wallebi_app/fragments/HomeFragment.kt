@@ -36,6 +36,8 @@ class HomeFragment : Fragment() {
     lateinit var txtLoginStatus:TextView
     lateinit var txtEmailAddress:TextView
     lateinit var progressBar: ProgressBar
+    lateinit var btnRegister:MaterialButton
+    lateinit var btnLogin:MaterialButton
     var isLogin = false
     var meClass : MeModel? = null
 
@@ -48,8 +50,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val btnRegister = view.findViewById<MaterialButton>(R.id.btn_by)
-        val btnLogin = view.findViewById<MaterialButton>(R.id.btn_sell)
+        btnRegister = view.findViewById<MaterialButton>(R.id.btn_by)
+        btnLogin = view.findViewById<MaterialButton>(R.id.btn_sell)
         txtLoginStatus = view.findViewById(R.id.txt_login_status)
         txtEmailAddress = view.findViewById(R.id.txt_login_email)
         progressBar = view.findViewById(R.id.progressbar)
@@ -103,6 +105,8 @@ class HomeFragment : Fragment() {
         Log.i("Log1","resume called")
         super.onResume()
         if(LoginData.access_token!=null && LoginData.access_token.length > 4){
+            btnLogin.visibility = View.GONE
+            btnRegister.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
             txtLoginStatus.text = "You are Login"
             isLogin = true

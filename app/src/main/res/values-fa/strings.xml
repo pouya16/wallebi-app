@@ -263,4 +263,9 @@
     <string name="test_tag">123141</string>
     <string name="transactions">Transaction</string>
     <string name="share">Share</string>
+    <string name="alert_xrp_3">3. Tag should be used correctly to deposit XRP-XRP to Wallebi. Omitting the tag will lead to the loss of funds.</string>
+    <string name="alert_1_prefix">1. The address is ONLY available for</string>
+    <string name="alert_1_suffix">" deposit. Deposit of other assets will lead to permanent asset loss."</string>
+    <string name="alert_2_prefix">2. Min. amount per deposit is</string>
+    <string name="alert_2_suffix">. Assets less than Min. amount will NOT be credited and will be lost. Wallebi will have no obligation to compensate for the loss.</string>
 </resources>
