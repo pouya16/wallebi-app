@@ -277,5 +277,7 @@
     <string name="fee">Fee</string>
     <string name="deposit_amount">Deposit Amount</string>
     <string name="card_example">6104-3389-1147-1601</string>
+    <string name="invalid_address">Please enter a valid address</string>
+    <string name="valid_address">please enter a valid address</string>
 
 </resources>

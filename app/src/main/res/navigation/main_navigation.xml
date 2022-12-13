@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_transferFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_transferFragment_to_bankFragment"
+            app:destination="@id/bankFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"

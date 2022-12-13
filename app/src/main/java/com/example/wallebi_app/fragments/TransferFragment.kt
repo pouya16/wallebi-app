@@ -19,10 +19,7 @@ import com.example.wallebi_app.R
 import com.example.wallebi_app.api.*
 import com.example.wallebi_app.api.bank.BankAccountsModel
 import com.example.wallebi_app.api.bank.IbanAccountsModel
-import com.example.wallebi_app.api.data.CoinListModel
-import com.example.wallebi_app.api.data.DepositAddressModel
-import com.example.wallebi_app.api.data.GetCoinsApi
-import com.example.wallebi_app.api.data.NetworkModel
+import com.example.wallebi_app.api.data.*
 import com.example.wallebi_app.database.DataAccess
 import com.example.wallebi_app.database.LoginData
 import com.example.wallebi_app.helpers.StringHelper
@@ -70,6 +67,10 @@ class TransferFragment : Fragment() {
     lateinit var adapterBankAccounts: ArrayAdapter<BankAccountsModel>
     lateinit var adapterBankIbans: ArrayAdapter<IbanAccountsModel>
 
+    //WITHDRAW :
+    var addressValidateResponse:AddressValidateResponse? = null
+    var walletWithdrawModel:WalletWithdrawModel? = null
+
     //DEFINE FIAT CARDS SPINNER PART:
     var dataBankCards: ArrayList<BankAccountsModel> = ArrayList()
     var dataBankIbans: ArrayList<IbanAccountsModel> = ArrayList()
@@ -112,6 +113,21 @@ class TransferFragment : Fragment() {
             GetBankCardsApi(requireContext())
         }
 
+        //VALIDATE ADDRESS :
+        view.findViewById<MaterialButton>(R.id.btn_accept_address).setOnClickListener{
+            val address = view.findViewById<EditText>(R.id.txt_address).text.toString()
+            var tag:String = ""
+            if(address.length > 5){
+                if(view.findViewById<MaterialCardView>(R.id.card_tag).visibility == View.VISIBLE){
+                    tag = view.findViewById<EditText>(R.id.txt_tag).text.toString()
+                }
+                validateAddress(view,view.findViewById<MaterialButton>(R.id.btn_accept_address),address,tag)
+
+            }else{
+                StringHelper.showSnackBar(requireActivity(),"Please enter a valid address","failed",2)
+            }
+        }
+
         progressBar_main.visibility = View.GONE
 
         //HANDLE DEPOSIT PART :
@@ -144,8 +160,8 @@ class TransferFragment : Fragment() {
                 v: View, position: Int, id: Long
             ) {
                 if (position != 0) {
+                    ticker = data_crypto[position].name
                     if (typeMode == 1) {
-                        ticker = data_crypto[position].name
                         setCoin(view, data_crypto[position].fullname)
                     } else {
                         setCoin(view, data_fiat[position].fullname)
@@ -163,6 +179,11 @@ class TransferFragment : Fragment() {
         view.findViewById<ImageButton>(R.id.img_expand_coinname).setOnClickListener {
             view.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.GONE
+        }
+
+        view.findViewById<ImageButton>(R.id.img_expand_address).setOnClickListener{
+            view.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.VISIBLE
         }
 
 
@@ -213,6 +234,133 @@ class TransferFragment : Fragment() {
 
     }
 
+    private fun validateAddress(v:View,btnNext:MaterialButton,address:String,tag:String){
+        btnNext.isActivated = false
+        progressBar_main.visibility = View.VISIBLE
+        val netAddress = "v0/CryptoService/validate_address/"
+
+        val callback: HttpCallback = object : HttpCallback {
+
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post {
+                    btnNext.isActivated = true
+                    progressBar_main.visibility = View.GONE
+                    StringHelper.showSnackBar(
+                        context as Activity,
+                        "failed to get data",
+                        "Network",
+                        2
+                    )
+                }
+            }
+
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", "response: $res")
+                    val jsonObject = JSONObject(res)
+                    if (response.code == 200) {
+                        if (jsonObject.getBoolean("success")){
+                            getWalletInfo(v,btnNext,address,tag)
+                            val gson = Gson()
+                             addressValidateResponse = gson.fromJson(
+                                jsonObject.getJSONObject("msg").toString(),
+                                AddressValidateResponse::class.java
+                            )
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "failed to convert to json: $e")
+                }
+            }
+        }
+
+        var httpUtil = HttpUtil(context)
+        Log.i("Log1","address is : $address , ticker is: $ticker")
+        var bodyModel = BodyHandlingModel("address", address, "string")
+        var bodyModel2 = BodyHandlingModel("coin", ticker, "string")
+        var bodyList = ArrayList<BodyHandlingModel>()
+        bodyList.add(bodyModel)
+        bodyList.add(bodyModel2)
+        var body = BodyMaker.getBody(bodyList)
+        httpUtil.post(netAddress, body, null, callback, HttpUtil.MODE_AUTH)
+    }
+
+    private fun getWalletInfo(v:View,btnNext: MaterialButton,address:String,tag:String){
+        val netAddress = "v0/CryptoService/validate_address/"
+
+        val callback: HttpCallback = object : HttpCallback {
+
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post {
+                    btnNext.isActivated = true
+                    progressBar_main.visibility = View.GONE
+                    StringHelper.showSnackBar(
+                        context as Activity,
+                        "failed to get data",
+                        "Network",
+                        2
+                    )
+                }
+            }
+
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", "response: $res")
+                    val jsonObject = JSONObject(res)
+                    if (response.code == 200) {
+                        if (jsonObject.getBoolean("success")){
+                            getWalletInfo(v,btnNext,address,tag)
+                            val gson = Gson()
+                            walletWithdrawModel = gson.fromJson(
+                                jsonObject.getJSONObject("msg").toString(),
+                                WalletWithdrawModel::class.java
+                            )
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "failed to convert to json: $e")
+                }
+            }
+        }
+
+    }
+
+    private fun showTransferAmount(v:View,address:String){
+
+        v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_address_label).text = address
+        cardAmount.visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_expand_amount).visibility = View.VISIBLE
+        try{
+            v.findViewById<TextView>(R.id.txt_available_balance).text
+        }catch (e:Exception){
+
+        }
+
+    }
+
 
     private fun showDepositAddress(v:View,ticker:String,network:String){
         cardAmount.visibility = View.VISIBLE
@@ -223,6 +371,7 @@ class TransferFragment : Fragment() {
         v.findViewById<TextView>(R.id.txt_address_label).text = network
         v.findViewById<MaterialCardView>(R.id.card_address).visibility = View.VISIBLE
         v.findViewById<MaterialCardView>(R.id.card_end).visibility = View.GONE
+        v.findViewById<MaterialCardView>(R.id.card_pre_invoice).visibility = View.GONE
         v.findViewById<ProgressBar>(R.id.progress_deposit).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_deposit_inside).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
@@ -386,6 +535,7 @@ class TransferFragment : Fragment() {
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<MaterialCardView>(R.id.card_pre_invoice).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
         v.findViewById<TextView>(R.id.txt_coinname_collapse).text = coin
@@ -407,10 +557,15 @@ class TransferFragment : Fragment() {
             }else{
                 v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
             }
-            if (LoginData.meClass.is_withdraw_whitelist){
-                progressBar_main.visibility = View.VISIBLE
-                getWhitelist(v)
-            }else{
+            try{
+                if (LoginData.meClass.is_withdraw_whitelist){
+                    progressBar_main.visibility = View.VISIBLE
+                    getWhitelist(v)
+                }else{
+                    v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.VISIBLE
+                    v.findViewById<RelativeLayout>(R.id.layout_address_whitelist_on).visibility = View.GONE
+                }
+            }catch (e:Exception){
                 v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.VISIBLE
                 v.findViewById<RelativeLayout>(R.id.layout_address_whitelist_on).visibility = View.GONE
             }
@@ -552,6 +707,7 @@ class TransferFragment : Fragment() {
         spinnerCoin.adapter = adapter
 
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        v.findViewById<MaterialCardView>(R.id.card_pre_invoice).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
@@ -599,6 +755,7 @@ class TransferFragment : Fragment() {
     private fun loadZero(v: View) {
         cardAction.visibility = View.VISIBLE
         cardSkelet.visibility = View.VISIBLE
+        v.findViewById<MaterialCardView>(R.id.card_pre_invoice).visibility = View.GONE
         cardType.visibility = View.GONE
         cardCoin.visibility = View.GONE
         cardAddress.visibility = View.GONE
