@@ -279,5 +279,9 @@
     <string name="card_example">6104-3389-1147-1601</string>
     <string name="invalid_address">Please enter a valid address</string>
     <string name="valid_address">please enter a valid address</string>
+    <string name="pre_1">1.By using wallebi user UID or emails, you can transfer coin for your frinds in wallebi system</string>
+    <string name="pre_2">2. Internal Transactions has no fee</string>
+    <string name="pre_3">3.User can send unlimited coin and tokens to other wallebi users.</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

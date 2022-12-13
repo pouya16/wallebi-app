@@ -316,6 +316,7 @@
                         android:id="@+id/txt_address_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="60dp"
                         android:layout_marginStart="@dimen/margin_10"
                         android:text="@string/fake_address"
                         android:textColor="?attr/textGray3" />
@@ -600,7 +601,7 @@
                                 android:layout_marginStart="@dimen/margin_left_input"
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
-                                android:inputType="text"
+                                android:inputType="number"
                                 android:textColor="@color/mvp_gray4"
                                 android:textColorHint="@color/mvp_gray2"
                                 android:textSize="@dimen/default_input_text_size"
@@ -889,6 +890,59 @@
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pre_1"
+                        android:textColor="?attr/textGray2"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:id="@+id/withdraw_pre1"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pre_2"
+                        android:textColor="?attr/textGray2"
+                        android:layout_marginTop="@dimen/margin_top_12"
+                        android:id="@+id/withdraw_pre2"/>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pre_3"
+                        android:textColor="?attr/textGray2"
+                        android:layout_marginTop="@dimen/margin_top_12"
+                        android:id="@+id/withdraw_pre3"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancel"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textColor="?attr/btnColorGray"
+                            app:strokeWidth="@dimen/stroke_2"
+                            app:strokeColor="?attr/btnColorGray"
+                            android:layout_weight="1"
+                            android:id="@+id/btn_cancel"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/backgroundDef"
+                            android:text="@string/withdraw"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:id="@+id/btn_confirm"/>
+
+                    </LinearLayout>
 
 
                 </LinearLayout>

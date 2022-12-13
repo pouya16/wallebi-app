@@ -45,6 +45,7 @@ class TransferFragment : Fragment() {
     lateinit var spinnerCoin: Spinner
     lateinit var spinnerAddress: Spinner
     lateinit var progressBar_main: ProgressBar
+    var coinListModel: CoinListModel? = null
 
     //deposit layout items:
     lateinit var btnShare:MaterialButton
@@ -113,6 +114,13 @@ class TransferFragment : Fragment() {
             GetBankCardsApi(requireContext())
         }
 
+        //WITHDRAW PRE INVOICE
+        view.findViewById<MaterialButton>(R.id.btn_accept_amount).setOnClickListener{
+            if(validateBalance(view)){
+                showCryptoPre(view)
+            }
+        }
+
         //VALIDATE ADDRESS :
         view.findViewById<MaterialButton>(R.id.btn_accept_address).setOnClickListener{
             val address = view.findViewById<EditText>(R.id.txt_address).text.toString()
@@ -161,12 +169,14 @@ class TransferFragment : Fragment() {
             ) {
                 if (position != 0) {
                     ticker = data_crypto[position].name
-                    if (typeMode == 1) {
+                    if (typeMode == TYPE_CRYPTO) {
                         setCoin(view, data_crypto[position].fullname)
+                        coinListModel = data_crypto[position]
                     } else {
                         setCoin(view, data_fiat[position].fullname)
                     }
                 } else {
+                    coinListModel = null
                     ticker = ""
                     cardAddress.visibility = View.GONE
                 }
@@ -234,6 +244,36 @@ class TransferFragment : Fragment() {
 
     }
 
+
+    private fun validateBalance(v:View):Boolean{
+        val editText = v.findViewById<EditText>(R.id.txt_amount)
+        if(editText.text!=null&&editText.text.length>0){
+            if(editText.text.toString().toDouble().compareTo(walletWithdrawModel!!.balance)<=0){
+                if(editText.text.toString().toDouble().compareTo(walletWithdrawModel!!.min_withdraw)>=0){
+                    if(editText.text.toString().toDouble().compareTo(walletWithdrawModel!!.max_withdraw)<=0
+                        && editText.text.toString().toDouble().compareTo(walletWithdrawModel!!.max_daily_withdraw)<=0){
+                        return true
+                    }else{
+                        StringHelper.showSnackBar(requireActivity(),"max withdrawal problem","Amount",2)
+                    }
+                }else{
+                    StringHelper.showSnackBar(requireActivity(),"enter number greater than min withdrawal","Amount",2)
+                }
+            }else{
+                StringHelper.showSnackBar(requireActivity(),"not enough balance","Amount",2)
+            }
+        }else{
+            StringHelper.showSnackBar(requireActivity(),"enter amount","Amount",2)
+        }
+        return false
+    }
+
+    private fun showCryptoPre(v:View){
+
+    }
+
+
+
     private fun validateAddress(v:View,btnNext:MaterialButton,address:String,tag:String){
         btnNext.isActivated = false
         progressBar_main.visibility = View.VISIBLE
@@ -266,11 +306,22 @@ class TransferFragment : Fragment() {
                     val jsonObject = JSONObject(res)
                     if (response.code == 200) {
                         if (jsonObject.getBoolean("success")){
-                            getWalletInfo(v,btnNext,address,tag)
                             val gson = Gson()
                              addressValidateResponse = gson.fromJson(
                                 jsonObject.getJSONObject("msg").toString(),
                                 AddressValidateResponse::class.java
+                            )
+                            getWalletInfo(v,btnNext,address,tag,addressValidateResponse!!)
+                        }
+                    }else{
+                        mainHandler.post {
+                            btnNext.isActivated = true
+                            progressBar_main.visibility = View.GONE
+                            StringHelper.showSnackBar(
+                                context as Activity,
+                                "failed to get data",
+                                "Network",
+                                2
                             )
                         }
                     }
@@ -292,8 +343,8 @@ class TransferFragment : Fragment() {
         httpUtil.post(netAddress, body, null, callback, HttpUtil.MODE_AUTH)
     }
 
-    private fun getWalletInfo(v:View,btnNext: MaterialButton,address:String,tag:String){
-        val netAddress = "v0/CryptoService/validate_address/"
+    private fun getWalletInfo(v:View,btnNext: MaterialButton,address:String,tag:String,addressValidateResponse:AddressValidateResponse){
+        val netAddress = "v0/CryptoService/withdraw_info/"
 
         val callback: HttpCallback = object : HttpCallback {
 
@@ -318,11 +369,10 @@ class TransferFragment : Fragment() {
                 Log.i("Log1", "" + response.code)
                 try {
                     val res = response.body!!.string()
-                    Log.i("Log1: ", "response: $res")
+                    Log.i("Log1: ", "response wallet info: $res")
                     val jsonObject = JSONObject(res)
                     if (response.code == 200) {
                         if (jsonObject.getBoolean("success")){
-                            getWalletInfo(v,btnNext,address,tag)
                             val gson = Gson()
                             walletWithdrawModel = gson.fromJson(
                                 jsonObject.getJSONObject("msg").toString(),
@@ -334,8 +384,22 @@ class TransferFragment : Fragment() {
                 } catch (e: Exception) {
                     Log.i("Log1", "failed to convert to json: $e")
                 }
+                mainHandler.post {
+                    btnNext.isActivated = true
+                    progressBar_main.visibility = View.GONE
+                    showTransferAmount(v,address)
+                }
             }
         }
+        var httpUtil = HttpUtil(context)
+        Log.i("Log1","ticker is : $address , network is: ${addressValidateResponse.network}")
+        var bodyModel = BodyHandlingModel("network", addressValidateResponse.network, "string")
+        var bodyModel2 = BodyHandlingModel("ticker_name", ticker, "string")
+        var bodyList = ArrayList<BodyHandlingModel>()
+        bodyList.add(bodyModel)
+        bodyList.add(bodyModel2)
+        var body = BodyMaker.getBody(bodyList)
+        httpUtil.post(netAddress, body, null, callback, HttpUtil.MODE_AUTH)
 
     }
 
@@ -345,6 +409,7 @@ class TransferFragment : Fragment() {
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<ImageButton>(R.id.img_expand_address).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.VISIBLE
@@ -354,9 +419,12 @@ class TransferFragment : Fragment() {
         v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_expand_amount).visibility = View.VISIBLE
         try{
-            v.findViewById<TextView>(R.id.txt_available_balance).text
+            v.findViewById<TextView>(R.id.txt_available_balance).text = walletWithdrawModel!!.balance.toString()
+            v.findViewById<TextView>(R.id.txt_amount_input_coin_symbol).text = ticker
+            v.findViewById<TextView>(R.id.txt_remained_value).text = walletWithdrawModel!!.available_daily_withdraw.toString()
         }catch (e:Exception){
 
+            Log.i("Log1", "failed to convert to json: $e")
         }
 
     }

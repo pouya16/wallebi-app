@@ -279,4 +279,16 @@
     <string name="card_example">6104-3389-1147-1601</string>
     <string name="invalid_address">Please enter a valid address</string>
     <string name="valid_address">please enter a valid address</string>
+
+    <string name="withdraw_fake">1.000 BTC</string>
+    <string name="bank_accounts">Bank Accounts</string>
+    <string name="uid">UID:</string>
+    <string name="security_verification">Security Verification</string>
+    <string name="iban">IBAN</string>
+    <string name="currency">Currency</string>
+    <string name="irt">IRT</string>
+    <string name="pre_1">1.By using wallebi user UID or emails, you can transfer coin for your frinds in wallebi system</string>
+    <string name="pre_2">2. Internal Transactions has no fee</string>
+    <string name="pre_3">3.User can send unlimited coin and tokens to other wallebi users.</string>
+    <string name="cancel">Cancel</string>
 </resources>
