@@ -14,10 +14,15 @@ import android.view.ViewGroup
 import android.widget.*
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
+import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.cardview.widget.CardView
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.wallebi_app.R
 import com.example.wallebi_app.api.*
 import com.example.wallebi_app.api.bank.BankAccountsModel
+import com.example.wallebi_app.api.bank.FiatInfoModel
 import com.example.wallebi_app.api.bank.IbanAccountsModel
 import com.example.wallebi_app.api.data.*
 import com.example.wallebi_app.database.DataAccess
@@ -68,6 +73,10 @@ class TransferFragment : Fragment() {
     lateinit var adapterBankAccounts: ArrayAdapter<BankAccountsModel>
     lateinit var adapterBankIbans: ArrayAdapter<IbanAccountsModel>
 
+    //FIAT DEPOSIT MODELS
+    var fiatInfoModel:FiatInfoModel? = null
+    var bankAccountsModel:BankAccountsModel? = null
+
     //WITHDRAW :
     var addressValidateResponse:AddressValidateResponse? = null
     var walletWithdrawModel:WalletWithdrawModel? = null
@@ -116,8 +125,14 @@ class TransferFragment : Fragment() {
 
         //WITHDRAW PRE INVOICE
         view.findViewById<MaterialButton>(R.id.btn_accept_amount).setOnClickListener{
-            if(validateBalance(view)){
-                showCryptoPre(view)
+            if(typeMode == TYPE_CRYPTO){
+                if(validateBalance(view)){
+                    showCryptoPre(view,view.findViewById<TextView>(R.id.txt_amount).text.toString())
+                }
+            }else{
+                if(validateBalanceFiat(view)){
+                    showCryptoPre(view,view.findViewById<TextView>(R.id.txt_amount).text.toString())
+                }
             }
         }
 
@@ -151,7 +166,17 @@ class TransferFragment : Fragment() {
                     } else {
                     }
                 }else{
+                    Log.i("Log1","action mode: $actionMode, pos: $position , parent size= ${parent.size}")
+                    if(position != 0 && position != (dataBankCards.size - 1)){
+                        if(actionMode == ACTION_DEPOSIT){
+                            bankAccountsModel = dataBankCards.get(position)
+                            getCardInfo(view,dataBankCards.get(position))
+                        }else{
 
+                        }
+                    }else if(position == dataBankCards.size -1){
+                        findNavController().navigate(R.id.action_transferFragment_to_bankFragment)
+                    }
                 }
             }
 
@@ -168,8 +193,8 @@ class TransferFragment : Fragment() {
                 v: View, position: Int, id: Long
             ) {
                 if (position != 0) {
-                    ticker = data_crypto[position].name
                     if (typeMode == TYPE_CRYPTO) {
+                        ticker = data_crypto[position].name
                         setCoin(view, data_crypto[position].fullname)
                         coinListModel = data_crypto[position]
                     } else {
@@ -245,6 +270,24 @@ class TransferFragment : Fragment() {
     }
 
 
+    //CHECK BALANCE FOR FIAT DEPOSIT
+    private fun validateBalanceFiat(v:View):Boolean{
+        val editText = v.findViewById<EditText>(R.id.txt_amount)
+        if(editText.text!=null&&editText.text.length>0){
+                if(editText.text.toString().toDouble().compareTo(fiatInfoModel!!.total_transfer.total_daily_iban)>=0) {
+                    return true
+                }else{
+                    StringHelper.showSnackBar(requireActivity(),"ask too much ammount","Amount",2)
+                }
+
+        }else{
+            StringHelper.showSnackBar(requireActivity(),"enter amount","Amount",2)
+        }
+        return false
+    }
+
+
+    //CHECK BALANCE FOR CRYPTO WITHDRAW
     private fun validateBalance(v:View):Boolean{
         val editText = v.findViewById<EditText>(R.id.txt_amount)
         if(editText.text!=null&&editText.text.length>0){
@@ -268,7 +311,53 @@ class TransferFragment : Fragment() {
         return false
     }
 
-    private fun showCryptoPre(v:View){
+    private fun showCryptoPre(v:View,amount:String){
+
+        v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_amount).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_amount_label).text = amount
+        cardSkelet.visibility = View.GONE
+        v.findViewById<MaterialCardView>(R.id.card_pre_invoice).visibility = View.VISIBLE
+        if(typeMode == TYPE_CRYPTO){
+
+            walletWithdrawModel
+            v.findViewById<TextView>(R.id.txt_deposit_amount).text = amount
+            v.findViewById<TextView>(R.id.txt_pre_amount).text = amount
+            v.findViewById<TextView>(R.id.txt_pre_fee_show).text = "0"
+            v.findViewById<TextView>(R.id.txt_amount_coin_symbol).text = "ticker"
+            v.findViewById<TextView>(R.id.txt_pre_card_header).text = "Addressr"
+            v.findViewById<TextView>(R.id.withdraw_pre1).visibility = View.VISIBLE
+            v.findViewById<TextView>(R.id.withdraw_pre2).visibility = View.VISIBLE
+            v.findViewById<TextView>(R.id.withdraw_pre3).visibility = View.VISIBLE
+            v.findViewById<TextView>(R.id.txt_amount_coin_symbol).text = ticker
+        }else{
+
+            v.findViewById<TextView>(R.id.withdraw_pre1).visibility = View.GONE
+            v.findViewById<TextView>(R.id.withdraw_pre2).visibility = View.GONE
+            v.findViewById<TextView>(R.id.withdraw_pre3).visibility = View.GONE
+            v.findViewById<TextView>(R.id.txt_amount_coin_symbol).text = "IRT"
+            v.findViewById<TextView>(R.id.txt_pre_card_header).text = "Card Number"
+            if(actionMode == ACTION_DEPOSIT){
+                v.findViewById<TextView>(R.id.txt_pre_card).text = bankAccountsModel!!.card_number
+            }else{
+
+            }
+            v.findViewById<TextView>(R.id.txt_deposit_amount).text = amount
+            v.findViewById<TextView>(R.id.txt_pre_amount).text = amount
+            v.findViewById<TextView>(R.id.txt_pre_fee_show).text = "0"
+            v.findViewById<TextView>(R.id.txt_pre_fiat).text = "IRT"
+            v.findViewById<TextView>(R.id.txt_pre_fiat2).text = "IRT"
+            v.findViewById<TextView>(R.id.txt_pre_fiat3).text = "IRT"
+
+        }
 
     }
 
@@ -405,6 +494,7 @@ class TransferFragment : Fragment() {
 
     private fun showTransferAmount(v:View,address:String){
 
+
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
@@ -414,9 +504,14 @@ class TransferFragment : Fragment() {
         v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.GONE
+        v.findViewById<MaterialCardView>(R.id.card_remain_fiat).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_crypto_remain).visibility = View.VISIBLE
         v.findViewById<TextView>(R.id.txt_address_label).text = address
+        v.findViewById<TextView>(R.id.txt_coin_symbol_label).text = "BTC"
+        v.findViewById<TextView>(R.id.txt_amount_input_coin_symbol).text = "BTC"
         cardAmount.visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
+        v.findViewById<AppCompatSeekBar>(R.id.amount_seekbar).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_amount).visibility = View.VISIBLE
         try{
             v.findViewById<TextView>(R.id.txt_available_balance).text = walletWithdrawModel!!.balance.toString()
@@ -541,6 +636,93 @@ class TransferFragment : Fragment() {
 
     }
 
+    //FIAT SHOW AMOUNT :
+    private fun getCardInfo(v:View,bankCard:BankAccountsModel){
+        v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_address_header_label).text = "Card Number"
+        v.findViewById<TextView>(R.id.txt_address_label).text = bankCard.card_number
+        progressBar_main.visibility = View.VISIBLE
+
+        val netAddress = "v0/CryptoService/fiat_info/"
+
+        val callback: HttpCallback = object : HttpCallback {
+
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post {
+                    progressBar_main.visibility = View.GONE
+                    StringHelper.showSnackBar(
+                        context as Activity,
+                        "failed to get data",
+                        "Network",
+                        2
+                    )
+                }
+            }
+
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", "response: $res")
+                    val jsonObject = JSONObject(res)
+                    if (response.code == 200) {
+                        if (jsonObject.getBoolean("success")) {
+                            val gson = Gson()
+                            fiatInfoModel = gson.fromJson(
+                                jsonObject.getJSONObject("data").toString(),
+                                FiatInfoModel::class.java)
+
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "failed to convert to json: $e")
+                }
+                mainHandler.post {
+                    progressBar_main.visibility = View.GONE
+                    cardAmount.visibility = View.VISIBLE
+                    v.findViewById<LinearLayout>(R.id.layout_expand_amount).visibility = View.VISIBLE
+                    v.findViewById<LinearLayout>(R.id.layout_crypto_remain).visibility = View.GONE
+                    v.findViewById<CardView>(R.id.card_remain_fiat).visibility = View.GONE
+                    v.findViewById<View>(R.id.layout_deposit).visibility = View.GONE
+                    v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
+                    v.findViewById<SeekBar>(R.id.amount_seekbar).visibility = View.GONE
+                    v.findViewById<TextView>(R.id.txt_coin_symbol_label).text = "IRT"
+                    v.findViewById<TextView>(R.id.txt_amount_input_coin_symbol).text = "IRT"
+                    v.findViewById<TextView>(R.id.txt_available_balance).text = fiatInfoModel?.balance.toString() ?: "0"
+
+                }
+            }
+        }
+
+
+
+        var httpUtil = HttpUtil(context)
+        //todo make here right bank card id problem
+        Log.i("Log1","id is : ${bankCard.id}")
+        var bodyModel = BodyHandlingModel("iban", "11", "int")
+        var bodyModel2 = BodyHandlingModel("ticker", "6", "string")
+        var bodyList = ArrayList<BodyHandlingModel>()
+        bodyList.add(bodyModel)
+        bodyList.add(bodyModel2)
+        var body = BodyMaker.getBody(bodyList)
+        Log.i("Log1","ibody is : $body")
+        httpUtil.post(netAddress, body, null, callback, HttpUtil.MODE_AUTH)
+
+
+    }
+
     private fun setFiat(v:View,coin:String){
         v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
@@ -550,6 +732,7 @@ class TransferFragment : Fragment() {
         v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
         v.findViewById<TextView>(R.id.txt_coinname_collapse).text = coin
         v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.GONE
+        v.findViewById<MaterialButton>(R.id.btn_accept_address).visibility = View.GONE
         v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.VISIBLE
         v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.GONE
         v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
@@ -612,33 +795,38 @@ class TransferFragment : Fragment() {
 
         cardAddress.visibility = View.VISIBLE
         Log.i("Log1", " action mode is : $actionMode ")
-        if (actionMode == 2) {
-            chooseNetwork(v)
-            v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.GONE
-            v.findViewById<MaterialButton>(R.id.btn_accept_address).visibility = View.GONE
-            v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
-            cardSkelet.visibility = View.VISIBLE
-        } else {
-            v.findViewById<MaterialButton>(R.id.btn_accept_address).visibility = View.VISIBLE
-            if(ticker.compareTo("XRP") == 0){
-                v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.VISIBLE
-            }else{
+
+        if(typeMode == TYPE_CRYPTO){
+            if (actionMode == 2) {
+                chooseNetwork(v)
+                v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.GONE
+                v.findViewById<MaterialButton>(R.id.btn_accept_address).visibility = View.GONE
                 v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
-            }
-            try{
-                if (LoginData.meClass.is_withdraw_whitelist){
-                    progressBar_main.visibility = View.VISIBLE
-                    getWhitelist(v)
+                cardSkelet.visibility = View.VISIBLE
+            } else {
+                v.findViewById<MaterialButton>(R.id.btn_accept_address).visibility = View.VISIBLE
+                if(ticker.compareTo("XRP") == 0){
+                    v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.VISIBLE
                 }else{
+                    v.findViewById<MaterialCardView>(R.id.card_tag).visibility = View.GONE
+                }
+                try{
+                    if (LoginData.meClass.is_withdraw_whitelist){
+                        progressBar_main.visibility = View.VISIBLE
+                        getWhitelist(v)
+                    }else{
+                        v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.VISIBLE
+                        v.findViewById<RelativeLayout>(R.id.layout_address_whitelist_on).visibility = View.GONE
+                    }
+                }catch (e:Exception){
                     v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.VISIBLE
                     v.findViewById<RelativeLayout>(R.id.layout_address_whitelist_on).visibility = View.GONE
                 }
-            }catch (e:Exception){
-                v.findViewById<LinearLayout>(R.id.layout_address_whitelist_off).visibility = View.VISIBLE
-                v.findViewById<RelativeLayout>(R.id.layout_address_whitelist_on).visibility = View.GONE
+                v.findViewById<TextView>(R.id.choose_address_expanded_title).text = requireContext().getString(R.string.choose_address)
+                cardSkelet.visibility = View.GONE
             }
-            v.findViewById<TextView>(R.id.choose_address_expanded_title).text = requireContext().getString(R.string.choose_address)
-            cardSkelet.visibility = View.GONE
+        }else{
+            setFiat(v,coin)
         }
         cardAmount.visibility = View.GONE
     }

@@ -491,7 +491,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_top_16"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -536,7 +536,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="@dimen/margin_top_16"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/amount_expanded_title"
@@ -643,10 +643,107 @@
                         android:text="@string/next"
                         android:textColor="?attr/backgroundLevel2" />
 
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/card_remain_fiat"
+                        android:visibility="gone"
+                        android:backgroundTint="?attr/backgroundDef"
+                        app:strokeColor="?attr/btnColorGray"
+                        android:layout_marginTop="@dimen/padding_12"
+                        app:strokeWidth="@dimen/stroke_2">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_preinvoice"
+                                android:layout_marginEnd="@dimen/margin_preinvoice"
+                                android:layout_marginTop="@dimen/margin_preinvoice"
+                                android:layout_marginBottom="@dimen/margin_preinvoice"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/max_daily_user"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_max_daily_user"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="100,000,000"
+                                    android:layout_marginEnd="@dimen/margin_word_Start"
+                                    android:textColor="?attr/textGray4"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_max_daily_amount"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/irt"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_preinvoice"
+                                android:layout_marginEnd="@dimen/margin_preinvoice"
+                                android:layout_marginBottom="@dimen/margin_preinvoice"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/max_daily_card"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_max_daily_card"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="50,000,000"
+                                    android:layout_marginEnd="@dimen/margin_word_Start"
+                                    android:textColor="?attr/textGray4"
+                                    android:textSize="@dimen/text_small"
+                                    android:id="@+id/txt_max_card_amount"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/irt"
+                                    android:textColor="?attr/textGray2"
+                                    android:textSize="@dimen/text_small"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:id="@+id/layout_crypto_remain"
                         android:orientation="horizontal">
 
                         <TextView
