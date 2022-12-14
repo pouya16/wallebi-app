@@ -77,6 +77,9 @@ class TransferFragment : Fragment() {
     var fiatInfoModel:FiatInfoModel? = null
     var bankAccountsModel:BankAccountsModel? = null
 
+    //FIAT WITHDRAW
+    var ibanAccountsModel:IbanAccountsModel? = null
+
     //WITHDRAW :
     var addressValidateResponse:AddressValidateResponse? = null
     var walletWithdrawModel:WalletWithdrawModel? = null
@@ -123,6 +126,30 @@ class TransferFragment : Fragment() {
             GetBankCardsApi(requireContext())
         }
 
+        //SEEKBAR SECTION
+        view.findViewById<SeekBar>(R.id.amount_seekbar).setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seek: SeekBar,
+                                           progress: Int, fromUser: Boolean) {
+                //todo create seekbar : 
+                // write custom code for progress is changed
+               // view.findViewById<EditText>(R.id.txt_amount).text = ((view.findViewById<TextView>(R.id.txt_available_balance).text.toString().toDouble()
+               //         * progress)/100)).toString()
+               // 0
+            }
+
+            override fun onStartTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is started
+            }
+
+            override fun onStopTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is stopped
+            }
+        })
+
+        )
+
+
         //WITHDRAW PRE INVOICE
         view.findViewById<MaterialButton>(R.id.btn_accept_amount).setOnClickListener{
             if(typeMode == TYPE_CRYPTO){
@@ -130,8 +157,14 @@ class TransferFragment : Fragment() {
                     showCryptoPre(view,view.findViewById<TextView>(R.id.txt_amount).text.toString())
                 }
             }else{
-                if(validateBalanceFiat(view)){
-                    showCryptoPre(view,view.findViewById<TextView>(R.id.txt_amount).text.toString())
+                if(actionMode == ACTION_DEPOSIT){
+                    if(validateBalanceFiat(view)){
+                        showCryptoPre(view,view.findViewById<TextView>(R.id.txt_amount).text.toString())
+                    }
+                }else{
+                    if(validateFiatWithdraw(view)){
+                        showCryptoPre(view,view.findViewById<TextView>(R.id.txt_amount).text.toString())
+                    }
                 }
             }
         }
@@ -172,7 +205,8 @@ class TransferFragment : Fragment() {
                             bankAccountsModel = dataBankCards.get(position)
                             getCardInfo(view,dataBankCards.get(position))
                         }else{
-
+                            ibanAccountsModel = dataBankIbans.get(position)
+                            getIbanInfo(view,ibanAccountsModel!!)
                         }
                     }else if(position == dataBankCards.size -1){
                         findNavController().navigate(R.id.action_transferFragment_to_bankFragment)
@@ -269,6 +303,21 @@ class TransferFragment : Fragment() {
 
     }
 
+
+    private fun validateFiatWithdraw(v:View):Boolean{
+        val editText = v.findViewById<EditText>(R.id.txt_amount)
+        if(editText.text!=null&&editText.text.length>0){
+            if(editText.text.toString().toDouble().compareTo(v.findViewById<TextView>(R.id.txt_available_balance).text.toString().toDouble())<=0) {
+                return true
+            }else{
+                StringHelper.showSnackBar(requireActivity(),"ask too much ammount","Amount",2)
+            }
+
+        }else{
+            StringHelper.showSnackBar(requireActivity(),"enter amount","Amount",2)
+        }
+        return false
+    }
 
     //CHECK BALANCE FOR FIAT DEPOSIT
     private fun validateBalanceFiat(v:View):Boolean{
@@ -626,6 +675,7 @@ class TransferFragment : Fragment() {
         httpUtil.post(address, body, null, callback, HttpUtil.MODE_AUTH)
 
     }
+
     private fun xrpVisibilityDeposit(v:View,visibility:Int){
         v.findViewById<TextView>(R.id.txt_tag_header).visibility = visibility
         v.findViewById<LinearLayout>(R.id.layout_tag).visibility = visibility
@@ -633,6 +683,99 @@ class TransferFragment : Fragment() {
     }
 
     private fun getWhitelist(v:View){
+
+    }
+
+    private fun getIbanInfo(v:View,bankCard:IbanAccountsModel){
+        v.findViewById<LinearLayout>(R.id.layout_collapse_action).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_action).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinfiat).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_fiatcoin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_coinname).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_coin).visibility = View.GONE
+        v.findViewById<LinearLayout>(R.id.layout_collapse_address).visibility = View.VISIBLE
+        v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_address_header_label).text = "Card Number"
+        v.findViewById<TextView>(R.id.txt_address_label).text = bankCard.card_number
+        progressBar_main.visibility = View.VISIBLE
+
+        v.findViewById<LinearLayout>(R.id.layout_withdraw_iban).visibility = View.VISIBLE
+        v.findViewById<TextView>(R.id.txt_remain_monthly_amount).visibility = View.VISIBLE
+        v.findViewById<TextView>(R.id.txt_remain_daily_amount).visibility = View.VISIBLE
+        v.findViewById<TextView>(R.id.txt_max_daily_user).text = "Remaining Daily Withdrawal"
+        v.findViewById<TextView>(R.id.txt_max_daily_card).text = "Remaining Monthly Withdrawal"
+
+        val netAddress = "v0/CryptoService/fiat_info/"
+
+        val callback: HttpCallback = object : HttpCallback {
+
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post {
+                    progressBar_main.visibility = View.GONE
+                    StringHelper.showSnackBar(
+                        context as Activity,
+                        "failed to get data",
+                        "Network",
+                        2
+                    )
+                }
+            }
+
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", "response: $res")
+                    val jsonObject = JSONObject(res)
+                    if (response.code == 200) {
+                        if (jsonObject.getBoolean("success")) {
+                            val gson = Gson()
+                            fiatInfoModel = gson.fromJson(
+                                jsonObject.getJSONObject("data").toString(),
+                                FiatInfoModel::class.java)
+
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "failed to convert to json: $e")
+                }
+                mainHandler.post {
+                    progressBar_main.visibility = View.GONE
+                    cardAmount.visibility = View.VISIBLE
+                    v.findViewById<LinearLayout>(R.id.layout_expand_amount).visibility = View.VISIBLE
+                    v.findViewById<LinearLayout>(R.id.layout_crypto_remain).visibility = View.GONE
+                    v.findViewById<CardView>(R.id.card_remain_fiat).visibility = View.GONE
+                    v.findViewById<View>(R.id.layout_deposit).visibility = View.GONE
+                    v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
+                    v.findViewById<TextView>(R.id.txt_coin_symbol_label).text = "IRT"
+                    v.findViewById<TextView>(R.id.txt_max_daily_amount).text = (3000000000.0-fiatInfoModel!!.total_transfer.total_daily).toString()
+                    v.findViewById<TextView>(R.id.txt_max_card_amount).text = (15000000000.0-fiatInfoModel!!.total_transfer.total_monthly).toString()
+                    v.findViewById<TextView>(R.id.txt_amount_input_coin_symbol).text = "IRT"
+                    v.findViewById<TextView>(R.id.txt_available_balance).text = fiatInfoModel?.balance.toString() ?: "0"
+
+                }
+            }
+        }
+
+
+
+        var httpUtil = HttpUtil(context)
+        //todo make here right bank card id problem
+        Log.i("Log1","id is : ${bankCard.id}")
+        var bodyModel = BodyHandlingModel("iban", "11", "int")
+        var bodyModel2 = BodyHandlingModel("ticker", "6", "string")
+        var bodyList = ArrayList<BodyHandlingModel>()
+        bodyList.add(bodyModel)
+        bodyList.add(bodyModel2)
+        var body = BodyMaker.getBody(bodyList)
+        Log.i("Log1","ibody is : $body")
+        httpUtil.post(netAddress, body, null, callback, HttpUtil.MODE_AUTH)
+
 
     }
 
@@ -648,6 +791,14 @@ class TransferFragment : Fragment() {
         v.findViewById<LinearLayout>(R.id.layout_expand_address).visibility = View.GONE
         v.findViewById<TextView>(R.id.txt_address_header_label).text = "Card Number"
         v.findViewById<TextView>(R.id.txt_address_label).text = bankCard.card_number
+
+        v.findViewById<LinearLayout>(R.id.layout_withdraw_iban).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_remain_monthly_amount).visibility = View.GONE
+        v.findViewById<TextView>(R.id.txt_remain_daily_amount).visibility = View.GONE
+
+        v.findViewById<TextView>(R.id.txt_max_daily_user).text = "Max. Daily Deposit per User"
+        v.findViewById<TextView>(R.id.txt_max_daily_card).text = "ax. Daily Deposit per Card"
+
         progressBar_main.visibility = View.VISIBLE
 
         val netAddress = "v0/CryptoService/fiat_info/"
@@ -699,6 +850,8 @@ class TransferFragment : Fragment() {
                     v.findViewById<LinearLayout>(R.id.layout_collapse_amount).visibility = View.GONE
                     v.findViewById<SeekBar>(R.id.amount_seekbar).visibility = View.GONE
                     v.findViewById<TextView>(R.id.txt_coin_symbol_label).text = "IRT"
+                    v.findViewById<TextView>(R.id.txt_max_daily_amount).text = "100,000,000"
+                    v.findViewById<TextView>(R.id.txt_max_card_amount).text = "50,000,000"
                     v.findViewById<TextView>(R.id.txt_amount_input_coin_symbol).text = "IRT"
                     v.findViewById<TextView>(R.id.txt_available_balance).text = fiatInfoModel?.balance.toString() ?: "0"
 
