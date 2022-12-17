@@ -286,5 +286,6 @@
     <string name="max_daily_user">Max. Daily Deposit per User</string>
     <string name="max_daily_card">Max. Daily Deposit per Card</string>
     <string name="max_daily_iban">Max. Withdrawal per IBAN</string>
+    <string name="hide_small_ammounts">Hide Small Amounts</string>
 
 </resources>

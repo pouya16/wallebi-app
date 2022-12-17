@@ -100,6 +100,84 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/backgroundLevel3"
+                    android:layout_marginTop="@dimen/margin_4">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/margin_8"
+                        android:layout_marginEnd="@dimen/margin_8">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_card"
+                                android:layout_width="@dimen/btn_width_tab"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@android:color/transparent"
+                                android:text="@string/card" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_iban"
+                                android:layout_width="@dimen/btn_width_tab"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@android:color/transparent"
+                                android:text="@string/iban" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/view_card"
+                                android:background="?attr/textGray2"
+                                android:layout_width="@dimen/btn_width_tab"
+                                android:layout_height="1dp"/>
+                            <View
+                                android:id="@+id/view_iban"
+                                android:background="?attr/colorPrimary"
+                                android:layout_width="@dimen/btn_width_tab"
+                                android:layout_height="2dp"/>
+                        </LinearLayout>
+
+                        <SearchView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_18"
+                            android:id="@+id/search_view"/>
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            app:strokeWidth="@dimen/stroke_2"
+                            app:strokeColor="?attr/btnColorGray"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textColor="?attr/btnColorGray"
+                            android:text="@string/hide_small_ammounts"
+                            android:textSize="@dimen/text_small"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/recycler_wallet"/>
+
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+
             </LinearLayout>
         </ScrollView>
 

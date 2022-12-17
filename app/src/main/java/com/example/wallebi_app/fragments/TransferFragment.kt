@@ -147,8 +147,6 @@ class TransferFragment : Fragment() {
             }
         })
 
-        )
-
 
         //WITHDRAW PRE INVOICE
         view.findViewById<MaterialButton>(R.id.btn_accept_amount).setOnClickListener{
