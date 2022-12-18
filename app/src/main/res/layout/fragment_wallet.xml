@@ -56,12 +56,13 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <ImageView
+                            android:id="@+id/img_balance_hide"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/ic_password_hide"
-                            android:id="@+id/img_balance_hide"/>
+                            android:src="@drawable/ic_password_hide" />
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
 

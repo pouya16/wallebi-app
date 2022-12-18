@@ -93,14 +93,6 @@
                     android:text="@string/wallebi_fake"
                     android:textColor="?attr/textGray4" />
 
-                <TextView
-                    android:id="@+id/txt_market_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_word_Start"
-                    android:text="@string/usdt"
-                    android:textColor="?attr/textGray2" />
-
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -241,6 +233,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/fiat_explain"
                 android:text="@string/usdt_equivalent"
                 android:textColor="?attr/textGray2" />
 
