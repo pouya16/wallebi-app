@@ -12,7 +12,6 @@
         android:layout_height="@dimen/height_wallet_recycler"
         app:cardCornerRadius="@dimen/corner_radius_app_default"
         app:cardBackgroundColor="?attr/backgroundLevel3">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -90,6 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/balance"
                     android:text="@string/wallebi_fake"
                     android:textColor="?attr/textGray4" />
 
@@ -106,6 +106,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 app:cardBackgroundColor="?attr/backgroundLevel3"
                 android:id="@+id/card_action">
 
@@ -121,13 +122,15 @@
                         android:layout_width="@dimen/width_wallet_btn"
                         android:layout_height="@dimen/height_wallet_btn"
                         android:layout_marginEnd="@dimen/margin_top_12"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
-                        app:strokeColor="@color/mvp_gray2"
+                        app:strokeColor="?attr/btnColorGray"
+                        app:strokeWidth="@dimen/stroke_2"
+                        android:backgroundTint="@android:color/transparent"
                         android:text="@string/trade"
                         android:id="@+id/btn_trade"
                         app:cornerRadius="@dimen/corner_radius_app_default"
                         android:textSize="10sp"
-                        android:textColor="@color/mvp_gray2"
+
+                        android:textColor="?attr/btnColorGray"
                         android:padding="0dp"/>
 
 
@@ -135,13 +138,14 @@
                         android:layout_width="@dimen/width_wallet_btn"
                         android:layout_height="@dimen/height_wallet_btn"
                         android:layout_marginEnd="@dimen/margin_top_12"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
-                        app:strokeColor="@color/mvp_gray2"
+                        app:strokeColor="?attr/textGray2"
+                        android:backgroundTint="@android:color/transparent"
                         android:text="@string/withdraw"
                         android:id="@+id/btn_withdraw"
                         app:cornerRadius="@dimen/corner_radius_app_default"
                         android:textSize="10sp"
-                        android:textColor="@color/mvp_gray2"
+                        app:strokeWidth="@dimen/stroke_2"
+                        android:textColor="?attr/btnColorGray"
                         android:padding="0dp"/>
 
 
@@ -177,7 +181,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
-        android:id="@+id/layout_expantion"
+        android:id="@+id/layout_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_2"
