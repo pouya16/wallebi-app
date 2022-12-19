@@ -71,8 +71,6 @@ class WalletFragment : Fragment() {
 
         Log.i("Log1", "get wallets")
         val callback: HttpCallback = object : HttpCallback {
-
-
             var mainHandler: Handler = Handler(context!!.getMainLooper())
             override fun onFialure(response: Response, throwable: Throwable) {
                 try {
@@ -121,8 +119,62 @@ class WalletFragment : Fragment() {
 
         var httpUtil = HttpUtil(requireContext())
         httpUtil.get(netAddress,null,callback,HttpUtil.MODE_AUTH)
+    }
 
+    private fun getPriceInfo(){
+        var netAddress = "v0/CryptoService/wallets_info/"
 
+        Log.i("Log1", "get wallets")
+        val callback: HttpCallback = object : HttpCallback {
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post {
+                }
+            }
+
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", "response: $res")
+                    val jsonObject = JSONObject(res)
+                    if (response.code == 200) {
+                        if (jsonObject.getBoolean("success")){
+
+                            val userListType =
+                                object : TypeToken<java.util.ArrayList<WalletModel?>?>() {}.type
+
+                            val gson = Gson()
+                            var walletsJson = jsonObject.getJSONObject("msg")
+                                .getJSONArray("WALLETS")
+
+                            arrayWallets = gson.fromJson<ArrayList<WalletModel>>(walletsJson!!.toString(),userListType)
+                        }
+                        mainHandler.post {
+                            arrayWallets.let {
+
+                                walletAdapter = WalletAdapter(arrayWallets,requireContext(),1.0,WalletAdapter.MODE_USDT)
+                                Log.i("Log1","wallets adapter ${walletAdapter!!.itemCount}" )
+                                recyclerWallets.layoutManager = LinearLayoutManager(requireContext())
+                                recyclerWallets.adapter = walletAdapter
+                            }
+
+                        }
+                    }else{
+                    }
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "failed to convert to json: $e")
+                }
+            }
+        }
+
+        var httpUtil = HttpUtil(requireContext())
+        httpUtil.get(netAddress,null,callback,HttpUtil.MODE_AUTH)
+    }
     }
 
 

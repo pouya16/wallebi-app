@@ -119,18 +119,18 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_card"
+                                android:id="@+id/btn_coin"
                                 android:layout_width="@dimen/btn_width_tab"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@android:color/transparent"
-                                android:text="@string/card" />
+                                android:text="@string/coin" />
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_iban"
+                                android:id="@+id/btn_fiat"
                                 android:layout_width="@dimen/btn_width_tab"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@android:color/transparent"
-                                android:text="@string/iban" />
+                                android:text="@string/fiat" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -183,7 +183,19 @@
         </ScrollView>
 
 
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_load"
+        android:background="?attr/backgroundDef">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
 
 </FrameLayout>
