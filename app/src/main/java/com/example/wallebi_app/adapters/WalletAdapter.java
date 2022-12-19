@@ -18,22 +18,29 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletViewHolder> {
 
     ArrayList<WalletModel> arrayList;
+    HashMap<String,Double> marketsHash;
     Context context;
+    boolean hide_small;
+    boolean hide_amount;
+    boolean coin_mode;
     int mode = 0;
-    double change = 1;//0 for card 1 for iban
     public static final int MODE_USDT = 0;
     public static final int MODE_TOMAN = 1;
 
 
-    public WalletAdapter(ArrayList<WalletModel> arrayList, Context context, Double change, int mode) {
+    public WalletAdapter(ArrayList<WalletModel> arrayList, Context context, HashMap<String,
+            Double> marketsHash, int mode,boolean hide_small,boolean hide_amount,boolean coin_mode) {
         this.arrayList = arrayList;
         this.context = context;
-        this.change = change;
+        this.marketsHash = marketsHash;
         this.mode = mode;
+        this.hide_amount = hide_amount;
+        this.hide_small = hide_small;
     }
 
     @NonNull
@@ -54,14 +61,39 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
         holder.marketCoin1.setText(arrayList.get(position).getName());
         holder.marketCoin3.setText(arrayList.get(position).getName());
         holder.marketCoin4.setText(arrayList.get(position).getName());
+        /*if (arrayList.get(position).getName().toLowerCase().compareTo("irt") == 0){
+            if(coin_mode){
+                holder.itemView.setVisibility(View.GONE);
+            }else{
+                holder.itemView.setVisibility(View.VISIBLE);
+            }
+        }else{
+            if(!coin_mode){
+                holder.itemView.setVisibility(View.GONE);
+            }else{
+                holder.itemView.setVisibility(View.VISIBLE);
+            }
+        }*/
         holder.totalBalanceMore.setText(arrayList.get(position).getBalance().getTotal());
         holder.availableBalance.setText(arrayList.get(position).getBalance().getAvailable());
         holder.inOrderBalance.setText(arrayList.get(position).getBalance().getBlocked());
         try{
-            double price = Double.parseDouble(arrayList.get(position).getBalance().getAvailable()) * change;
+            double price = Double.parseDouble(arrayList.get(position).getBalance().getAvailable()) * marketsHash.get(arrayList.get(position).getName());
             holder.usdtEquivalent.setText(price + "");
+            if(hide_small){
+                if(price < 0.1){
+                    holder.itemView.setVisibility(View.GONE);
+                }
+            }
         }catch (Exception e){
             holder.usdtEquivalent.setText("0");
+        }
+        if(hide_amount){
+            holder.balance.setText("*");
+            holder.totalBalanceMore.setText("*");
+            holder.availableBalance.setText("*");
+            holder.inOrderBalance.setText("*");
+            holder.usdtEquivalent.setText("*");
         }
         if(mode == MODE_TOMAN){
             holder.txtMarketFiat.setText(context.getString(R.string.irt));

@@ -78,10 +78,6 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                        <Spinner
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/spinner_balance_type"/>
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <ImageView
@@ -162,6 +158,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             app:strokeWidth="@dimen/stroke_2"
+                            android:id="@+id/btn_hide_small"
                             app:strokeColor="?attr/btnColorGray"
                             android:backgroundTint="@android:color/transparent"
                             android:textColor="?attr/btnColorGray"
@@ -189,6 +186,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         android:id="@+id/layout_load"
         android:background="?attr/backgroundDef">
         <ProgressBar

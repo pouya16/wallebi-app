@@ -288,5 +288,6 @@
     <string name="max_daily_iban">Max. Withdrawal per IBAN</string>
     <string name="hide_small_ammounts">Hide Small Amounts</string>
     <string name="irt_equivalent">IRT Equivalent</string>
+    <string name="show_small_amounts">Show Small Amounts</string>
 
 </resources>
