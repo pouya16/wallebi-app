@@ -28,19 +28,21 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
     boolean hide_small;
     boolean hide_amount;
     boolean coin_mode;
+    double change;
     int mode = 0;
     public static final int MODE_USDT = 0;
     public static final int MODE_TOMAN = 1;
 
 
     public WalletAdapter(ArrayList<WalletModel> arrayList, Context context, HashMap<String,
-            Double> marketsHash, int mode,boolean hide_small,boolean hide_amount,boolean coin_mode) {
+            Double> marketsHash, int mode,boolean hide_small,boolean hide_amount,double change) {
         this.arrayList = arrayList;
         this.context = context;
         this.marketsHash = marketsHash;
         this.mode = mode;
         this.hide_amount = hide_amount;
         this.hide_small = hide_small;
+        this.change = change;
     }
 
     @NonNull
@@ -79,6 +81,9 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
         holder.inOrderBalance.setText(arrayList.get(position).getBalance().getBlocked());
         try{
             double price = Double.parseDouble(arrayList.get(position).getBalance().getAvailable()) * marketsHash.get(arrayList.get(position).getName());
+            if(mode == MODE_TOMAN){
+                price = price *change;
+            }
             holder.usdtEquivalent.setText(price + "");
             if(hide_small){
                 if(price < 0.1){

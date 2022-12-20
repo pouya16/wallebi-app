@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        LoginData.access_token = "4HGoZ8fEB0swTd0AKOSgc2ICOhkZY1";
+        LoginData.access_token = "aIo3i6NZYBfVxUoPSnckahjhEG90CA";
 
         getCoinList();
         getFiatList();

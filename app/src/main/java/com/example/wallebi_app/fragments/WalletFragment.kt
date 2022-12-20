@@ -1,13 +1,17 @@
 package com.example.wallebi_app.fragments
 
+import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +19,6 @@ import com.example.wallebi_app.R
 import com.example.wallebi_app.adapters.WalletAdapter
 import com.example.wallebi_app.api.HttpCallback
 import com.example.wallebi_app.api.HttpUtil
-import com.example.wallebi_app.api.data.CoinListModel
 import com.example.wallebi_app.api.wallet.MarketsModel
 import com.example.wallebi_app.api.wallet.models.WalletModel
 import com.google.android.material.button.MaterialButton
@@ -40,10 +43,13 @@ class WalletFragment : Fragment() {
     lateinit var recyclerWallets: RecyclerView
     lateinit var layoutLoad: RelativeLayout
     var arrayWallets: ArrayList<WalletModel>? = null
+    var arrayWalletsShow: ArrayList<WalletModel>? = null
+
     var arrayMarkets: ArrayList<MarketsModel>? = null
     var marketsUsdtHash: HashMap<String, Double> = HashMap()
     var marketsIrtHash: HashMap<String, Double> = HashMap()
     var walletAdapter: WalletAdapter? = null
+    var change = 1.0 //convert toman to usdt
 
     var mode = USDT_MODE // 0 for usdt 1 for irt
 
@@ -56,8 +62,37 @@ class WalletFragment : Fragment() {
         loadViews(view)
 
 
+        var alertDialog = Dialog(requireContext())
+
+        alertDialog.setContentView(R.layout.alert_choose_currency)
+
+        alertDialog.getWindow()!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        val imageClose = alertDialog.findViewById<ImageButton>(R.id.img_close)
+        val btn_usdt = alertDialog.findViewById<MaterialCardView>(R.id.card_usdt)
+        val btn_irt = alertDialog.findViewById<MaterialCardView>(R.id.card_irt)
+
+        imageClose.setOnClickListener{
+            alertDialog.dismiss()
+        }
+        btn_usdt.setOnClickListener{
+            mode = USDT_MODE
+            change = 1.0
+            view.findViewById<TextView>(R.id.txt_currency_change).text = requireContext().getString(R.string.usdt)
+            createShowArray()
+            alertDialog.dismiss()
+        }
+        btn_irt.setOnClickListener{
+            mode = IRT_MODE
+            change  = 39500.0
+            view.findViewById<TextView>(R.id.txt_currency_change).text = requireContext().getString(R.string.irt)
+            createShowArray()
+            alertDialog.dismiss()
+        }
+
+
+
         view.findViewById<MaterialButton>(R.id.btn_hide_small)
-            .setOnClickListener { changeHideAmount(view) }
+            .setOnClickListener { changeHideSmallAmount(view) }
         view.findViewById<MaterialCardView>(R.id.card_hide_balance)
             .setOnClickListener { changeShowAmount(view) }
 
@@ -71,9 +106,33 @@ class WalletFragment : Fragment() {
                 changeCoinMode(view)
             } }
 
+        view.findViewById<MaterialCardView>(R.id.card_currency).setOnClickListener{
+            alertDialog.setCanceledOnTouchOutside(true)
+            alertDialog.setCancelable(true)
+            alertDialog.show()
+        }
+
 
 
         return view
+    }
+
+    private fun createShowArray(){
+        arrayWalletsShow = ArrayList()
+        arrayWallets.let {
+            if(coin_mode){
+                for(wallet in arrayWallets!!){
+                    if(!wallet.name.lowercase().contains("irt"))
+                        arrayWalletsShow!!.add(wallet)
+                }
+            }else{
+                for(wallet in arrayWallets!!){
+                    if(wallet.name.lowercase().contains("irt"))
+                        arrayWalletsShow!!.add(wallet)
+                }
+            }
+        }
+        loadRecycler(arrayWalletsShow!!)
     }
 
 
@@ -88,7 +147,7 @@ class WalletFragment : Fragment() {
                 .setBackgroundColor(requireContext().getColor(R.color.mvp_yellow))
             v.findViewById<View>(R.id.view_card)
                 .setBackgroundColor(requireContext().getColor(R.color.mvp_gray2))
-            loadRecycler()
+            createShowArray()
         } else {
             coin_mode = true
             v.findViewById<MaterialButton>(R.id.btn_fiat)
@@ -99,7 +158,7 @@ class WalletFragment : Fragment() {
                 .setBackgroundColor(requireContext().getColor(R.color.mvp_gray2))
             v.findViewById<View>(R.id.view_card)
                 .setBackgroundColor(requireContext().getColor(R.color.mvp_yellow))
-            loadRecycler()
+            createShowArray()
         }
     }
 
@@ -108,25 +167,25 @@ class WalletFragment : Fragment() {
         if (hide_amount) {
             hide_amount = false
             v.findViewById<TextView>(R.id.txt_total_balance).text = "0.00"
-            loadRecycler()
+            createShowArray()
         } else {
             hide_amount = true
             v.findViewById<TextView>(R.id.txt_total_balance).text = "*"
-            loadRecycler()
+            createShowArray()
         }
     }
 
-    private fun changeHideAmount(v: View) {
+    private fun changeHideSmallAmount(v: View) {
         if (hide_small) {
             hide_small = false
             v.findViewById<MaterialButton>(R.id.btn_hide_small).text =
                 requireContext().getString(R.string.hide_small_ammounts)
-            loadRecycler()
+            createShowArray()
         } else {
             hide_small = true
             v.findViewById<MaterialButton>(R.id.btn_hide_small).text =
                 requireContext().getString(R.string.show_small_amounts)
-            loadRecycler()
+            createShowArray()
         }
     }
 
@@ -136,7 +195,7 @@ class WalletFragment : Fragment() {
         setWallets(mode)
         if (arrayWallets != null) {
             if (arrayMarkets != null) {
-                loadRecycler()
+                createShowArray()
             }
             getPriceInfo()
         }
@@ -157,16 +216,16 @@ class WalletFragment : Fragment() {
         }
     }
 
-    private fun loadRecycler() {
-        arrayWallets.let {
+    private fun loadRecycler(arrayShow:ArrayList<WalletModel>) {
+        arrayShow.let {
             walletAdapter = WalletAdapter(
-                arrayWallets,
+                arrayShow,
                 requireContext(),
                 marketsUsdtHash,
                 mode,
                 hide_small,
                 hide_amount,
-                coin_mode
+                change
             )
 
             Log.i("Log1", "wallets adapter ${walletAdapter!!.itemCount}")
@@ -250,6 +309,7 @@ class WalletFragment : Fragment() {
                 }
             }
 
+            @RequiresApi(Build.VERSION_CODES.N)
             override fun onSuccess(response: Response) {
                 Log.i("Log1", "" + response.code)
                 try {
@@ -258,7 +318,6 @@ class WalletFragment : Fragment() {
                     val jsonObject = JSONObject(res)
                     if (response.code == 200) {
                         if (jsonObject.getBoolean("success")) {
-                            layoutLoad.visibility = View.GONE
                             val userListType =
                                 object : TypeToken<java.util.ArrayList<MarketsModel?>?>() {}.type
 
@@ -292,7 +351,8 @@ class WalletFragment : Fragment() {
                             }
                         }
                         mainHandler.post {
-                            loadRecycler()
+                            layoutLoad.visibility = View.GONE
+                            createShowArray()
                         }
                     } else {
                     }

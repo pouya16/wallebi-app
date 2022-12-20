@@ -67,6 +67,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_currency"
                     android:layout_width="@dimen/width_wallet_type"
                     android:layout_height="@dimen/height_hide_balance"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_balance"
@@ -78,6 +79,23 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/usdt"
+                            android:id="@+id/txt_currency_change"
+                            android:textColor="?attr/textGray3"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_alignParentStart="true"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_arrow_down_wallet"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/margin_8"
+                            android:foregroundTint="?attr/textGray4"/>
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <ImageView
@@ -118,6 +136,7 @@
                                 android:id="@+id/btn_coin"
                                 android:layout_width="@dimen/btn_width_tab"
                                 android:layout_height="wrap_content"
+                                app:strokeWidth="0dp"
                                 android:backgroundTint="@android:color/transparent"
                                 android:text="@string/coin" />
 
@@ -125,6 +144,7 @@
                                 android:id="@+id/btn_fiat"
                                 android:layout_width="@dimen/btn_width_tab"
                                 android:layout_height="wrap_content"
+                                app:strokeWidth="0dp"
                                 android:backgroundTint="@android:color/transparent"
                                 android:text="@string/fiat" />
                         </LinearLayout>
@@ -150,9 +170,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_18"
-                            android:id="@+id/search_view"/>
-
-
+                            android:id="@+id/search_view" />
                         <com.google.android.material.button.MaterialButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
