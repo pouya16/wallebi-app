@@ -19,6 +19,9 @@ import com.example.wallebi_app.api.reg.apis.RegisterType;
 import com.example.wallebi_app.api.reg.model.RegisterTypeModel;
 import com.example.wallebi_app.database.DataAccess;
 import com.example.wallebi_app.database.LoginData;
+import com.geetest.captcha.GTCaptcha4Client;
+import com.geetest.captcha.GTCaptcha4Config;
+import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,6 +39,7 @@ public class SplashActivity extends AppCompatActivity {
 
     Retrofit retrofit;
     RegisterType registerType;
+    MaterialButton btnCaptcha;
 
 
 
@@ -44,18 +48,47 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        btnCaptcha = findViewById(R.id.captcha);
+
+        btnCaptcha.setOnClickListener(v -> {
+            Log.i("Log1", "s is : " + "get recaptcha");
+            GTCaptcha4Config config = new GTCaptcha4Config.Builder()
+                    .setDebug(true) // TODO release version must be closed
+                    .setLanguage("en")
+                    .setTimeOut(10000)
+                    .setCanceledOnTouchOutside(true)
+                    .build();
+
+            GTCaptcha4Client gtCaptcha4Client = GTCaptcha4Client.getClient(SplashActivity.this)
+                    .init("f854c933accd1b0610717daaf9089e04", config);
+            gtCaptcha4Client.addOnSuccessListener(new GTCaptcha4Client.OnSuccessListener() {
+                @Override
+                public void onSuccess(boolean b, String s) {
+                    Log.i("Log1", "s is : " + s);
+                }
+            });
+            gtCaptcha4Client.addOnFailureListener(new GTCaptcha4Client.OnFailureListener() {
+                @Override
+                public void onFailure(String s) {
+                    Log.i("Log1", "failed s is : " + s);
+                }
+            });
+            gtCaptcha4Client.verifyWithCaptcha();
+        });
+
         LoginData.access_token = "aIo3i6NZYBfVxUoPSnckahjhEG90CA";
 
-        getCoinList();
-        getFiatList();
+        //getCoinList();
+        //getFiatList();
         retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
-        getRegisterType(this);
+        //getRegisterType(this);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getRegisterType(this);
+        //getRegisterType(this);
     }
 
 
