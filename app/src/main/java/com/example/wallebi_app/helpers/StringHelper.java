@@ -87,6 +87,35 @@ public class StringHelper {
     }
 
 
+    public static String createStringLength(double value,double format){
+        int l = countDecimalPlaces(format);
+        String formatter = "%1$,." + l + "f";
+        return String.format(formatter,value);
+
+    }public static String createStringLength(String value,double format){
+        Double convert = 1.00;
+        try {
+            convert = Double.parseDouble(value);
+        }catch (Exception e){
+
+        }
+        int l = countDecimalPlaces(format);
+        String formatter = "%1$,." + l + "f";
+        return String.format(formatter,convert);
+    }
+
+
+    public static int countDecimalPlaces(double value) {
+        if (Math.round(value) == value) {
+            return 0;
+        }
+        final String s = Double.toString(value);
+        final int index = s.indexOf('.');
+        if (index < 0) {
+            return 0;
+        }
+        return s.length() - 1 - index;
+    }
 
     public static String getStringwithDelimeters(String s){
         return s.replace(",","");

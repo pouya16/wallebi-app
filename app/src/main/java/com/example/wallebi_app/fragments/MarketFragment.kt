@@ -91,15 +91,18 @@ class MarketFragment : Fragment() {
 
 
     private fun loadMarkets(){
-        if(market_mode == MODE_FAVORITE)
-            showRecycler(favoritesArrayList!!)
-        else if(market_mode == MODE_NEW)
-            showRecycler(newListingArray!!)
-        else if(market_mode == MODE_SPOT) {
-            if (spot_mode == MODE_USDT)
-                showRecycler(marketsArray!!)
-            else if(spot_mode == MODE_IRT)
-                showRecycler(marketsArrayIrt!!)
+        Log.i("Log1","spot market mode" + spot_mode)
+        if(checkData()){
+            if(market_mode == MODE_FAVORITE)
+                showRecycler(favoritesArrayList!!)
+            else if(market_mode == MODE_NEW)
+                showRecycler(newListingArray!!)
+            else if(market_mode == MODE_SPOT) {
+                if (spot_mode == MODE_USDT)
+                    showRecycler(marketsArray!!)
+                else if(spot_mode == MODE_IRT)
+                    showRecycler(marketsArrayIrt!!)
+            }
         }
     }
 
@@ -297,7 +300,7 @@ class MarketFragment : Fragment() {
 
 
     private fun isLoaded(){
-        if(is_loaded>2){
+        if(is_loaded>3){
             layoutLoad.visibility = View.GONE
             loadMarkets()
         }
@@ -332,12 +335,14 @@ class MarketFragment : Fragment() {
         spot_mode = MODE_USDT
         v.findViewById<MaterialButton>(R.id.btn_usdt).setBackgroundColor(requireContext().getColor(R.color.mvp_bg_dark4))
         v.findViewById<MaterialButton>(R.id.btn_irt).setBackgroundColor(Color.TRANSPARENT)
+        loadMarkets()
     }
 
     private fun setSpotIRT(v:View){
         spot_mode = MODE_IRT
         v.findViewById<MaterialButton>(R.id.btn_usdt).setBackgroundColor(Color.TRANSPARENT)
         v.findViewById<MaterialButton>(R.id.btn_irt).setBackgroundColor(requireContext().getColor(R.color.mvp_bg_dark4))
+        loadMarkets()
 
     }
 

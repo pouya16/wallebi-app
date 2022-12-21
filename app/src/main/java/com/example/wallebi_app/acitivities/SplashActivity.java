@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.wallebi_app.MainActivity;
 import com.example.wallebi_app.R;
+import com.example.wallebi_app.api.GetDecimalPointsApi;
 import com.example.wallebi_app.api.HttpCallback;
 import com.example.wallebi_app.api.HttpUtil;
 import com.example.wallebi_app.api.RetrofitNoAuthBuilder;
@@ -48,10 +49,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-<<<<<<< HEAD
-        btnCaptcha = findViewById(R.id.captcha);
+        //btnCaptcha = findViewById(R.id.captcha);
 
-        btnCaptcha.setOnClickListener(v -> {
+        /*btnCaptcha.setOnClickListener(v -> {
             Log.i("Log1", "s is : " + "get recaptcha");
             GTCaptcha4Config config = new GTCaptcha4Config.Builder()
                     .setDebug(true) // TODO release version must be closed
@@ -76,16 +76,16 @@ public class SplashActivity extends AppCompatActivity {
             });
             gtCaptcha4Client.verifyWithCaptcha();
         });
+*/
 
-        LoginData.access_token = "aIo3i6NZYBfVxUoPSnckahjhEG90CA";
-=======
         LoginData.access_token = "LFc5jxKz3KQl8Vvp3TilcEwJmzkvp5";
->>>>>>> e8490ec32528eef8eb6bb858612d5a3908205b34
 
-        //getCoinList();
-        //getFiatList();
+
+        getCoinList();
+        getFiatList();
         retrofit = RetrofitNoAuthBuilder.getRetrofitAuthSingleton(this).getRetrofit();
-        //getRegisterType(this);
+        getRegisterType(this);
+        new GetDecimalPointsApi(this);
 
     }
 
@@ -99,93 +99,16 @@ public class SplashActivity extends AppCompatActivity {
 
     private void getFiatList(){
         GetCoinsApi getFiat = new GetCoinsApi(this,GetCoinsApi.MODE_FIAT);
-        /*
-        String address = "v0/CryptoService/fiat_list/";
-        HttpCallback callback = new HttpCallback() {
-            @Override
-            public void onFialure(okhttp3.Response response, Throwable throwable) {
-                try {
-                    String res = response.body().string();
-                    Log.i("Log1: ","response is: " + res);
-                    JSONObject jsonObject = new JSONObject(res);
-                }catch (Exception e){
 
-                }
-            }
-            @Override
-            public void onSuccess(okhttp3.Response response) {
-
-                Log.i("Log1","" + response.code());
-                try{
-                    String res =  response.body().string();
-                    Log.i("Log3: ","response: " + res);
-                    JSONObject jsonObject = new JSONObject(res);
-                    if(response.code() == 200){
-                        if(jsonObject.getBoolean("success")){
-                            Gson gson = new Gson();
-                            Type userListType = new TypeToken<ArrayList<CoinListModel>>(){}.getType();
-                            ArrayList<CoinListModel> list = gson.fromJson(String.valueOf(jsonObject.getJSONArray("msg")),userListType);
-                            DataAccess dataAccess = new DataAccess();
-                            dataAccess.createFiatList(list);
-                        }
-                    }else{
-                    }
-                }catch (Exception e){
-                    Log.i("Log1","failed to convert to json: " + e);
-                }
-            }
-        };
-        HttpUtil httpUtil = new HttpUtil(this);
-        httpUtil.get(address,null,callback,HttpUtil.MODE_NO_AUTH);*/
     }
 
 
     private void getCoinList(){
         GetCoinsApi getCoinsApi = new GetCoinsApi(this,GetCoinsApi.MODE_CRYPTO);
-        /*String address = "v0/CryptoService/crypto_list/";
-        HttpCallback callback = new HttpCallback() {
-            @Override
-            public void onFialure(okhttp3.Response response, Throwable throwable) {
-                try {
-                    String res = response.body().string();
-                    Log.i("Log1: ","response is: " + res);
-                    JSONObject jsonObject = new JSONObject(res);
-                }catch (Exception e){
 
-                }
-            }
-            @Override
-            public void onSuccess(okhttp3.Response response) {
-
-                Log.i("Log1","" + response.code());
-                try{
-                    String res =  response.body().string();
-                    Log.i("Log2: ","response: " + res);
-                    JSONObject jsonObject = new JSONObject(res);
-                    if(response.code() == 200){
-                        if(jsonObject.getBoolean("success")){
-                            Gson gson = new Gson();
-                            Type userListType = new TypeToken<ArrayList<CoinListModel>>(){}.getType();
-                            ArrayList<CoinListModel> list = gson.fromJson(String.valueOf(jsonObject.getJSONArray("msg")),userListType);
-                            DataAccess dataAccess = new DataAccess();
-                            dataAccess.createCryptoList(list);
-                        }
-                    }else{
-                    }
-                }catch (Exception e){
-                    Log.i("Log1","failed to convert to json: " + e);
-                }
-            }
-        };
-        HttpUtil httpUtil = new HttpUtil(this);
-        httpUtil.get(address,null,callback,HttpUtil.MODE_NO_AUTH);*/
     }
 
     private void getRegisterType(Context context){
-        /*LoginData.registerModel = 1;
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        SplashActivity.this.startActivity(intent);
-        SplashActivity.this.finish();*/
         registerType = retrofit.create(RegisterType.class);
         Call<RegisterTypeModel> call = registerType.getTypeApi();
         call.enqueue(new Callback<RegisterTypeModel>() {

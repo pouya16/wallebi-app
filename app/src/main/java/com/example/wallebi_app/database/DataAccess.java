@@ -3,8 +3,10 @@ package com.example.wallebi_app.database;
 import com.example.wallebi_app.api.bank.BankAccountsModel;
 import com.example.wallebi_app.api.bank.IbanAccountsModel;
 import com.example.wallebi_app.api.data.CoinListModel;
+import com.example.wallebi_app.models.DecimalPointsModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DataAccess {
 
@@ -13,6 +15,7 @@ public class DataAccess {
     private static ArrayList<CoinListModel> coinListModels = null;
     private static ArrayList<BankAccountsModel> bankAccountsModels = new ArrayList<>();
     private static ArrayList<IbanAccountsModel> ibanAccountsModels = new ArrayList<>();
+    public static HashMap<Integer,DecimalPointsModel> decimalPointsModels;
 
     public void createIbanModel(ArrayList<IbanAccountsModel> models){
         bankAccountsModels = null;

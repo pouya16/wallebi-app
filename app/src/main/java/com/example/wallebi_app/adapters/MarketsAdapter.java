@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wallebi_app.R;
 import com.example.wallebi_app.api.markets.MarketApiModel;
 import com.example.wallebi_app.api.wallet.models.WalletModel;
+import com.example.wallebi_app.database.DataAccess;
+import com.example.wallebi_app.helpers.StringHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
@@ -44,12 +46,18 @@ public class MarketsAdapter extends RecyclerView.Adapter<MarketsAdapter.MarketVi
 
     @Override
     public void onBindViewHolder(@NonNull MarketViewHolder holder, int position) {
+        double from = 0.001;
+        double to = 0.1;
+        if(DataAccess.decimalPointsModels != null){
+            from = DataAccess.decimalPointsModels.get(arrayList.get(position).getId()).getD_from();
+            to = DataAccess.decimalPointsModels.get(arrayList.get(position).getId()).getD_to();
+        }
         holder.txtMarket.setText(arrayList.get(position).getTicker_from());
         holder.txtTicker.setText(arrayList.get(position).getTicker_to());
-        holder.txtPrice.setText(arrayList.get(position).getPrice() +"");
-        holder.txtMarketCap.setText(arrayList.get(position).getMarket_cap());
+        holder.txtPrice.setText(StringHelper.createStringLength(arrayList.get(position).getPrice(),to));//arrayList.get(position).getPrice() +""
+        holder.txtMarketCap.setText(StringHelper.createStringLength(arrayList.get(position).getMarket_cap(),0.1));//;arrayList.get(position).getMarket_cap()
         holder.txtChange.setText(arrayList.get(position).getChanged_amount_24());
-        holder.txtVol.setText(context.getString(R.string.vol) + " " + arrayList.get(position).getVolume_24());
+        holder.txtVol.setText(context.getString(R.string.vol) + " " +StringHelper.createStringLength(arrayList.get(position).getVolume_24(),from));// arrayList.get(position).getVolume_24()
         if(arrayList.get(position).getChanged_amount_24().contains("-")){
             holder.txtChange.setTextColor(context.getColor(R.color.mvp_red));
         }else{
