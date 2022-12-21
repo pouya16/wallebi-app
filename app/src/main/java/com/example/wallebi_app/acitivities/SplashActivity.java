@@ -48,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+<<<<<<< HEAD
         btnCaptcha = findViewById(R.id.captcha);
 
         btnCaptcha.setOnClickListener(v -> {
@@ -77,6 +78,9 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         LoginData.access_token = "aIo3i6NZYBfVxUoPSnckahjhEG90CA";
+=======
+        LoginData.access_token = "LFc5jxKz3KQl8Vvp3TilcEwJmzkvp5";
+>>>>>>> e8490ec32528eef8eb6bb858612d5a3908205b34
 
         //getCoinList();
         //getFiatList();

@@ -24,12 +24,12 @@ import java.util.HashMap;
 public class MarketsAdapter extends RecyclerView.Adapter<MarketsAdapter.MarketViewHolder> {
 
     ArrayList<MarketApiModel> arrayList;
-    HashMap<String,String> favoritesHash;
+    HashMap<String,MarketApiModel> favoritesHash;
     Context context;
 
 
     public MarketsAdapter(ArrayList<MarketApiModel> arrayList, Context context, HashMap<String,
-            String> favorites) {
+            MarketApiModel> favorites) {
         this.arrayList = arrayList;
         this.context = context;
         this.favoritesHash = favorites;
