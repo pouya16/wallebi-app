@@ -13,7 +13,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wallebi_app.R
+import com.example.wallebi_app.adapters.MarketsAdapter
 import com.example.wallebi_app.api.HttpCallback
 import com.example.wallebi_app.api.HttpUtil
 import com.example.wallebi_app.api.markets.MarketApiModel
@@ -35,9 +38,15 @@ class MarketFragment : Fragment() {
     val MODE_IRT = 1
     var is_loaded = 0
     lateinit var layoutLoad:RelativeLayout
+    lateinit var recyclerView: RecyclerView
     var marketsHash:HashMap<String,MarketApiModel>? = null
-    var newListing:HashMap<String,MarketApiModel>? = null
+    var marketsArray:ArrayList<MarketApiModel>? = null
+    var marketsArrayIrt:ArrayList<MarketApiModel>? = null
+    var newListingHash:HashMap<String,MarketApiModel>? = null
+    var newListingArray:ArrayList<MarketApiModel>? = null
     var favorites:HashMap<String,MarketApiModel>? = null
+    var favoritesArrayList:ArrayList<MarketApiModel>? = null
+    var arrayShow:ArrayList<MarketApiModel>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,11 +55,11 @@ class MarketFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_market, container, false)
         layoutLoad = view.findViewById(R.id.layout_load)
+        recyclerView = view.findViewById(R.id.recycler_markets)
+        favorites = HashMap()
 
         setMarketMode(MODE_SPOT,view)
-        getSpotMarkets()
-        getNewMarkets()
-        getFavoritesMarkets()
+        getMarkets()
 
         view.findViewById<MaterialButton>(R.id.btn_spot).setOnClickListener { if(market_mode!=MODE_SPOT) setMarketMode(MODE_SPOT,view) }
         view.findViewById<MaterialButton>(R.id.btn_favorites).setOnClickListener { if(market_mode!=MODE_FAVORITE) setMarketMode(MODE_FAVORITE,view) }
@@ -60,6 +69,40 @@ class MarketFragment : Fragment() {
 
         return view
     }
+
+    private fun getMarkets(){
+        getSpotMarkets()
+        getNewMarkets()
+        getSpotMarketsIrt()
+        getFavoritesMarkets()
+    }
+
+
+    private fun showRecycler(arrayList: ArrayList<MarketApiModel>){
+        var marketAdapter:MarketsAdapter? = null
+        arrayList.let {
+            favorites.let {
+                marketAdapter = MarketsAdapter(arrayList,requireContext(),favorites)
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.adapter = marketAdapter
+            }
+        }
+    }
+
+
+    private fun loadMarkets(){
+        if(market_mode == MODE_FAVORITE)
+            showRecycler(favoritesArrayList!!)
+        else if(market_mode == MODE_NEW)
+            showRecycler(newListingArray!!)
+        else if(market_mode == MODE_SPOT) {
+            if (spot_mode == MODE_USDT)
+                showRecycler(marketsArray!!)
+            else if(spot_mode == MODE_IRT)
+                showRecycler(marketsArrayIrt!!)
+        }
+    }
+
 
 
 
@@ -86,14 +129,14 @@ class MarketFragment : Fragment() {
                     Log.i("Log1: ", " new markets response: $res")
                     val jsonObject = JSONObject(res)
                     if(response.code == 200){
-                        if(jsonObject.getBoolean("success")){
-                            val userListType =
-                                object : TypeToken<java.util.ArrayList<MarketApiModel?>?>() {}.type
-                            val gson = Gson()
-                            var walletsJson = jsonObject.getJSONArray("msg")
-
-
-                        }
+                        val userListType =
+                            object : TypeToken<java.util.ArrayList<MarketApiModel?>?>() {}.type
+                        val gson = Gson()
+                        var walletsJson = jsonObject.getJSONArray("msg")
+                        newListingArray = gson.fromJson<ArrayList<MarketApiModel>>(
+                            walletsJson!!.toString(),
+                            userListType
+                        )
                     }
                 } catch (e: Exception) {
                     Log.i("Log1", "new markets : failed to convert to json: $e")
@@ -130,6 +173,20 @@ class MarketFragment : Fragment() {
                     val res = response.body!!.string()
                     Log.i("Log1: ", " favorites response: $res")
                     val jsonObject = JSONObject(res)
+                    if(response.code == 200){
+                        val userListType =
+                            object : TypeToken<java.util.ArrayList<MarketApiModel?>?>() {}.type
+                        val gson = Gson()
+                        var walletsJson = jsonObject.getJSONArray("msg")
+                        favoritesArrayList = gson.fromJson<ArrayList<MarketApiModel>>(
+                            walletsJson!!.toString(),
+                            userListType
+                        )
+                        favorites!!.clear()
+                        for(item in favoritesArrayList!!){
+                            favorites!!.put(item.ticker_from + item.ticker_to,item)
+                        }
+                    }
 
                 } catch (e: Exception) {
                     Log.i("Log1", "favorites : failed to convert to json: $e")
@@ -166,6 +223,63 @@ class MarketFragment : Fragment() {
                     val res = response.body!!.string()
                     Log.i("Log1: ", " spot response: $res")
                     val jsonObject = JSONObject(res)
+                    if(response.code == 200){
+                        val userListType =
+                            object : TypeToken<java.util.ArrayList<MarketApiModel?>?>() {}.type
+                        val gson = Gson()
+                        var walletsJson = jsonObject.getJSONArray("msg")
+                        marketsArray = gson.fromJson<ArrayList<MarketApiModel>>(
+                            walletsJson!!.toString(),
+                            userListType
+                        )
+                    }
+
+
+                } catch (e: Exception) {
+                    Log.i("Log1", "price : failed to convert to json: $e")
+                }
+                mainHandler.post{
+                    isLoaded()
+                }
+            }
+        }
+
+        var httpUtil = HttpUtil(requireContext())
+        httpUtil.get(netAddress, null, callback, HttpUtil.MODE_AUTH)
+    }
+    private fun getSpotMarketsIrt() {
+        var netAddress = "v0/MarketService/IRT/spot_markets/"
+
+        Log.i("Log1", "get price info")
+        val callback: HttpCallback = object : HttpCallback {
+            var mainHandler: Handler = Handler(context!!.getMainLooper())
+            override fun onFialure(response: Response, throwable: Throwable) {
+                try {
+                } catch (e: Exception) {
+                }
+                mainHandler.post {
+                }
+            }
+
+            @RequiresApi(Build.VERSION_CODES.N)
+            override fun onSuccess(response: Response) {
+                Log.i("Log1", "" + response.code)
+                is_loaded++
+                try {
+                    val res = response.body!!.string()
+                    Log.i("Log1: ", " spot response: $res")
+                    val jsonObject = JSONObject(res)
+                    if(response.code == 200){
+                        val userListType =
+                            object : TypeToken<java.util.ArrayList<MarketApiModel?>?>() {}.type
+                        val gson = Gson()
+                        var walletsJson = jsonObject.getJSONArray("msg")
+                        marketsArrayIrt = gson.fromJson<ArrayList<MarketApiModel>>(
+                            walletsJson!!.toString(),
+                            userListType
+                        )
+                    }
+
 
                 } catch (e: Exception) {
                     Log.i("Log1", "price : failed to convert to json: $e")
@@ -185,18 +299,26 @@ class MarketFragment : Fragment() {
     private fun isLoaded(){
         if(is_loaded>2){
             layoutLoad.visibility = View.GONE
+            loadMarkets()
         }
     }
 
 
-
     //LAYOUT UI CHANGING
+    private fun checkData():Boolean{
+        if(marketsArray!=null&&favoritesArrayList!=null&&newListingArray!=null)
+            return true
+        return false
+    }
 
     private fun setMarketMode(mode:Int,v:View){
         when(mode){
             MODE_FAVORITE -> setModeFavorite(v)
             MODE_SPOT -> setModeSpot(v)
             MODE_NEW -> setModeNew(v)
+        }
+        if(checkData()){
+            loadMarkets()
         }
     }
     private fun setSpotMode(mode: Int,v:View){
