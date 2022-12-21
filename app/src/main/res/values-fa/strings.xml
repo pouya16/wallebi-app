@@ -297,4 +297,6 @@
     <string name="hide_small_ammounts">Hide Small Amounts</string>
     <string name="irt_equivalent">IRT Equivalent</string>
     <string name="show_small_amounts">Show Small Amounts</string>
+    <string name="favorites">Favorites</string>
+    <string name="vol">Vol</string>
 </resources>

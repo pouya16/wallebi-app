@@ -123,4 +123,6 @@
     <dimen name="width_qr">128dp</dimen>
     <dimen name="margin_preinvoice">12dp</dimen>
     <dimen name="text_small">10sp</dimen>
+    <dimen name="markets_tab_width">140dp</dimen>
+    <dimen name="fav_tab_width">120dp</dimen>
 </resources>
