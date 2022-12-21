@@ -11,12 +11,46 @@
         android:layout_height="match_parent"
         android:src="@drawable/ic_star_outline"
         android:padding="@dimen/margin_11"
+        android:clickable="true"
         android:id="@+id/img_favorite"
         android:layout_gravity="center"/>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bitcoin_symbol"
+            android:layout_gravity="center"
+            android:textColor="?attr/textGray4"
+            android:id="@+id/txt_market"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:layout_gravity="center"
+            android:textColor="?attr/textGray4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bitcoin_symbol"
+            android:layout_gravity="center"
+            android:textColor="?attr/textGray2"
+            android:id="@+id/txt_ticker"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
         android:layout_marginTop="@dimen/margin_11"
         android:layout_marginBottom="@dimen/margin_11"
         android:orientation="vertical">
@@ -26,13 +60,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/test_market"
-                android:textColor="?attr/textGray2"
-                android:id="@+id/txt_market"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -57,13 +84,6 @@
             android:layout_marginTop="@dimen/margin_top_low"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/bitcoin"
-                android:textColor="?attr/textGray2"
-                android:id="@+id/txt_coin"/>
 
             <TextView
                 android:layout_width="0dp"
