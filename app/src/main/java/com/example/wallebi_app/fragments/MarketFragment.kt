@@ -1,5 +1,6 @@
 package com.example.wallebi_app.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -12,15 +13,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.SearchView
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wallebi_app.R
+import com.example.wallebi_app.acitivities.LoginRegisterActivity
 import com.example.wallebi_app.adapters.MarketsAdapter
 import com.example.wallebi_app.api.HttpCallback
 import com.example.wallebi_app.api.HttpUtil
 import com.example.wallebi_app.api.markets.MarketApiModel
 import com.example.wallebi_app.api.wallet.MarketsModel
+import com.example.wallebi_app.database.DataAccess
+import com.example.wallebi_app.database.LoginData
 import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -39,10 +45,13 @@ class MarketFragment : Fragment() {
     var is_loaded = 0
     lateinit var layoutLoad:RelativeLayout
     lateinit var recyclerView: RecyclerView
-    var marketsHash:HashMap<String,MarketApiModel>? = null
+    lateinit var layoutNoData:LinearLayout
+    lateinit var layoutLogin:LinearLayout
+    lateinit var layoutHeaders:LinearLayout
+
+    var marketAdapter:MarketsAdapter? = null
     var marketsArray:ArrayList<MarketApiModel>? = null
     var marketsArrayIrt:ArrayList<MarketApiModel>? = null
-    var newListingHash:HashMap<String,MarketApiModel>? = null
     var newListingArray:ArrayList<MarketApiModel>? = null
     var favorites:HashMap<String,MarketApiModel>? = null
     var favoritesArrayList:ArrayList<MarketApiModel>? = null
@@ -56,6 +65,13 @@ class MarketFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_market, container, false)
         layoutLoad = view.findViewById(R.id.layout_load)
         recyclerView = view.findViewById(R.id.recycler_markets)
+        layoutNoData = view.findViewById(R.id.layout_no_record)
+        layoutLogin = view.findViewById(R.id.layout_login)
+
+        var divider = DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL)
+        recyclerView.addItemDecoration(divider)
+        recyclerView.addItemDecoration(divider)
+
         favorites = HashMap()
 
         setMarketMode(MODE_SPOT,view)
@@ -66,8 +82,56 @@ class MarketFragment : Fragment() {
         view.findViewById<MaterialButton>(R.id.btn_new_listing).setOnClickListener { if(market_mode!=MODE_NEW) setMarketMode(MODE_NEW,view) }
         view.findViewById<MaterialButton>(R.id.btn_usdt).setOnClickListener { if(spot_mode!=MODE_USDT) setSpotMode(MODE_USDT,view) }
         view.findViewById<MaterialButton>(R.id.btn_irt).setOnClickListener { if(spot_mode!=MODE_IRT) setSpotMode(MODE_IRT,view) }
+        view.findViewById<MaterialButton>(R.id.btn_login).setOnClickListener {
+            val intent = Intent(requireContext(),LoginRegisterActivity::class.java)
+            intent.putExtra("mode",0)
+            requireContext().startActivity(intent)
+        }
+
+        view.findViewById<SearchView>(R.id.searchview_market).setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText.let { filter(newText!!) }
+                return true
+            }
+
+        })
 
         return view
+    }
+
+    private fun filter(text:String){
+        Log.i("Log2","search query is: $text" )
+        if(checkData()){
+            if(market_mode == MODE_FAVORITE){
+                if(favoritesArrayList!=null){
+                    showRecycler(favoritesArrayList!!.filter { s-> s.toString().contains(text,true) })
+                }else{
+                    showNoData()
+                }
+            }
+            else if(market_mode == MODE_NEW){
+                showRecycler(newListingArray!!.filter { s-> s.toString().contains(text,true) })
+            }
+            else if(market_mode == MODE_SPOT) {
+                if (spot_mode == MODE_USDT){
+                    showRecycler( marketsArray!!.filter { s-> s.toString().contains(text,true) })
+                }
+                else if(spot_mode == MODE_IRT){
+                    showRecycler(  marketsArrayIrt!!.filter { s-> s.toString().contains(text,true) })
+                }
+            }
+        }
+    }
+
+    private fun searchTest(text:String,test:String):Boolean{
+        Log.i("Log2",text)
+        if(text.contains(test,true))
+            return true
+        return false
     }
 
     private fun getMarkets(){
@@ -78,12 +142,16 @@ class MarketFragment : Fragment() {
     }
 
 
-    private fun showRecycler(arrayList: ArrayList<MarketApiModel>){
-        var marketAdapter:MarketsAdapter? = null
+    private fun showRecycler(arrayList: List<MarketApiModel>){
+        layoutNoData.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+        layoutHeaders.visibility = View.VISIBLE
         arrayList.let {
             favorites.let {
-                marketAdapter = MarketsAdapter(arrayList,requireContext(),favorites)
+                marketAdapter = MarketsAdapter(arrayList,requireContext(),favorites,favoritesArrayList)
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                //DividerItemDecoration itemDecorator = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+                //itemDecorator.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider))
                 recyclerView.adapter = marketAdapter
             }
         }
@@ -93,8 +161,13 @@ class MarketFragment : Fragment() {
     private fun loadMarkets(){
         Log.i("Log1","spot market mode" + spot_mode)
         if(checkData()){
-            if(market_mode == MODE_FAVORITE)
-                showRecycler(favoritesArrayList!!)
+            if(market_mode == MODE_FAVORITE){
+                if(favoritesArrayList!=null&&favoritesArrayList!!.size>0){
+                    showRecycler(favoritesArrayList!!)
+                }else{
+                    showNoData()
+                }
+            }
             else if(market_mode == MODE_NEW)
                 showRecycler(newListingArray!!)
             else if(market_mode == MODE_SPOT) {
@@ -107,6 +180,16 @@ class MarketFragment : Fragment() {
     }
 
 
+    private fun showNoData(){
+        recyclerView.visibility = View.GONE
+        layoutNoData.visibility = View.VISIBLE
+        layoutHeaders.visibility = View.GONE
+        if(LoginData.access_token.length < 3){
+            layoutLogin.visibility = View.VISIBLE
+        }else{
+            layoutLogin.visibility = View.GONE
+        }
+    }
 
 
     private fun getNewMarkets() {
@@ -151,9 +234,8 @@ class MarketFragment : Fragment() {
         }
 
         var httpUtil = HttpUtil(requireContext())
-        httpUtil.get(netAddress, null, callback, HttpUtil.MODE_AUTH)
+        httpUtil.get(netAddress, null, callback, HttpUtil.MODE_NO_AUTH)
     }
-
     private fun getFavoritesMarkets() {
         var netAddress = "v0/MarketService/favorite_markets/"
 
@@ -203,7 +285,6 @@ class MarketFragment : Fragment() {
         var httpUtil = HttpUtil(requireContext())
         httpUtil.get(netAddress, null, callback, HttpUtil.MODE_AUTH)
     }
-
     private fun getSpotMarkets() {
         var netAddress = "v0/MarketService/USDT/spot_markets/"
 
@@ -248,7 +329,7 @@ class MarketFragment : Fragment() {
         }
 
         var httpUtil = HttpUtil(requireContext())
-        httpUtil.get(netAddress, null, callback, HttpUtil.MODE_AUTH)
+        httpUtil.get(netAddress, null, callback, HttpUtil.MODE_NO_AUTH)
     }
     private fun getSpotMarketsIrt() {
         var netAddress = "v0/MarketService/IRT/spot_markets/"
@@ -294,7 +375,7 @@ class MarketFragment : Fragment() {
         }
 
         var httpUtil = HttpUtil(requireContext())
-        httpUtil.get(netAddress, null, callback, HttpUtil.MODE_AUTH)
+        httpUtil.get(netAddress, null, callback, HttpUtil.MODE_NO_AUTH)
     }
 
 
@@ -309,7 +390,7 @@ class MarketFragment : Fragment() {
 
     //LAYOUT UI CHANGING
     private fun checkData():Boolean{
-        if(marketsArray!=null&&favoritesArrayList!=null&&newListingArray!=null)
+        if(marketsArray!=null&&marketsArrayIrt!=null&&newListingArray!=null)
             return true
         return false
     }

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.RelativeLayout
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -27,6 +28,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Response
 import org.json.JSONObject
+import org.w3c.dom.Text
 
 class WalletFragment : Fragment() {
 
@@ -42,6 +44,8 @@ class WalletFragment : Fragment() {
     lateinit var btnHideSmallAmount: MaterialCardView
     lateinit var recyclerWallets: RecyclerView
     lateinit var layoutLoad: RelativeLayout
+    lateinit var txtTotalBalance:TextView
+
     var arrayWallets: ArrayList<WalletModel>? = null
     var arrayWalletsShow: ArrayList<WalletModel>? = null
 
@@ -50,6 +54,7 @@ class WalletFragment : Fragment() {
     var marketsIrtHash: HashMap<String, Double> = HashMap()
     var walletAdapter: WalletAdapter? = null
     var change = 1.0 //convert toman to usdt
+    var usdToIrt = 39500.0
 
     var mode = USDT_MODE // 0 for usdt 1 for irt
 
@@ -78,17 +83,31 @@ class WalletFragment : Fragment() {
             mode = USDT_MODE
             change = 1.0
             view.findViewById<TextView>(R.id.txt_currency_change).text = requireContext().getString(R.string.usdt)
+            calculateTotalBalance()
             createShowArray()
             alertDialog.dismiss()
         }
         btn_irt.setOnClickListener{
             mode = IRT_MODE
-            change  = 39500.0
+            change  = usdToIrt
+            calculateTotalBalance()
             view.findViewById<TextView>(R.id.txt_currency_change).text = requireContext().getString(R.string.irt)
             createShowArray()
             alertDialog.dismiss()
         }
 
+
+        view.findViewById<SearchView>(R.id.search_view).setOnQueryTextListener( object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                p0.let { filter(p0!!) }
+                return true
+            }
+
+        })
 
 
         view.findViewById<MaterialButton>(R.id.btn_hide_small)
@@ -116,6 +135,31 @@ class WalletFragment : Fragment() {
 
         return view
     }
+
+
+    private fun filter(text:String){
+        loadRecycler(arrayWalletsShow!!.filter { s -> s.name.contains(text,true) })
+
+    }
+
+
+    private fun calculateTotalBalance(){
+        var price = 0.00
+        if(arrayWallets!=null&&arrayMarkets!=null){
+            if(mode == USDT_MODE){
+                for(item in arrayWallets!!){
+                    price += item.balance.total.toDouble()*marketsUsdtHash.get(item.name)!!
+                }
+            }else{
+
+                for(item in arrayWallets!!){
+                    price += item.balance.total.toDouble()*marketsIrtHash.get(item.name)!!
+                }
+            }
+        }
+        txtTotalBalance.text =  price.toString()
+    }
+
 
     private fun createShowArray(){
         arrayWalletsShow = ArrayList()
@@ -206,6 +250,7 @@ class WalletFragment : Fragment() {
         btnHideSmallAmount = v.findViewById(R.id.card_hide_balance)
         recyclerWallets = v.findViewById<RecyclerView>(R.id.recycler_wallet)
         layoutLoad = v.findViewById(R.id.layout_load)
+        txtTotalBalance = v.findViewById(R.id.txt_total_balance)
     }
 
     private fun setWallets(mode: Int) {
@@ -216,7 +261,7 @@ class WalletFragment : Fragment() {
         }
     }
 
-    private fun loadRecycler(arrayShow:ArrayList<WalletModel>) {
+    private fun loadRecycler(arrayShow:List<WalletModel>) {
         arrayShow.let {
             walletAdapter = WalletAdapter(
                 arrayShow,
@@ -328,6 +373,7 @@ class WalletFragment : Fragment() {
                                 walletsJson!!.toString(),
                                 userListType
                             )
+                            //todo get usdttoirt
                             for (markets: MarketsModel in arrayMarkets!!) {
                                 if (markets.ticker_to.lowercase().compareTo("usdt") == 0) {
                                     if (marketsUsdtHash.contains(markets.ticker_from)) {
@@ -353,6 +399,7 @@ class WalletFragment : Fragment() {
                         mainHandler.post {
                             layoutLoad.visibility = View.GONE
                             createShowArray()
+                            calculateTotalBalance()
                         }
                     } else {
                     }

@@ -1,5 +1,6 @@
 package com.example.wallebi_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,25 +17,29 @@ import com.example.wallebi_app.R;
 import com.example.wallebi_app.api.markets.MarketApiModel;
 import com.example.wallebi_app.api.wallet.models.WalletModel;
 import com.example.wallebi_app.database.DataAccess;
+import com.example.wallebi_app.database.LoginData;
 import com.example.wallebi_app.helpers.StringHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MarketsAdapter extends RecyclerView.Adapter<MarketsAdapter.MarketViewHolder> {
 
-    ArrayList<MarketApiModel> arrayList;
+    List<MarketApiModel> arrayList;
+    List<MarketApiModel> favoritesList;
     HashMap<String,MarketApiModel> favoritesHash;
     Context context;
 
 
-    public MarketsAdapter(ArrayList<MarketApiModel> arrayList, Context context, HashMap<String,
-            MarketApiModel> favorites) {
+    public MarketsAdapter(List<MarketApiModel> arrayList, Context context, HashMap<String,
+            MarketApiModel> favorites,List<MarketApiModel> favoritesList) {
         this.arrayList = arrayList;
         this.context = context;
         this.favoritesHash = favorites;
+        this.favoritesList =favoritesList;
     }
 
     @NonNull
@@ -45,13 +50,35 @@ public class MarketsAdapter extends RecyclerView.Adapter<MarketsAdapter.MarketVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MarketViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MarketViewHolder holder, @SuppressLint("RecyclerView") int position) {
         double from = 0.001;
         double to = 0.1;
+        String key = arrayList.get(position).getTicker_from() + arrayList.get(position).getTicker_to();
         if(DataAccess.decimalPointsModels != null){
             from = DataAccess.decimalPointsModels.get(arrayList.get(position).getId()).getD_from();
             to = DataAccess.decimalPointsModels.get(arrayList.get(position).getId()).getD_to();
         }
+        holder.imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(LoginData.access_token.length() > 3){
+                    if(favoritesHash.containsKey(key)){
+                        favoritesHash.remove(key);
+                        holder.imgFavorite.setImageDrawable(context.getDrawable(R.drawable.ic_star_outline));
+                        favoritesList.remove(arrayList.get(position));
+                        //TODO remove from server
+                    }else{
+
+                        favoritesHash.put(key,arrayList.get(position));
+                        holder.imgFavorite.setImageDrawable(context.getDrawable(R.drawable.ic_star_filled));
+                        favoritesList.add(arrayList.get(position));
+                        //todo add to server
+                    }
+                }else{
+
+                }
+            }
+        });
         holder.txtMarket.setText(arrayList.get(position).getTicker_from());
         holder.txtTicker.setText(arrayList.get(position).getTicker_to());
         holder.txtPrice.setText(StringHelper.createStringLength(arrayList.get(position).getPrice(),to));//arrayList.get(position).getPrice() +""
@@ -63,7 +90,7 @@ public class MarketsAdapter extends RecyclerView.Adapter<MarketsAdapter.MarketVi
         }else{
             holder.txtChange.setTextColor(context.getColor(R.color.mvp_greem));
         }
-        if(favoritesHash.containsKey((arrayList.get(position).getTicker_from() + arrayList.get(position).getTicker_to()))){
+        if(favoritesHash.containsKey(key)){
             holder.imgFavorite.setImageDrawable(context.getDrawable(R.drawable.ic_star_filled));
         }else{
             holder.imgFavorite.setImageDrawable(context.getDrawable(R.drawable.ic_star_outline));

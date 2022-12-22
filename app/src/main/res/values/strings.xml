@@ -291,5 +291,10 @@
     <string name="show_small_amounts">Show Small Amounts</string>
     <string name="favorites">Favorites</string>
     <string name="vol">Vol</string>
+    <string name="no_record_found">No Record Found!</string>
+    <string name="login_add_favorites">Login to add your favorite markets</string>
+    <string name="pair">Pair</string>
+    <string name="price">Price</string>
+    <string name="market_cap">Market Cap</string>
 
 </resources>

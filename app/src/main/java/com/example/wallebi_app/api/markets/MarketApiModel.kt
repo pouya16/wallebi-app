@@ -1,6 +1,6 @@
 package com.example.wallebi_app.api.markets
 
-data class MarketApiModel(
+class MarketApiModel(
     val id:Int,
     val ticker_from:String,
     val ticker_to:String,
@@ -15,4 +15,6 @@ data class MarketApiModel(
     val market_cap:String,
     val u:Int,
     val listing_date:String
-)
+){
+    override fun toString(): String = "$ticker_from $coin_fullname $coin_fullname_fa"
+}

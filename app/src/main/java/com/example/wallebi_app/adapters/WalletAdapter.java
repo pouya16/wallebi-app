@@ -19,10 +19,11 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletViewHolder> {
 
-    ArrayList<WalletModel> arrayList;
+    List<WalletModel> arrayList;
     HashMap<String,Double> marketsHash;
     Context context;
     boolean hide_small;
@@ -34,8 +35,8 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
     public static final int MODE_TOMAN = 1;
 
 
-    public WalletAdapter(ArrayList<WalletModel> arrayList, Context context, HashMap<String,
-            Double> marketsHash, int mode,boolean hide_small,boolean hide_amount,double change) {
+    public WalletAdapter(List<WalletModel> arrayList, Context context, HashMap<String,
+            Double> marketsHash, int mode, boolean hide_small, boolean hide_amount, double change) {
         this.arrayList = arrayList;
         this.context = context;
         this.marketsHash = marketsHash;

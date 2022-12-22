@@ -23,20 +23,11 @@
                 android:layout_width="match_parent"
                 android:background="?attr/backgroundLevel3"
                 android:layout_height="match_parent">
-                <androidx.appcompat.widget.SearchView
+
+                <SearchView
+                    android:id="@+id/searchview_market"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/searchview_market"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/txt_hint"
-                    android:text="@string/search_coin"
-                    android:textColor="?attr/textGray2"
-                    android:fontFamily="@font/iransansmobile"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="48dp"/>
+                    android:layout_height="match_parent" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
         <LinearLayout
@@ -115,27 +106,103 @@
                 android:textColor="?attr/textGray3"
                 android:textSize="@dimen/text_small"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_top_12"
+            android:id="@+id/layout_headers"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="@dimen/width_favorite_ic"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/pair"
+                android:layout_weight="1"
+                android:textColor="?attr/textGray3"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:layout_weight="2"
+                android:textColor="?attr/textGray3"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/market_cap"
+                android:layout_weight="3"
+                android:textColor="?attr/textGray3"/>
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_16"
             android:id="@+id/recycler_markets"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/margin_18"
+        android:layout_marginEnd="@dimen/margin_18"
+        android:id="@+id/layout_no_record"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/no_record_found"
+            android:src="@drawable/ic_no_data"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_record_found"
+            android:textColor="?attr/textGray2"
+            android:layout_marginTop="@dimen/margin_top_16"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_18"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:id="@+id/layout_login">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_add_favorites"
+                android:textColor="?attr/textGray3"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="@string/login"
+                android:textColor="?attr/backgroundDef"
+                android:id="@+id/btn_login"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="?attr/backgroundDef"
         android:id="@+id/layout_load"
+        android:backgroundTint="?attr/backgroundDef"
         android:visibility="visible"
         android:layout_height="match_parent">
-        <LinearLayout
+        <ProgressBar
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
+
 </FrameLayout>
